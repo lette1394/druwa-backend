@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <property name="LOG_DIR" value="/home/ubuntu/logs/druwa" />
+    <springProfile name="dev,local,test">
+        <property name="LOG_DIR" value="/Users/user/logs/druwa" />
+    </springProfile>
+    <springProfile name="prod">
+        <property name="LOG_DIR" value="/home/ubuntu/logs/druwa" />
+    </springProfile>
 
     <property name="DEBUG_LOG_FILE" value="${LOG_DIR}/debug.log"/>
     <property name="ACCESS_LOG_FILE" value="${LOG_DIR}/access.log"/>
