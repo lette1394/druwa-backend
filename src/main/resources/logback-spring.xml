@@ -78,7 +78,7 @@
         <appender-ref ref="ACCESS_LOG_FILE"/>
     </logger>
 
-    <springProfile name="local,default">
+    <springProfile name="dev,beta,local,default">
         <logger name="org.springframework" additivity="false">
             <level value="INFO"/>
             <appender-ref ref="DEBUG_LOG_FILE"/>
@@ -102,17 +102,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="beta,test">
-        <logger name="org.springframework" additivity="false">
-            <appender-ref ref="DEBUG_LOG_FILE"/>
-        </logger>
-        <logger name="com.druwa" additivity="false">
-            <level value="DEBUG"/>
-            <appender-ref ref="DEBUG_LOG_FILE"/>
-        </logger>
-    </springProfile>
-
-    <springProfile name="release,rc">
+    <springProfile name="release,rc,prod">
         <logger name="org.springframework" additivity="false">
             <level value="INFO"/>
             <appender-ref ref="DEBUG_LOG_FILE"/>
@@ -121,5 +111,9 @@
             <level value="DEBUG"/>
             <appender-ref ref="DEBUG_LOG_FILE"/>
         </logger>
+        <root additivity="false">
+            <level value="INFO"/>
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+        </root>
     </springProfile>
 </configuration>
