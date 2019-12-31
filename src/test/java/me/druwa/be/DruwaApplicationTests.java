@@ -1,10 +1,10 @@
-package com.druwa001;
+package me.druwa.be;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class DruwaApplicationTests {
 
 	@Test
 	void contextLoads() {

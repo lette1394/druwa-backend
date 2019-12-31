@@ -1,24 +1,152 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.2.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-	id 'java'
+    id 'java-library'
+    id 'idea'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.asciidoctor.convert' version '2.4.0'
 }
 
-group = 'com.druwa'
+archivesBaseName = 'springboot-druwa-deploy'
+group = 'me.druwa.be'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+    jcenter()
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+def querydslOutputDir = 'src/main/generated'
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslOutputDir
+}
+
+compileQuerydsl {
+    options.annotationProcessorGeneratedSourcesDirectory = file(querydslOutputDir)
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+    asciiDocsDir = file('build/docs')
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += querydslOutputDir
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file('src/main/generated')
+        generatedSourceDirs += file('src/main/generated')
+    }
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    dependsOn test
+
+    copy {
+        println "Copy index.adoc"
+        from 'src/docs/asciidoc'
+        into snippetsDir
+    }
+
+    sourceDir file(snippetsDir)
+    outputDir file(asciiDocsDir)
+
+    attributes 'snippets': snippetsDir,
+            'endpoint-url': 'http://example.org',
+            'source-highlighter': 'coderay',
+            'imagesdir': 'images',
+            'toc': 'left',
+            'icons': 'font',
+            'setanchors': '',
+            'idprefix': '',
+            'idseparator': '-',
+            'docinfo1': ''
+}
+
+asciidoctor.doLast {
+    copy {
+        from "${asciiDocsDir}/html5/index.html"
+        into "${sourceSets.main.resources.srcDirs.first()}/static/docs"
+    }
+}
+
+bootJar {
+    dependsOn asciidoctor
+}
+
+bootRun {
+    dependsOn asciidoctor
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+
+    implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.2.1.RELEASE'
+    implementation group: 'org.springframework.security', name: 'spring-security-oauth2-core', version: '5.2.1.RELEASE'
+    implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.4.0.RELEASE'
+    implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.8.RELEASE'
+
+    implementation group: 'org.springframework.restdocs', name: 'spring-restdocs-core', version: '2.0.4.RELEASE'
+    implementation group: 'org.springframework.restdocs', name: 'spring-restdocs-restassured', version: '2.0.4.RELEASE'
+    implementation group: 'org.springframework.restdocs', name: 'spring-restdocs-asciidoctor', version: '2.0.4.RELEASE'
+
+    implementation('com.google.guava:guava')
+    implementation('commons-io:commons-io:2.6')
+    implementation('org.apache.commons:commons-lang3')
+    compileOnly('org.projectlombok:lombok')
+    implementation('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
+
+    implementation('javax.validation:validation-api')
+    implementation('org.hibernate.validator:hibernate-validator')
+    implementation('com.google.code.gson:gson')
+    implementation('com.squareup.okhttp3:okhttp')
+    implementation('io.jsonwebtoken:jjwt:0.9.1')
+    implementation('org.postgresql:postgresql')
+
+    implementation("com.querydsl:querydsl-jpa")
+    implementation("com.querydsl:querydsl-apt")
+
+    implementation('io.rest-assured:json-schema-validator')
+    implementation('io.rest-assured:json-path')
+    implementation('io.rest-assured:xml-path')
+    implementation('io.rest-assured:spring-mock-mvc')
+
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine')
+    testImplementation('org.junit.jupiter:junit-jupiter-params')
+
+    testImplementation('org.assertj:assertj-core')
+    testImplementation('org.assertj:assertj-guava:3.3.0')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.security.oauth:spring-security-oauth2')
+    testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
+
+    testImplementation('io.rest-assured:rest-assured')
+    testAnnotationProcessor('org.projectlombok:lombok')
 }

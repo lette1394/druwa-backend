@@ -1,0 +1,27 @@
+[[customer]]
+== customer API
+
+=== Request
+CURL:
+include::{snippets}/customer/curl-request.adoc[]
+
+ifdef::{snippets}/customer/request-parameters.adoc[]
+Request Parameters:
+include::{snippets}/customer/request-parameters.adoc[]
+endif::[]
+
+Request Fields:
+include::{snippets}/customer/request-fields.adoc[]
+
+Request HTTP Example:
+include::{snippets}/customer/http-request.adoc[]
+
+
+=== Response
+ifdef::{snippets}/customer/response-fields.adoc[]
+Response Fields:
+include::{snippets}/customer/response-fields.adoc[]
+endif::[]
+
+Response HTTP Example:
+include::{snippets}/customer/http-response.adoc[]

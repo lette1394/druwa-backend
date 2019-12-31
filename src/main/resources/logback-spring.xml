@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="LOG_DIR" value="/home/ubuntu/logs/druwa" />
+
+    <property name="DEBUG_LOG_FILE" value="${LOG_DIR}/debug.log"/>
+    <property name="ACCESS_LOG_FILE" value="${LOG_DIR}/access.log"/>
+    <property name="STATIC_RESOURCE_ACCESS_LOG_FILE" value="${LOG_DIR}/static-resource-access.log"/>
+
+    <property name="DEBUG_LOG_PATTERN" value="%d{yyyy-MM-dd|HH:mm:ss.SSS}|%-10.10thread|%-5level|%-25.25logger{15}|%-32.32X{__trace_id:-NO_TRACE_ID}>%-30.50(%file:%line)|%msg%n%rEx"/>
+    <property name="ACCESS_LOG_PATTERN" value="%d{yyyy-MM-dd|HH:mm:ss.SSS}|%-32.32X{__trace_id:-NO_TRACE_ID}>%msg%n%rEx"/>
+    <property name="STATIC_RESOURCE_ACCESS_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}|%thread|%logger{36}|%msg%n%rEx"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>${DEBUG_LOG_PATTERN}</Pattern>
+        </encoder>
+    </appender>
+    <appender name="DEBUG_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEBUG_LOG_FILE}</file>
+        <encoder>
+            <Pattern>${DEBUG_LOG_PATTERN}</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${DEBUG_LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <appender name="ACCESS_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${ACCESS_LOG_FILE}</file>
+        <encoder>
+            <Pattern>${ACCESS_LOG_PATTERN}</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${ACCESS_LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <appender name="STATIC_RESOURCE_ACCESS_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${STATIC_RESOURCE_ACCESS_LOG_FILE}</file>
+        <encoder>
+            <Pattern>${STATIC_RESOURCE_ACCESS_LOG_PATTERN}</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${STATIC_RESOURCE_ACCESS_LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.hibernate.SQL" level="DEBUG">
+        <appender-ref ref="DEBUG_LOG_FILE"/>
+    </logger>
+    <logger name="org.hibernate.tool.hbm2ddl" level="DEBUG">
+        <appender-ref ref="DEBUG_LOG_FILE"/>
+    </logger>
+    <logger name="org.hibernate.stat" level="DEBUG">
+        <appender-ref ref="DEBUG_LOG_FILE"/>
+    </logger>
+    <logger name="org.hibernate.type.BasicTypeRegistry" level="WARN">
+        <appender-ref ref="DEBUG_LOG_FILE"/>
+    </logger>
+
+    <logger name="AccessLogger" additivity="false">
+        <appender-ref ref="ACCESS_LOG_FILE"/>
+    </logger>
+
+    <springProfile name="local,default">
+        <logger name="org.springframework" additivity="false">
+            <level value="INFO"/>
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </logger>
+
+        <logger name="com.druwa" additivity="false">
+            <level value="DEBUG"/>
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </logger>
+
+        <logger name="StaticResourceAccessLogger" additivity="false">
+            <appender-ref ref="STATIC_RESOURCE_ACCESS_LOG_FILE"/>
+        </logger>
+
+        <root additivity="false">
+            <level value="INFO"/>
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="beta,test">
+        <logger name="org.springframework" additivity="false">
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+        </logger>
+        <logger name="com.druwa" additivity="false">
+            <level value="DEBUG"/>
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="release,rc">
+        <logger name="org.springframework" additivity="false">
+            <level value="INFO"/>
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+        </logger>
+        <logger name="com.druwa" additivity="false">
+            <level value="DEBUG"/>
+            <appender-ref ref="DEBUG_LOG_FILE"/>
+        </logger>
+    </springProfile>
+</configuration>
