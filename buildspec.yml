@@ -1,6 +1,9 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      java: openjdk8
   build:
     commands:
       - echo Build Starting on `date`
@@ -12,6 +15,8 @@ phases:
       - pwd
 
 artifacts:
+  name: drawa-$(date +%Y-%m-%d-%H:%m:%S)
+  type: zip
   files:
     - appspec.yml
     - build/libs/*.jar
