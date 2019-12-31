@@ -1,0 +1,64 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  profiles:
+    active: local
+  main:
+    lazy-initialization: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testdb
+    username: admin
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate: dialect:org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            clientName: kakao
+            clientAuthenticationMethod: POST
+            clientId: 12312837126321873621873
+            clientSecret: 12312837126321873621873
+            authorizationGrantType: authorization_code
+            redirectUri: "{baseUrl}/oauth2/callback/code/{registrationId}"
+        provider:
+          kakao:
+            authorizationUri: https://kauth.kakao.com/oauth/authorize
+            tokenUri: https://kauth.kakao.com/oauth/token
+            userInfoUri: https://kapi.kakao.com/v2/user/me?
+            userNameAttribute: id
+
+social:
+  kakao:
+    client_id: 12312837126321873621873
+    redirect: /oauth/kakao/redirect
+    url:
+      login: https://kauth.kakao.com/oauth/authorize
+      token: https://kauth.kakao.com/oauth/token
+      profile: https://kapi.kakao.com/v2/user/me
+  url:
+    base: http://localhost:8080
+
+app:
+  auth:
+    tokenSecret: 12312837126321873621873
+    tokenExpirationMsec: 864000000
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth2/redirect
+      - myandroidapp://oauth2/redirect
+      - myiosapp://oauth2/redirect
+
+---
+
+spring:
+  profiles: prod
