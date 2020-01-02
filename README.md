@@ -2,12 +2,13 @@ druwa backend
 
 ### TODO
 
-- [] Logging
+- [ ] Logging
   - [x] HTTP request 
   - [x] HTTP response  
-- [] Oauth2 login 
-  - [] kakao
-  - [] integration test
-- [] queryDsl
-  - [] aa
-- [] DB modeling   
+- [ ] Oauth2 login 
+  - [ ] kakao
+  - [ ] integration test
+- [ ] queryDsl
+  - [ ] fix gradle build script 
+  - [ ] add repository
+- [ ] DB modeling   
