@@ -1,0 +1,41 @@
+[[Auth]]
+== Auth API
+test token (druwa 개발자 계정입니다)
+
+[source]
+----
+eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc3OTc4NTk3LCJleHAiOjE1ODY2MTg1OTd9.zNdm-s1bo-Q-o6hSukP8yHMIeKzdkPybhbbeTKzOGkNC6jcW0t94nQRhKCq5gZfRZUG1ahPxIi1kZuDinOY6wQ
+----
+
+=== Request
+ifdef::{snippets}/auth/curl-request.adoc[]
+CURL:
+include::{snippets}/auth/curl-request.adoc[]
+endif::[]
+
+ifdef::{snippets}/auth/request-parameters.adoc[]
+Request Parameters:
+include::{snippets}/auth/request-parameters.adoc[]
+endif::[]
+
+ifdef::{snippets}/auth/request-fields.adoc[]
+Request Fields:
+include::{snippets}/auth/request-fields.adoc[]
+endif::[]
+
+ifdef::{snippets}/auth/http-request.adoc[]
+Request HTTP Example:
+include::{snippets}/auth/http-request.adoc[]
+endif::[]
+
+
+=== Response
+ifdef::{snippets}/auth/response-fields.adoc[]
+Response Fields:
+include::{snippets}/auth/response-fields.adoc[]
+endif::[]
+
+ifdef::{snippets}/auth/http-response.adoc[]
+Response HTTP Example:
+include::{snippets}/auth/http-response.adoc[]
+endif::[]

@@ -18,12 +18,6 @@
 
 |===
 | 환경 | domain
-
-| 개발서버
-| `dev.jojoldu.tistory.com`
-
-| 운영서버
-| `jojoldu.tistory.com`
 |===
 
 
@@ -32,9 +26,6 @@
 
 |===
 | name | 설명
-
-| `Authorization`
-| API를 사용하기 위한 인증 키
 |===
 
 === 공통 Response Body
@@ -45,43 +36,8 @@
 | `druwa-debug-token`
 | 에러가 발생한 경우 이 토큰을 알려주세요
 
-| `message`
-| 예외사항 내용 등 응답 메세지
-
-| `data`
-| 실제 반환될 데이터
 |===
 
-[[hello]]
-== Hello World API
 
-
-=== Request
-
-CURL:
-
-include::{snippets}/person/curl-request.adoc[]
-
-Request Parameters:
-
-include::{snippets}/person/request-parameters.adoc[], opts=optional
-
-Request HTTP Example:
-
-include::{snippets}/person/http-request.adoc[]
-
-
-=== Response
-
-Response Fields:
-
-include::{snippets}/person/response-fields.adoc[]
-
-Response HTTP Example:
-
-include::{snippets}/person/http-response.adoc[]
-
-
-'''
-
+include::auth.adoc[]
 include::customer.adoc[]

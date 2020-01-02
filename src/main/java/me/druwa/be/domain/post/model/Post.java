@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import me.druwa.be.domain.comment.model.Comment;
+import me.druwa.be.domain.episode.model.EpisodeComment;
 
 @Entity
 @Table(name = "post_")
@@ -22,13 +22,13 @@ public class Post {
 
     @NotNull
     @OneToMany
-    private List<Comment> comments = new ArrayList<>();
+    private List<EpisodeComment> episodeComments = new ArrayList<>();
 
-    public Optional<Comment> getLastComment() {
-        if (comments.isEmpty()) {
+    public Optional<EpisodeComment> getLastComment() {
+        if (episodeComments.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(comments.get(comments.size() - 1));
+        return Optional.of(episodeComments.get(episodeComments.size() - 1));
     }
 }

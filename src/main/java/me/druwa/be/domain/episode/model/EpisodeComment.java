@@ -1,4 +1,4 @@
-package me.druwa.be.domain.comment.model;
+package me.druwa.be.domain.episode.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -9,29 +9,31 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-import me.druwa.be.domain.common.converter.PositiveLongConverter;
-import me.druwa.be.domain.common.model.PositiveOrZeroLong;
-import me.druwa.be.domain.user.model.User;
-import me.druwa.be.domain.common.model.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import me.druwa.be.domain.common.converter.PositiveLongConverter;
+import me.druwa.be.domain.common.model.PositiveOrZeroLong;
+import me.druwa.be.domain.common.model.Timestamp;
+import me.druwa.be.domain.user.model.User;
 
 @Entity
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "comment_")
-public class Comment {
+@Table(name = "episode_comment_")
+@Builder
+public class EpisodeComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,14 +45,16 @@ public class Comment {
 
     @Column
     @NotBlank
-    @Lob
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Comment next;
+    private EpisodeComment next;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Comment prev;
+    private EpisodeComment prev;
+
+    @Embedded
+    private EpisodeCommentLike commentLike;
 
     @ManyToOne
     private User writtenBy;
@@ -58,10 +62,14 @@ public class Comment {
     @Embedded
     private Timestamp timestamp;
 
-    public Comment append(final Comment newComment) {
-        newComment.prev = this;
-        this.next = newComment;
-        return newComment;
+    @PrePersist
+    public void onCreate() {
+        timestamp = Timestamp.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        timestamp.onUpdate();
     }
 
     public View.Create.Response toCreateResponse() {
@@ -71,6 +79,14 @@ public class Comment {
                                    .build();
     }
 
+    public EpisodeCommentLike doLike(final User user) {
+        return commentLike.doLike(user);
+    }
+
+    public EpisodeCommentLike doDislike(final User user) {
+        return commentLike.doDislike(user);
+    }
+
     @Data
     public static class View {
         @Data
@@ -78,18 +94,13 @@ public class Comment {
             @Data
             public static class Request {
                 @NotNull
-                private Long postId;
+                private Long episodeId;
 
                 @NotNull
                 private PositiveOrZeroLong depth;
 
                 @NotBlank
                 private String contents;
-
-                public Comment comment() {
-                    return null;
-                }
-
             }
 
             @Data
@@ -107,5 +118,25 @@ public class Comment {
                 private LocalDateTime createdAt;
             }
         }
+
+        @Data
+        public static class Read {
+            @Data
+            public static class Response {
+                @Builder
+                public Response(@PositiveOrZero final Long id, @NotNull final LocalDateTime createdAt) {
+                    this.id = id;
+                    this.createdAt = createdAt;
+                }
+
+                @PositiveOrZero
+                private Long id;
+
+                @NotNull
+                private LocalDateTime createdAt;
+            }
+        }
+
+
     }
 }
