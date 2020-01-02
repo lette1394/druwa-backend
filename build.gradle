@@ -89,14 +89,6 @@ asciidoctor.doLast {
     }
 }
 
-bootJar {
-    dependsOn asciidoctor
-}
-
-bootRun {
-    dependsOn asciidoctor
-}
-
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')
