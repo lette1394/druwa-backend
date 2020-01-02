@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -16,13 +18,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
-import me.druwa.be.domain.common.model.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import me.druwa.be.domain.common.model.Timestamp;
+
+import static java.util.Objects.nonNull;
 
 @Entity
 @Getter
@@ -72,6 +76,19 @@ public class User {
     @Column
     @NotNull
     private Timestamp timestamp;
+
+    @PrePersist
+    public void onCreate() {
+        timestamp = new Timestamp();
+        timestamp.onCreate();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        if (nonNull(timestamp)) {
+            timestamp.onUpdate();
+        }
+    }
 
     public List<GrantedAuthority> getGrantedAuthorities() {
         return authorities.toGrantedAuthorities();

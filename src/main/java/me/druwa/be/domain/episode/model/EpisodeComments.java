@@ -1,10 +1,8 @@
-package me.druwa.be.domain.comment.model;
+package me.druwa.be.domain.episode.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -14,10 +12,9 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comments {
+public class EpisodeComments {
     @Column
     @NotNull
     @OneToMany
-    @JoinColumn
-    private List<Comment> comments = new ArrayList<>();
+    private List<EpisodeComment> episodeComments;
 }
