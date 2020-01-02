@@ -1,5 +1,7 @@
 druwa backend 
 
+project : https://github.com/orgs/depromeet/projects/2
+
 ### TODO
 
 - [ ] Logging
@@ -11,4 +13,4 @@ druwa backend
 - [ ] queryDsl
   - [ ] fix gradle build script 
   - [ ] add repository
-- [ ] DB modeling   
+- [ ] DB modeling,
