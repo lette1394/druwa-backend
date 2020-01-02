@@ -7,7 +7,7 @@ DEPLOY_PATH=/home/ubuntu/deploy/current/
 echo "> 기존 파일 백업"
 BACKUP_PATH=/home/ubuntu/deploy/$(date +%y%m%d_%H%M%S)
 mkdir "$BACKUP_PATH"
-mv $DEPLOY_PATH/** "$BACKUP_PATH"
+mv $DEPLOY_PATH/*.jar "$BACKUP_PATH"
 
 echo "> build 파일 이동"
 mv $BUILD_PATH $DEPLOY_PATH
@@ -31,5 +31,9 @@ fi
 
 echo "> $APPLICATION_JAR 배포"
 unzip -o $APPLICATION_JAR -d $DEPLOY_PATH
+
+echo "> application.yaml prod 모드 교체"
+cp '/home/ubuntu/deploy/overwrite-files/application.yaml' '/home/ubuntu/deploy/current/BOOT-INF/classes/'
+
 cd $DEPLOY_PATH
 nohup java -Dspring.profiles.active=prod org.springframework.boot.loader.JarLauncher . > /dev/null 2> /dev/null < /dev/null &
