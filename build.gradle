@@ -95,6 +95,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.springframework.boot:spring-boot-starter-cache')
     annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 
     implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.2.1.RELEASE'

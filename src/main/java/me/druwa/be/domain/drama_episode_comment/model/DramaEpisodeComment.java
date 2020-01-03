@@ -1,6 +1,7 @@
-package me.druwa.be.domain.episode.model;
+package me.druwa.be.domain.drama_episode_comment.model;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
@@ -9,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -17,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,16 +31,16 @@ import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.user.model.User;
 
 @Entity
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "dramaEpisodeCommentId")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "episode_comment_")
+@Table(name = "drama_episode_comment_")
 @Builder
-public class EpisodeComment {
+public class DramaEpisodeComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long dramaEpisodeCommentId;
 
     @Column
     @Convert(converter = PositiveLongConverter.class)
@@ -48,13 +51,16 @@ public class EpisodeComment {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private EpisodeComment next;
+    private DramaEpisodeComment next;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private EpisodeComment prev;
+    private DramaEpisodeComment prev;
 
     @Embedded
-    private EpisodeCommentLike commentLike;
+    private DramaEpisodeCommentLike commentLike;
+
+    @ManyToMany
+    private Set<User> likeUsers;
 
     @ManyToOne
     private User writtenBy;
@@ -74,17 +80,27 @@ public class EpisodeComment {
 
     public View.Create.Response toCreateResponse() {
         return View.Create.Response.builder()
-                                   .id(id)
+                                   .id(dramaEpisodeCommentId)
                                    .createdAt(timestamp.getCreatedAt())
                                    .build();
     }
 
-    public EpisodeCommentLike doLike(final User user) {
-        return commentLike.doLike(user);
+    @Transactional
+    public DramaEpisodeCommentLike doLike(final User user) {
+        if (likeUsers.contains(user)) {
+            return commentLike;
+        }
+        likeUsers.add(user);
+        return commentLike.doLike();
     }
 
-    public EpisodeCommentLike doDislike(final User user) {
-        return commentLike.doDislike(user);
+    @Transactional
+    public DramaEpisodeCommentLike doDislike(final User user) {
+        if (likeUsers.contains(user)) {
+            likeUsers.remove(user);
+            return commentLike.doDislike();
+        }
+        return commentLike;
     }
 
     @Data

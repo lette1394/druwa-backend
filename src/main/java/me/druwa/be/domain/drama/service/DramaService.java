@@ -20,7 +20,7 @@ public class DramaService {
     }
 
     public void ensureExistsBy(final long id) {
-        if (repository.existsById(id)) {
+        if (repository.existsByDramaId(id)) {
             return;
         }
         throw new NoSuchElementException(format("no drama with id: [%s]", id));

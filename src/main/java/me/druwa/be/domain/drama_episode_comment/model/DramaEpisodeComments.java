@@ -1,4 +1,4 @@
-package me.druwa.be.domain.episode.model;
+package me.druwa.be.domain.drama_episode_comment.model;
 
 import java.util.List;
 import javax.persistence.Column;
@@ -8,13 +8,14 @@ import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
 
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class EpisodeComments {
+public class DramaEpisodeComments {
     @Column
     @NotNull
     @OneToMany
-    private List<EpisodeComment> episodeComments;
+    private List<DramaEpisodeComment> dramaEpisodeComments;
 }

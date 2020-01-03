@@ -18,7 +18,9 @@ class ExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Throwable e) {
             LoggingUtils.dumpThrowable(e);
-            throw e;
+            response.reset();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.flushBuffer();
         }
     }
 }

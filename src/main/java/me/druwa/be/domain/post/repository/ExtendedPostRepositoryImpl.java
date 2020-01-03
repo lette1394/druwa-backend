@@ -1,8 +1,7 @@
 package me.druwa.be.domain.post.repository;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.transaction.annotation.Transactional;
 import me.druwa.be.domain.post.model.Post;
 
 @Transactional
