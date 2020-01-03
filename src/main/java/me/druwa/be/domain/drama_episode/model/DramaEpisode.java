@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import me.druwa.be.domain.common.converter.PositiveLongConverter;
+import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 
@@ -25,7 +25,7 @@ import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 @Builder
 public class DramaEpisode {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long dramaEpisodeId;
 
     @Column
@@ -35,6 +35,6 @@ public class DramaEpisode {
     private DramaEpisodeComments dramaEpisodeComments;
 
     @Column
-    @Convert(converter = PositiveLongConverter.class)
+    @Convert(converter = PositiveOrZeroLongConverter.class)
     private PositiveOrZeroLong number;
 }

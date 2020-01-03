@@ -17,7 +17,7 @@ import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
 @Table(name = "post_")
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Drama {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long dramaId;
 
 }

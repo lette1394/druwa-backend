@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
 import me.druwa.be.domain.drama.service.DramaService;
+import me.druwa.be.domain.drama_episode.service.DramaEpisodeService;
+import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeCommentLike;
 import me.druwa.be.domain.drama_episode_comment.service.DramaEpisodeCommentService;
-import me.druwa.be.domain.drama_episode.service.DramaEpisodeService;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 
@@ -26,14 +26,14 @@ public class DramaEpisodeCommentController {
     private final DramaEpisodeService dramaEpisodeService;
     private final DramaEpisodeCommentService dramaEpisodeCommentService;
 
-
-    @PostMapping("/dramas/{dramaId}/episodes/{episodesId}/comments")
+    @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments")
     public ResponseEntity<?> create(@Valid
                                     @RequestBody DramaEpisodeComment.View.Create.Request body,
                                     @CurrentUser User user,
                                     @PathVariable final long dramaId,
-                                    @PathVariable final long episodesId) {
-
+                                    @PathVariable final long episodeId) {
+        dramaService.ensureExistsBy(dramaId);
+        dramaEpisodeService.ensureExistsBy(episodeId);
 
         final DramaEpisodeComment dramaEpisodeComment = dramaEpisodeCommentService.create(body, user);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -64,11 +64,5 @@ public class DramaEpisodeCommentController {
 
         final DramaEpisodeCommentLike commentLike = dramaEpisodeCommentService.doDislike(user, commentId);
         return ResponseEntity.ok(commentLike.toResponse());
-    }
-
-    @PostMapping("/aa/{prevCommentId}")
-    public ResponseEntity<?> append(@PathVariable Long prevCommentId,
-                                    @Valid @RequestBody DramaEpisodeComment.View.Create body) {
-        return null;
     }
 }

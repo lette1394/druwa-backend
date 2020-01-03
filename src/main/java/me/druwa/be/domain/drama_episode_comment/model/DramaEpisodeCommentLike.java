@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.druwa.be.domain.common.converter.PositiveLongConverter;
+import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 
 @Embeddable
@@ -20,8 +20,9 @@ import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 public class DramaEpisodeCommentLike {
     @Column
     @NotNull
-    @Convert(converter = PositiveLongConverter.class)
-    private PositiveOrZeroLong likeCount;
+    @Builder.Default
+    @Convert(converter = PositiveOrZeroLongConverter.class)
+    private PositiveOrZeroLong likeCount = PositiveOrZeroLong.ZERO;
 
     @PrePersist
     public void onCreate() {

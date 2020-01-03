@@ -447,7 +447,7 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .attribute-name{color:#000080}
 .CodeRay .attribute-value{color:#700}
 .CodeRay .binary{color:#509}
-.CodeRay .episodeComment{color:#998;font-style:italic}
+.CodeRay .comment{color:#998;font-style:italic}
 .CodeRay .char{color:#04d}
 .CodeRay .char .content{color:#04d}
 .CodeRay .char .delimiter{color:#039}
@@ -536,13 +536,13 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#공통-response-body">공통 Response Body</a></li>
 </ul>
 </li>
-<li><a href="#hello">Hello World API</a>
+<li><a href="#Auth">Auth API</a>
 <ul class="sectlevel2">
 <li><a href="#request">Request</a></li>
 <li><a href="#response">Response</a></li>
 </ul>
 </li>
-<li><a href="#customer">customer API</a>
+<li><a href="#drama-episode-comment">drama-episode-comment API</a>
 <ul class="sectlevel2">
 <li><a href="#request-2">Request</a></li>
 <li><a href="#response-2">Response</a></li>
@@ -574,20 +574,10 @@ table.CodeRay td.code>pre{padding:0}
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">환경</th>
-<th class="tableblock halign-left valign-top">domain</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">개발서버</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dev.jojoldu.tistory.com</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">운영서버</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jojoldu.tistory.com</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">환경</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">domain</p></td>
 </tr>
 </tbody>
 </table>
@@ -599,16 +589,10 @@ table.CodeRay td.code>pre{padding:0}
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">name</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">API를 사용하기 위한 인증 키</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">설명</p></td>
 </tr>
 </tbody>
 </table>
@@ -631,124 +615,34 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>druwa-debug-token</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">에러가 발생한 경우 이 토큰을 알려주세요</p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예외사항 내용 등 응답 메세지</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">실제 반환될 데이터</p></td>
-</tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="hello"><a class="link" href="#hello">Hello World API</a></h2>
+<h2 id="Auth"><a class="link" href="#Auth">Auth API</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>test token (druwa 개발자 계정입니다)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc3OTc4NTk3LCJleHAiOjE1ODY2MTg1OTd9.zNdm-s1bo-Q-o6hSukP8yHMIeKzdkPybhbbeTKzOGkNC6jcW0t94nQRhKCq5gZfRZUG1ahPxIi1kZuDinOY6wQ</code></pre>
+</div>
+</div>
 <div class="sect2">
 <h3 id="request"><a class="link" href="#request">Request</a></h3>
-<div class="paragraph">
-<p>CURL:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://api.druwa.com/test/json/19' -i -X GET \
-    -H 'Accept: application/json'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Request Parameters:</p>
-</div>
-<div class="paragraph">
-<p>include::/Users/user/Project/druwa-backend/build/generated-snippets/person/request-parameters.adoc[], opts=optional</p>
-</div>
-<div class="paragraph">
-<p>Request HTTP Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /test/json/19 HTTP/1.1
-Accept: application/json
-Host: api.druwa.com</code></pre>
-</div>
-</div>
+
 </div>
 <div class="sect2">
 <h3 id="response"><a class="link" href="#response">Response</a></h3>
-<div class="paragraph">
-<p>Response Fields:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">this is name</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">this is email</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>age</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">this is age</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>birthday</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wow</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wow</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Response HTTP Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: 26C46B11900E49C19653A1FF0808FACF
-Vary: Origin
-Vary: Access-Control-Request-Method
-Vary: Access-Control-Request-Headers
-Content-Type: application/json
-Content-Length: 125
 
-{
-  &quot;name&quot; : &quot;jaeeunna&quot;,
-  &quot;age&quot; : 19,
-  &quot;isMarried&quot; : false,
-  &quot;hobbies&quot; : [ &quot;read books&quot;, &quot;watching TV&quot; ],
-  &quot;kids&quot; : [ ]
-}</code></pre>
-</div>
-</div>
-<hr>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="customer"><a class="link" href="#customer">customer API</a></h2>
+<h2 id="drama-episode-comment"><a class="link" href="#drama-episode-comment">drama-episode-comment API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="request-2"><a class="link" href="#request-2">Request</a></h3>
@@ -757,17 +651,10 @@ Content-Length: 125
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://api.druwa.com/test/customer' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://api.druwa.com/dramas/41/episodes/79/comments/497/dislike' -i -X POST \
     -H 'Accept: application/json' \
-    -H 'Content-Type: application/json; charset=UTF-8' \
-    -d '{
-        &quot;age&quot;: 18,
-        &quot;name&quot;: &quot;hi&quot;,
-        &quot;email&quot;: &quot;lette193@naver.com&quot;,
-        &quot;gender&quot;: &quot;MALE&quot;,
-        &quot;phone&quot;: &quot;010-090-1111&quot;,
-        &quot;birthday&quot;: &quot;2019-12-11&quot;
-}'</code></pre>
+    -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4MDcyODUwLCJleHAiOjE1ODY3MTI4NTB9.pUn5SBtq2fGayJVIbpCo_mESr9dwqNNBcvFJlpFJX2pyJAzFWC7vVI4GdgZ7f36jxUYTSUVkpBAyo8GL4XtJfw' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -790,42 +677,16 @@ Content-Length: 125
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">this is name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- Size must be between 2 and 30 inclusive</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">email</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">this is email</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- Must be a well-formed email address</p>
-<p class="tableblock">- Must not be blank</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">age</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">depth</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">this is age</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">indent for comment. representing recursive sub-comment. default is 0 (no depth)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be null</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gender</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contents</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gender</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be null</p>
-<p class="tableblock">- Must be one of , "MALE", "FEMALE",  (case sensitive)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">birthday</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wow</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">phone</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">wow</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body for comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p></td>
 </tr>
 </tbody>
 </table>
@@ -834,20 +695,11 @@ Content-Length: 125
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /test/customer HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/41/episodes/79/comments/497/dislike HTTP/1.1
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4MDcyODUwLCJleHAiOjE1ODY3MTI4NTB9.pUn5SBtq2fGayJVIbpCo_mESr9dwqNNBcvFJlpFJX2pyJAzFWC7vVI4GdgZ7f36jxUYTSUVkpBAyo8GL4XtJfw
 Content-Type: application/json; charset=UTF-8
-Host: api.druwa.com
-Content-Length: 133
-
-{
-        &quot;age&quot;: 18,
-        &quot;name&quot;: &quot;hi&quot;,
-        &quot;email&quot;: &quot;lette193@naver.com&quot;,
-        &quot;gender&quot;: &quot;MALE&quot;,
-        &quot;phone&quot;: &quot;010-090-1111&quot;,
-        &quot;birthday&quot;: &quot;2019-12-11&quot;
-}</code></pre>
+Host: api.druwa.com</code></pre>
 </div>
 </div>
 </div>
@@ -859,11 +711,16 @@ Content-Length: 133
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: B60388B9770545E4B4729638089EB446
+druwa-debug-token: AAE51F86572F451C8A8F3C54AB045473
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-druwa-test: 111</code></pre>
+Content-Type: application/json
+Content-Length: 17
+
+{
+  &quot;like&quot; : 18
+}</code></pre>
 </div>
 </div>
 </div>
@@ -873,7 +730,7 @@ druwa-test: 111</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-01-01 05:29:42 +0900
+Last updated 2020-01-04 05:22:24 +0900
 </div>
 </div>
 </body>

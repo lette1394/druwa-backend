@@ -28,7 +28,6 @@ public class DramaEpisodeCommentService {
                                                                            .writtenBy(user)
                                                                            .build();
 
-
         return dramaEpisodeCommentRepository.save(dramaEpisodeComment);
     }
 

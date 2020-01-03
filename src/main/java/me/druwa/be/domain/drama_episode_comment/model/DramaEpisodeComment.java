@@ -1,6 +1,7 @@
 package me.druwa.be.domain.drama_episode_comment.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -25,7 +26,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import me.druwa.be.domain.common.converter.PositiveLongConverter;
+import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.user.model.User;
@@ -39,11 +40,12 @@ import me.druwa.be.domain.user.model.User;
 public class DramaEpisodeComment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long dramaEpisodeCommentId;
 
+    @NotNull
     @Column
-    @Convert(converter = PositiveLongConverter.class)
+    @Convert(converter = PositiveOrZeroLongConverter.class)
     private PositiveOrZeroLong depth;
 
     @Column
@@ -57,14 +59,20 @@ public class DramaEpisodeComment {
     private DramaEpisodeComment prev;
 
     @Embedded
-    private DramaEpisodeCommentLike commentLike;
+    @Builder.Default
+    @NotNull
+    private DramaEpisodeCommentLike commentLike = new DramaEpisodeCommentLike();
 
+    @NotNull
     @ManyToMany
-    private Set<User> likeUsers;
+    @Builder.Default
+    private Set<User> likeUsers = new HashSet<>();
 
+    @NotNull
     @ManyToOne
     private User writtenBy;
 
+    @NotNull
     @Embedded
     private Timestamp timestamp;
 
@@ -110,9 +118,6 @@ public class DramaEpisodeComment {
             @Data
             public static class Request {
                 @NotNull
-                private Long episodeId;
-
-                @NotNull
                 private PositiveOrZeroLong depth;
 
                 @NotBlank
@@ -136,6 +141,15 @@ public class DramaEpisodeComment {
         }
 
         @Data
+        public static class Like {
+            @Data
+            public static class Response {
+                @NotNull
+                private Long like;
+            }
+        }
+
+        @Data
         public static class Read {
             @Data
             public static class Response {
@@ -152,7 +166,5 @@ public class DramaEpisodeComment {
                 private LocalDateTime createdAt;
             }
         }
-
-
     }
 }

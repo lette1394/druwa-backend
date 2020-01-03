@@ -6,9 +6,10 @@ import lombok.Getter;
 
 @Getter
 public class PositiveOrZeroLong {
-    private final Long value;
-
     public static PositiveOrZeroLong ZERO = new PositiveOrZeroLong(0L);
+    public static PositiveOrZeroLong ONE = new PositiveOrZeroLong(1L);
+
+    private final Long value;
 
     @JsonCreator
     public static PositiveOrZeroLong parse(final String str) {

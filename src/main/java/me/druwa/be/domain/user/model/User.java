@@ -40,7 +40,7 @@ import static java.util.Objects.nonNull;
 })
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long userId;
 
     @Column

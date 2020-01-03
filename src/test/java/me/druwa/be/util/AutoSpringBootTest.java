@@ -1,4 +1,4 @@
-package me.druwa.be.utils;
+package me.druwa.be.util;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -20,5 +20,5 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-public @interface SpringTest {
+public @interface AutoSpringBootTest {
 }
