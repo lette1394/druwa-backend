@@ -8,7 +8,7 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ActiveProfiles;
 import me.druwa.be.docs.ConstraintAttribute;
-import me.druwa.be.utils.SpringTest;
+import me.druwa.be.util.AutoSpringBootTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.HttpClientConfig;
 import io.restassured.config.RestAssuredConfig;
@@ -25,7 +25,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.documentationConfiguration;
 
-@SpringTest
+@AutoSpringBootTest
 @ActiveProfiles("test")
 class TestControllerTest {
 

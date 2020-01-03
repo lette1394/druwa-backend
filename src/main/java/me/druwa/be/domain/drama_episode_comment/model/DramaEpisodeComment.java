@@ -1,6 +1,8 @@
-package me.druwa.be.domain.episode.model;
+package me.druwa.be.domain.drama_episode_comment.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
@@ -9,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -17,30 +20,32 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import me.druwa.be.domain.common.converter.PositiveLongConverter;
+import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.user.model.User;
 
 @Entity
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "dramaEpisodeCommentId")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "episode_comment_")
+@Table(name = "drama_episode_comment_")
 @Builder
-public class EpisodeComment {
+public class DramaEpisodeComment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long dramaEpisodeCommentId;
 
+    @NotNull
     @Column
-    @Convert(converter = PositiveLongConverter.class)
+    @Convert(converter = PositiveOrZeroLongConverter.class)
     private PositiveOrZeroLong depth;
 
     @Column
@@ -48,17 +53,26 @@ public class EpisodeComment {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private EpisodeComment next;
+    private DramaEpisodeComment next;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private EpisodeComment prev;
+    private DramaEpisodeComment prev;
 
     @Embedded
-    private EpisodeCommentLike commentLike;
+    @Builder.Default
+    @NotNull
+    private DramaEpisodeCommentLike commentLike = new DramaEpisodeCommentLike();
 
+    @NotNull
+    @ManyToMany
+    @Builder.Default
+    private Set<User> likeUsers = new HashSet<>();
+
+    @NotNull
     @ManyToOne
     private User writtenBy;
 
+    @NotNull
     @Embedded
     private Timestamp timestamp;
 
@@ -74,17 +88,27 @@ public class EpisodeComment {
 
     public View.Create.Response toCreateResponse() {
         return View.Create.Response.builder()
-                                   .id(id)
+                                   .id(dramaEpisodeCommentId)
                                    .createdAt(timestamp.getCreatedAt())
                                    .build();
     }
 
-    public EpisodeCommentLike doLike(final User user) {
-        return commentLike.doLike(user);
+    @Transactional
+    public DramaEpisodeCommentLike doLike(final User user) {
+        if (likeUsers.contains(user)) {
+            return commentLike;
+        }
+        likeUsers.add(user);
+        return commentLike.doLike();
     }
 
-    public EpisodeCommentLike doDislike(final User user) {
-        return commentLike.doDislike(user);
+    @Transactional
+    public DramaEpisodeCommentLike doDislike(final User user) {
+        if (likeUsers.contains(user)) {
+            likeUsers.remove(user);
+            return commentLike.doDislike();
+        }
+        return commentLike;
     }
 
     @Data
@@ -93,9 +117,6 @@ public class EpisodeComment {
         public static class Create {
             @Data
             public static class Request {
-                @NotNull
-                private Long episodeId;
-
                 @NotNull
                 private PositiveOrZeroLong depth;
 
@@ -120,6 +141,15 @@ public class EpisodeComment {
         }
 
         @Data
+        public static class Like {
+            @Data
+            public static class Response {
+                @NotNull
+                private Long like;
+            }
+        }
+
+        @Data
         public static class Read {
             @Data
             public static class Response {
@@ -136,7 +166,5 @@ public class EpisodeComment {
                 private LocalDateTime createdAt;
             }
         }
-
-
     }
 }

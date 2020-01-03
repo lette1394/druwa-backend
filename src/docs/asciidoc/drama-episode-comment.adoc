@@ -1,0 +1,27 @@
+[[drama-episode-comment]]
+== drama-episode-comment API
+
+=== Request
+CURL:
+include::{snippets}/drama-episode-comment/curl-request.adoc[]
+
+ifdef::{snippets}/drama-episode-comment/request-parameters.adoc[]
+Request Parameters:
+include::{snippets}/drama-episode-comment/request-parameters.adoc[]
+endif::[]
+
+Request Fields:
+include::{snippets}/drama-episode-comment/request-fields.adoc[]
+
+Request HTTP Example:
+include::{snippets}/drama-episode-comment/http-request.adoc[]
+
+
+=== Response
+ifdef::{snippets}/drama-episode-comment/response-fields.adoc[]
+Response Fields:
+include::{snippets}/drama-episode-comment/response-fields.adoc[]
+endif::[]
+
+Response HTTP Example:
+include::{snippets}/drama-episode-comment/http-response.adoc[]

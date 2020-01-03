@@ -6,6 +6,9 @@ import lombok.Getter;
 
 @Getter
 public class PositiveOrZeroLong {
+    public static PositiveOrZeroLong ZERO = new PositiveOrZeroLong(0L);
+    public static PositiveOrZeroLong ONE = new PositiveOrZeroLong(1L);
+
     private final Long value;
 
     @JsonCreator
@@ -18,6 +21,17 @@ public class PositiveOrZeroLong {
     public PositiveOrZeroLong(final Long value) {
         validate(value);
         this.value = value;
+    }
+
+    public PositiveOrZeroLong increase() {
+        return new PositiveOrZeroLong(value + 1);
+    }
+
+    public PositiveOrZeroLong decrease() {
+        if (value == 0) {
+            return ZERO;
+        }
+        return new PositiveOrZeroLong(value - 1);
     }
 
     @JsonValue

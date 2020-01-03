@@ -32,7 +32,7 @@ import static java.util.Objects.nonNull;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "userId")
 @ToString
 @AllArgsConstructor
 @Table(name = "user_", uniqueConstraints = {
@@ -40,8 +40,8 @@ import static java.util.Objects.nonNull;
 })
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long userId;
 
     @Column
     @NotBlank

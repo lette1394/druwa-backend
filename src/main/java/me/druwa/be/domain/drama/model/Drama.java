@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "dramaId")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "drama_")
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Drama {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long dramaId;
 
 }
