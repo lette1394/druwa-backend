@@ -64,9 +64,7 @@ public class DramaEpisodeComment {
     private DramaEpisodeCommentLike commentLike = new DramaEpisodeCommentLike();
 
     @ManyToMany
-    @Builder.Default
-    @NotNull
-    private Set<User> likeUsers = new HashSet<>();
+    private Set<User> likeUsers;
 
     @NotNull
     @ManyToOne
