@@ -7,10 +7,10 @@ DEPLOY_PATH=/home/ubuntu/deploy/current/
 echo "> 기존 파일 백업"
 BACKUP_PATH=/home/ubuntu/deploy/$(date +%y%m%d_%H%M%S)
 mkdir "$BACKUP_PATH"
-mv $DEPLOY_PATH/*.jar "$BACKUP_PATH"
+cp $DEPLOY_PATH/*.jar "$BACKUP_PATH"
 
 echo "> build 파일 이동"
-mv $BUILD_PATH $DEPLOY_PATH
+cp $BUILD_PATH $DEPLOY_PATH
 
 echo "> springboot-druwa-deploy-0.0.1-SNAPSHOT.jar 교체"
 CP_JAR_PATH=$DEPLOY_PATH$JAR_NAME
