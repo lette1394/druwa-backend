@@ -89,6 +89,11 @@ asciidoctor.doLast {
     }
 }
 
+def profiles = 'local'
+bootRun {
+    args = ["--spring.profiles.active=" + profiles]
+}
+
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')
