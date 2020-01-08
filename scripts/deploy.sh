@@ -36,4 +36,4 @@ echo "> application.yaml prod 모드 교체"
 cp '/home/ubuntu/deploy/overwrite-files/application.yaml' '/home/ubuntu/deploy/current/BOOT-INF/classes/'
 
 cd $DEPLOY_PATH
-nohup java -Dspring.profiles.active=prod org.springframework.boot.loader.JarLauncher . > /dev/null 2> /dev/null < /dev/null &
+nohup java -Dspring.profiles.active=prod -d64 -Xms512m -Xmx512m org.springframework.boot.loader.JarLauncher . > /dev/null 2> /dev/null < /dev/null &
