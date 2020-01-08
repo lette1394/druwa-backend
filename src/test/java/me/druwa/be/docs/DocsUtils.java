@@ -25,11 +25,17 @@ public class DocsUtils {
         RequestSpecBuilder spec = new RequestSpecBuilder();
         return spec.addFilter(documentationConfiguration(restDocumentation)
                                       .operationPreprocessors()
-                                      .withRequestDefaults(modifyUris()
+                                      .withRequestDefaults(removeHeaders("Authorization",
+                                                                         "Host"),
+                                                           modifyUris()
                                                                    .host("ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com")
                                                                    .port(8080))
                                       .withResponseDefaults(prettyPrint(),
                                                             removeHeaders("Date",
+                                                                          "Vary",
+                                                                          "druwa-debug-token",
+                                                                          "Authorization",
+                                                                          "Host",
                                                                           "Keep-Alive",
                                                                           "Connection",
                                                                           "Transfer-Encoding"))).build()
