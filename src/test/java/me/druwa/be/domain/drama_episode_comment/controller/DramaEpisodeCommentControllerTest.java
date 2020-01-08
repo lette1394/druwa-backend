@@ -76,6 +76,27 @@ class DramaEpisodeCommentControllerTest {
     }
 
     @Test
+    void list() {
+        given(spec).that()
+                   .filter(document(documentKey,
+                                    responseFields(
+                                            fieldWithPath(".").description("")
+                                                              .type(JsonFieldType.ARRAY),
+                                            fieldWithPath("id").description("comment's id")
+                                                               .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("createdAt").description("create time of comment")
+                                                                      .type(JsonFieldType.STRING))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments", 41, 79)
+                   .then().assertThat()
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_comment.json"))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
+
+    @Test
     void like() {
         final ConstraintAttribute response = ConstraintAttribute.createAttribute(DramaEpisodeComment.View.Like.Response.class);
 
@@ -89,8 +110,7 @@ class DramaEpisodeCommentControllerTest {
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
                    .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like", 41, 79, 6)
-                   .then()
-                   .assertThat()
+                   .then().assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_comment.json"))
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
@@ -110,8 +130,7 @@ class DramaEpisodeCommentControllerTest {
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
                    .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike", 41, 79, 497)
-                   .then()
-                   .assertThat()
+                   .then().assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_comment.json"))
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);

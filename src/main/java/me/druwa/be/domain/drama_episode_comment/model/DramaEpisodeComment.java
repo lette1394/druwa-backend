@@ -1,7 +1,7 @@
 package me.druwa.be.domain.drama_episode_comment.model;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -18,9 +18,9 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.transaction.annotation.Transactional;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +29,7 @@ import lombok.NoArgsConstructor;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
+import me.druwa.be.domain.drama_episode.model.DramaEpisode;
 import me.druwa.be.domain.user.model.User;
 
 @Entity
@@ -61,7 +62,10 @@ public class DramaEpisodeComment {
     @Embedded
     @Builder.Default
     @NotNull
-    private DramaEpisodeCommentLike commentLike = new DramaEpisodeCommentLike();
+    private Like commentLike = new Like();
+
+    @ManyToOne
+    private DramaEpisode dramaEpisode;
 
     @ManyToMany
     private Set<User> likeUsers;
@@ -91,8 +95,21 @@ public class DramaEpisodeComment {
                                    .build();
     }
 
+    public View.Read.Response toReadResponse() {
+        return View.Read.Response.builder()
+                                 .id(dramaEpisodeCommentId)
+                                 .contents(content)
+                                 .depth(depth)
+                                 .timestamp(timestamp)
+                                 .like(commentLike.sum())
+                                 .next(Objects.isNull(next) ? -1 : next.dramaEpisodeCommentId)
+                                 .prev(Objects.isNull(prev) ? -1 : prev.dramaEpisodeCommentId)
+                                 .build();
+
+    }
+
     @Transactional
-    public DramaEpisodeCommentLike doLike(final User user) {
+    public Like doLike(final User user) {
         if (likeUsers.contains(user)) {
             return commentLike;
         }
@@ -101,7 +118,7 @@ public class DramaEpisodeComment {
     }
 
     @Transactional
-    public DramaEpisodeCommentLike doDislike(final User user) {
+    public Like doDislike(final User user) {
         if (likeUsers.contains(user)) {
             likeUsers.remove(user);
             return commentLike.doDislike();
@@ -114,26 +131,16 @@ public class DramaEpisodeComment {
         @Data
         public static class Create {
             @Data
+            @Builder
             public static class Request {
-                @NotNull
                 private PositiveOrZeroLong depth;
-
-                @NotBlank
                 private String contents;
             }
 
             @Data
+            @Builder
             public static class Response {
-                @Builder
-                public Response(@PositiveOrZero final Long id, @NotNull final LocalDateTime createdAt) {
-                    this.id = id;
-                    this.createdAt = createdAt;
-                }
-
-                @PositiveOrZero
                 private Long id;
-
-                @NotNull
                 private LocalDateTime createdAt;
             }
         }
@@ -141,8 +148,8 @@ public class DramaEpisodeComment {
         @Data
         public static class Like {
             @Data
+            @Builder
             public static class Response {
-                @NotNull
                 private Long like;
             }
         }
@@ -150,18 +157,16 @@ public class DramaEpisodeComment {
         @Data
         public static class Read {
             @Data
+            @Builder
             public static class Response {
-                @Builder
-                public Response(@PositiveOrZero final Long id, @NotNull final LocalDateTime createdAt) {
-                    this.id = id;
-                    this.createdAt = createdAt;
-                }
-
-                @PositiveOrZero
                 private Long id;
-
-                @NotNull
-                private LocalDateTime createdAt;
+                private PositiveOrZeroLong depth;
+                private Long next;
+                private Long prev;
+                private String contents;
+                private Long like;
+                @JsonUnwrapped
+                private Timestamp timestamp;
             }
         }
     }

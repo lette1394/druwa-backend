@@ -38,12 +38,7 @@ class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessH
         }
 
         clearAuthenticationAttributes(request, response);
-
-        String token = tokenProvider.createToken(authentication);
-        response.reset();
-        response.setStatus(200);
-        response.getOutputStream().write(token.getBytes());
-        response.flushBuffer();
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
     protected String determineTargetUrl(HttpServletRequest request,

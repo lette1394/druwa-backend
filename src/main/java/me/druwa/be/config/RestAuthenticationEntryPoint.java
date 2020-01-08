@@ -1,6 +1,5 @@
 package me.druwa.be.config;
 
-import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +12,7 @@ class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
-                         AuthenticationException e) throws IOException {
+                         AuthenticationException e) {
 
         log.error("Responding with unauthorized error. Message - {}", e.getMessage());
         response.reset();

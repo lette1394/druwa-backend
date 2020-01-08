@@ -2,6 +2,6 @@ package me.druwa.be.util;
 
 public class TestUtils {
     public static String testToken() {
-        return "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4MDcyODUwLCJleHAiOjE1ODY3MTI4NTB9.pUn5SBtq2fGayJVIbpCo_mESr9dwqNNBcvFJlpFJX2pyJAzFWC7vVI4GdgZ7f36jxUYTSUVkpBAyo8GL4XtJfw";
+        return "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ";
     }
 }

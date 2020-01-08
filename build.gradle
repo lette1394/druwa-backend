@@ -89,6 +89,16 @@ asciidoctor.doLast {
     }
 }
 
+def profiles = 'local'
+bootRun {
+    args = ["--spring.profiles.active=" + profiles]
+    if (project.hasProperty('jvmArgs')) {
+        println("project.jvmArgs")
+        println(project.jvmArgs)
+        jvmArgs = (project.jvmArgs.split("\\s+") as List)
+    }
+}
+
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')

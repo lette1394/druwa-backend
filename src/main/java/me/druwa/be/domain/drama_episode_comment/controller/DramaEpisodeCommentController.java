@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.service.DramaService;
 import me.druwa.be.domain.drama_episode.service.DramaEpisodeService;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
-import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeCommentLike;
+import me.druwa.be.domain.drama_episode_comment.model.Like;
+import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 import me.druwa.be.domain.drama_episode_comment.service.DramaEpisodeCommentService;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
@@ -25,6 +27,18 @@ public class DramaEpisodeCommentController {
     private final DramaService dramaService;
     private final DramaEpisodeService dramaEpisodeService;
     private final DramaEpisodeCommentService dramaEpisodeCommentService;
+
+    @GetMapping("/dramas/{dramaId}/episodes/{episodeId}/comments")
+    public ResponseEntity<?> list(@Valid
+                                  @PathVariable final long dramaId,
+                                  @PathVariable final long episodeId) {
+        dramaService.ensureExistsBy(dramaId);
+        dramaEpisodeService.ensureExistsBy(episodeId);
+
+        final DramaEpisodeComments dramaEpisodeComments = dramaEpisodeCommentService.list(episodeId);
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(dramaEpisodeComments.toResponse());
+    }
 
     @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments")
     public ResponseEntity<?> create(@Valid
@@ -49,7 +63,7 @@ public class DramaEpisodeCommentController {
         dramaEpisodeService.ensureExistsBy(episodeId);
         dramaEpisodeCommentService.ensureExistsBy(commentId);
 
-        final DramaEpisodeCommentLike commentLike = dramaEpisodeCommentService.doLike(user, commentId);
+        final Like commentLike = dramaEpisodeCommentService.doLike(user, commentId);
         return ResponseEntity.ok(commentLike.toResponse());
     }
 
@@ -62,7 +76,7 @@ public class DramaEpisodeCommentController {
         dramaEpisodeService.ensureExistsBy(episodeId);
         dramaEpisodeCommentService.ensureExistsBy(commentId);
 
-        final DramaEpisodeCommentLike commentLike = dramaEpisodeCommentService.doDislike(user, commentId);
+        final Like commentLike = dramaEpisodeCommentService.doDislike(user, commentId);
         return ResponseEntity.ok(commentLike.toResponse());
     }
 }
