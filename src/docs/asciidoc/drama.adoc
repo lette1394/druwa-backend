@@ -3,44 +3,44 @@
 
 === create
 
-CURL:
+**<> CURL**
 include::{snippets}/drama__create/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama__create/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama__create/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama__create/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama__create/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama__create/http-response.adoc[]
 
 '''
 
 === find
 
-CURL:
+**<> CURL**
 include::{snippets}/drama__find/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama__find/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama__find/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama__find/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama__find/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama__find/http-response.adoc[]
 
 
@@ -48,22 +48,22 @@ include::{snippets}/drama__find/http-response.adoc[]
 
 === update
 
-CURL:
+**<> CURL**
 include::{snippets}/drama__update/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama__update/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama__update/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama__update/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama__update/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama__update/http-response.adoc[]
 
 
@@ -71,42 +71,42 @@ include::{snippets}/drama__update/http-response.adoc[]
 
 === like
 
-CURL:
+**<> CURL**
 include::{snippets}/drama__like/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama__like/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama__like/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama__like/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama__like/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama__like/http-response.adoc[]
 
 '''
 
 === dislike
 
-CURL:
+**<> CURL**
 include::{snippets}/drama__dislike/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama__dislike/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama__dislike/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama__dislike/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama__dislike/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama__dislike/http-response.adoc[]

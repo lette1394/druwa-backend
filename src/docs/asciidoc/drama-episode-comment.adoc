@@ -1,23 +1,24 @@
 [[drama-episode-comment]]
 == drama-episode-comment
+
 === create
 
-CURL:
+**<> CURL**
 include::{snippets}/drama-episode-comment__create/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama-episode-comment__create/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama-episode-comment__create/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama-episode-comment__create/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama-episode-comment__create/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama-episode-comment__create/http-response.adoc[]
 
 
@@ -25,42 +26,42 @@ include::{snippets}/drama-episode-comment__create/http-response.adoc[]
 
 === like
 
-CURL:
+**<> CURL**
 include::{snippets}/drama-episode-comment__like/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama-episode-comment__like/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama-episode-comment__like/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama-episode-comment__like/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama-episode-comment__like/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama-episode-comment__like/http-response.adoc[]
 
 '''
 
 === dislike
 
-CURL:
+**<> CURL**
 include::{snippets}/drama-episode-comment__dislike/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/drama-episode-comment__dislike/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/drama-episode-comment__dislike/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/drama-episode-comment__dislike/http-request.adoc[]
 
-Response Fields:
+**> Response Fields**
 include::{snippets}/drama-episode-comment__dislike/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/drama-episode-comment__dislike/http-response.adoc[]

@@ -10,20 +10,20 @@ eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDAzNTUwLCJleHAiOjE1NzkyNjc1NTB
 
 === kakao
 
-CURL:
+**<> CURL**
 include::{snippets}/auth__kakao/curl-request.adoc[]
 
-Request Parameters:
+**< Request Parameters**
 include::{snippets}/auth__kakao/request-parameters.adoc[]
 
-Request Fields:
+**< Request Fields**
 include::{snippets}/auth__kakao/request-fields.adoc[]
 
-Request HTTP Example:
+**< Request HTTP Example**
 include::{snippets}/auth__kakao/http-request.adoc[]
 
-Response Fields:
+**> Response Field**
 include::{snippets}/auth__kakao/response-fields.adoc[]
 
-Response HTTP Example:
+**> Response HTTP Example**
 include::{snippets}/auth__kakao/http-response.adoc[]
