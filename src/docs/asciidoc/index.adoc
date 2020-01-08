@@ -7,10 +7,10 @@
 :sectlinks:
 
 [[introduction]]
-== 소개
+== Introduce
 
 [[common]]
-== 공통 사항
+== Common
 
 
 //=== Domain
@@ -24,10 +24,10 @@
 //| name | 설명
 //|===
 
-=== Response header
+=== Response Header
 
 |===
-| field | desciption
+| Field | Description
 
 | `druwa-debug-token`
 | 에러가 발생한 경우 이 토큰을 알려주세요
