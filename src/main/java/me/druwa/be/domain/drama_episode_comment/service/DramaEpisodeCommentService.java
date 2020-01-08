@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
-import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeCommentLike;
+import me.druwa.be.domain.drama_episode_comment.model.Like;
+import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 import me.druwa.be.domain.drama_episode_comment.repository.DramaEpisodeCommentRepository;
 import me.druwa.be.domain.post.model.Post;
 import me.druwa.be.domain.post.service.PostService;
@@ -54,13 +55,18 @@ public class DramaEpisodeCommentService {
 
     }
 
+    @Transactional(readOnly = true)
+    public DramaEpisodeComments list(final Long episodeId) {
+        return dramaEpisodeCommentRepository.findByDramaEpisodeId(episodeId);
+    }
+
     @Transactional
-    public DramaEpisodeCommentLike doLike(final User user, final long commentId) {
+    public Like doLike(final User user, final long commentId) {
         return findBy(commentId).doLike(user);
     }
 
     @Transactional
-    public DramaEpisodeCommentLike doDislike(final User user, final long commentId) {
+    public Like doDislike(final User user, final long commentId) {
         return findBy(commentId).doDislike(user);
     }
 }

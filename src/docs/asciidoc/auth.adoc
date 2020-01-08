@@ -4,7 +4,7 @@ test token (druwa 개발자 계정입니다)
 
 [source]
 ----
-eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc3OTc4NTk3LCJleHAiOjE1ODY2MTg1OTd9.zNdm-s1bo-Q-o6hSukP8yHMIeKzdkPybhbbeTKzOGkNC6jcW0t94nQRhKCq5gZfRZUG1ahPxIi1kZuDinOY6wQ
+eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDAzMzA1LCJleHAiOjE1Nzg0MDMzMDV9.1FE0TuBOchJ-D_qfR8DgjVPxhGY4rlXDWKW4pH6Vhddy53z-e_vbSsro_cIUMc3SpkPO2X64nxFfAuUcYmk1qw
 ----
 
 === Request

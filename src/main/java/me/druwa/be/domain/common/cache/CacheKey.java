@@ -7,6 +7,7 @@ public class CacheKey {
     }
 
     public static class Drama {
+        public static final String ID = "DRAMA_ID";
         public static final String EXISTS = "DRAMA_EXISTS";
     }
 

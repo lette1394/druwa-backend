@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,11 +17,9 @@ import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class DramaEpisodeCommentLike {
+public class Like {
     @Column
     @NotNull
-    @Builder.Default
     @Convert(converter = PositiveOrZeroLongConverter.class)
     private PositiveOrZeroLong likeCount = PositiveOrZeroLong.ZERO;
 
@@ -29,16 +28,17 @@ public class DramaEpisodeCommentLike {
         likeCount = new PositiveOrZeroLong(0L);
     }
 
-    public DramaEpisodeCommentLike doLike() {
+    public Like doLike() {
         likeCount = likeCount.increase();
         return this;
     }
 
-    public DramaEpisodeCommentLike doDislike() {
+    public Like doDislike() {
         likeCount = likeCount.decrease();
         return this;
     }
 
+    @JsonProperty("like")
     public long sum() {
         return likeCount.getValue();
     }
@@ -54,13 +54,9 @@ public class DramaEpisodeCommentLike {
         @Data
         public static class Create {
             @Data
+            @Builder
             public static class Response {
-                @Builder
-                public Response(final long like) {
-                    this.like = like;
-                }
-
-                private long like;
+                private Long like;
             }
         }
     }
