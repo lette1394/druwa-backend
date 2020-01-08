@@ -1,6 +1,5 @@
 package me.druwa.be.domain.drama_episode_comment.controller;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -34,8 +33,6 @@ class DramaEpisodeCommentControllerTest {
 
     private RequestSpecification spec;
 
-    private static final String documentKey = "drama-episode-comment";
-
     @BeforeEach
     public void setUp(RestDocumentationContextProvider restDocumentation) {
         spec = DocsUtils.requestSpecification(restDocumentation, port);
@@ -46,7 +43,7 @@ class DramaEpisodeCommentControllerTest {
         final ConstraintAttribute request = ConstraintAttribute.createAttribute(DramaEpisodeComment.View.Create.Request.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama-episode-comment__create",
                                     requestFields(
                                             fieldWithPath("depth").description(
                                                     "indent for comment. representing recursive sub-comment. default is 0 (no depth)")
@@ -80,7 +77,7 @@ class DramaEpisodeCommentControllerTest {
 //    @Ignore
 //    void list() {
 //        given(spec).that()
-//                   .filter(document(documentKey,
+//                   .filter(document("drama-episode-comment__list",
 //                                    responseFields(
 //                                            fieldWithPath("[]").description("")
 //                                                               .type(JsonFieldType.ARRAY),
@@ -115,7 +112,7 @@ class DramaEpisodeCommentControllerTest {
         final ConstraintAttribute response = ConstraintAttribute.createAttribute(DramaEpisodeComment.View.Like.Response.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama-episode-comment__like",
                                     responseFields(
                                             fieldWithPath("like").description("count of comment like")
                                                                  .type(JsonFieldType.NUMBER)
@@ -135,7 +132,7 @@ class DramaEpisodeCommentControllerTest {
         final ConstraintAttribute response = ConstraintAttribute.createAttribute(DramaEpisodeComment.View.Like.Response.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama-episode-comment__dislike",
                                     responseFields(
                                             fieldWithPath("like").description("count of comment like")
                                                                  .type(JsonFieldType.NUMBER)

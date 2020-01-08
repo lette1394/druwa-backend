@@ -524,46 +524,44 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
+<h1>Rest Docs Sample API Document</h1>
+<div class="details">
+<span id="revnumber">version 0.0.1-SNAPSHOT</span>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#rest-docs-sample-api-document">Rest Docs Sample API Document</a></li>
 <li><a href="#introduction">소개</a></li>
 <li><a href="#common">공통 사항</a>
 <ul class="sectlevel2">
-<li><a href="#domain">Domain</a></li>
-<li><a href="#header">Header</a></li>
-<li><a href="#공통-response-body">공통 Response Body</a></li>
+<li><a href="#response-header">Response header</a></li>
 </ul>
 </li>
-<li><a href="#Auth">Auth API</a>
+<li><a href="#Auth">Auth</a>
 <ul class="sectlevel2">
-<li><a href="#request">Request</a></li>
-<li><a href="#response">Response</a></li>
+<li><a href="#kakao">kakao</a></li>
 </ul>
 </li>
-<li><a href="#drama">drama API</a>
+<li><a href="#drama">drama</a>
 <ul class="sectlevel2">
-<li><a href="#request-2">Request</a></li>
-<li><a href="#response-2">Response</a></li>
+<li><a href="#create">create</a></li>
+<li><a href="#find">find</a></li>
+<li><a href="#update">update</a></li>
+<li><a href="#like">like</a></li>
+<li><a href="#dislike">dislike</a></li>
 </ul>
 </li>
-<li><a href="#drama-episode-comment">drama-episode-comment API</a>
+<li><a href="#drama-episode-comment">drama-episode-comment</a>
 <ul class="sectlevel2">
-<li><a href="#request-3">Request</a></li>
-<li><a href="#response-3">Response</a></li>
+<li><a href="#create-2">create</a></li>
+<li><a href="#like-2">like</a></li>
+<li><a href="#dislike-2">dislike</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="rest-docs-sample-api-document">Rest Docs Sample API Document</h2>
-<div class="sectionbody">
-
-</div>
-</div>
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">소개</a></h2>
 <div class="sectionbody">
@@ -574,37 +572,7 @@ table.CodeRay td.code>pre{padding:0}
 <h2 id="common"><a class="link" href="#common">공통 사항</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="domain"><a class="link" href="#domain">Domain</a></h3>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">환경</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">domain</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="header"><a class="link" href="#header">Header</a></h3>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">설명</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="공통-response-body"><a class="link" href="#공통-response-body">공통 Response Body</a></h3>
+<h3 id="response-header"><a class="link" href="#response-header">Response header</a></h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -613,7 +581,7 @@ table.CodeRay td.code>pre{padding:0}
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">field</th>
-<th class="tableblock halign-left valign-top">설명</th>
+<th class="tableblock halign-left valign-top">desciption</th>
 </tr>
 </thead>
 <tbody>
@@ -627,10 +595,10 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="Auth"><a class="link" href="#Auth">Auth API</a></h2>
+<h2 id="Auth"><a class="link" href="#Auth">Auth</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>test token (druwa 개발자 계정입니다)</p>
+<p><strong>TEST TOKEN</strong> (druwa 개발자 계정)</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -638,46 +606,109 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect2">
-<h3 id="request"><a class="link" href="#request">Request</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="response"><a class="link" href="#response">Response</a></h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="drama"><a class="link" href="#drama">drama API</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="request-2"><a class="link" href="#request-2">Request</a></h3>
+<h3 id="kakao"><a class="link" href="#kakao">kakao</a></h3>
 <div class="paragraph">
 <p>CURL:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://api.druwa.com/dramas/15/dislike' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorize/kakao?redirect_uri=https%3A%2F%2Fdruwa.netlify.com%2Foauth%2Fcheck' -i -X GET</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>redirect_uri</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">oauth가 종료된 이후 redirect 될 endpoint.
+이후 ?token={token} 형태로 redirect url이 생성됩니다.
+ e.g. <a href="https://druwa.netlify.com/oauth/check?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NTAzNDg1LCJleHAiOjE1NzkzNjc0ODV9.5h4iW5CET9prk-hxTxOg3DeuPfHpT9TUb-7OQ6cKZHGRBIsRW7C3sRtZydSuzm_B_K5fzUYaAYLRdyBoHjxPDQ" class="bare">https://druwa.netlify.com/oauth/check?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NTAzNDg1LCJleHAiOjE1NzkzNjc0ODV9.5h4iW5CET9prk-hxTxOg3DeuPfHpT9TUb-7OQ6cKZHGRBIsRW7C3sRtZydSuzm_B_K5fzUYaAYLRdyBoHjxPDQ</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Request Fields:</p>
+</div>
+<div class="paragraph">
+<p>Request HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /oauth2/authorize/kakao?redirect_uri=https%3A%2F%2Fdruwa.netlify.com%2Foauth%2Fcheck HTTP/1.1
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<div class="paragraph">
+<p>Response HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 302 Found
+druwa-debug-token: AE894AD7275048E7AC7DDAA5FDAA542F
+Set-Cookie: oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAggCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyAB5qYXZhLnV0aWwuQ29sbGVjdGlvbnMkRW1wdHlNYXBZNhSFWtzn0AIAAHhwc3EAfgAHc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoTWFwNMBOXBBswPsCAAFaAAthY2Nlc3NPcmRlcnhyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAF3CAAAAAIAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAFa2FrYW94AHNyAD9vcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLkF1dGhvcml6YXRpb25HcmFudFR5cGUAAAAAAAACCAIAAUwABXZhbHVlcQB-AAN4cHQAEmF1dGhvcml6YXRpb25fY29kZXQA2Wh0dHBzOi8va2F1dGgua2FrYW8uY29tL29hdXRoL2F1dGhvcml6ZT9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTk1ZjBlYjc5M2RlZjIzYzM3YmE0ZDE1MDY5ZjI5OTliJnN0YXRlPV9wQjJHc0k4VVozLUd1cko1WTZPT3lqekNjTjNmUFhqZFNubUxoNXdubzAlM0QmcmVkaXJlY3RfdXJpPWh0dHA6Ly9sb2NhbGhvc3Q6NTg1MjUvb2F1dGgyL2NhbGxiYWNrL2NvZGUva2FrYW90ACdodHRwczovL2thdXRoLmtha2FvLmNvbS9vYXV0aC9hdXRob3JpemV0ACA5NWYwZWI3OTNkZWYyM2MzN2JhNGQxNTA2OWYyOTk5YnQAMWh0dHA6Ly9sb2NhbGhvc3Q6NTg1MjUvb2F1dGgyL2NhbGxiYWNrL2NvZGUva2FrYW9zcgBRb3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5lbmRwb2ludC5PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlAAAAAAAAAggCAAFMAAV2YWx1ZXEAfgADeHB0AARjb2Rlc3IAJWphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVTZXSAHZLRj5uAVQIAAHhyACxqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlQ29sbGVjdGlvbhlCAIDLXvceAgABTAABY3QAFkxqYXZhL3V0aWwvQ29sbGVjdGlvbjt4cHNyAB5qYXZhLnV0aWwuQ29sbGVjdGlvbnMkRW1wdHlTZXQV9XIdtAPLKAIAAHhwdAAsX3BCMkdzSThVWjMtR3VySjVZNk9PeWp6Q2NOM2ZQWGpkU25tTGg1d25vMD0=; Max-Age=180; Expires=Wed, 08-Jan-2020 19:46:52 GMT; Path=/; HttpOnly
+Set-Cookie: redirect_uri=https://druwa.netlify.com/oauth/check; Max-Age=180; Expires=Wed, 08-Jan-2020 19:46:52 GMT; Path=/; HttpOnly
+Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=_pB2GsI8UZ3-GurJ5Y6OOyjzCcN3fPXjdSnmLh5wno0%3D&amp;redirect_uri=http://localhost:58525/oauth2/callback/code/kakao</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="drama"><a class="link" href="#drama">drama</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="create"><a class="link" href="#create">create</a></h3>
+<div class="paragraph">
+<p>CURL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
-    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+    -H 'Content-Type: application/json; charset=UTF-8' \
+    -d '{
+  &quot;title&quot;: &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot;: &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot;: &quot;플레이리스트&quot;
+}'</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
 </div>
 <div class="paragraph">
 <p>Request Fields:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Path</th>
 <th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
 <th class="tableblock halign-left valign-top">Constraints</th>
 </tr>
 </thead>
@@ -686,13 +717,15 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">title</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
 <p class="tableblock">- Size must be between 2 and 50 inclusive</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">productionCompany</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">제작사</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
 <p class="tableblock">- Size must be between 0 and 100 inclusive</p></td>
 </tr>
@@ -700,6 +733,7 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">summary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
 <p class="tableblock">- Size must be between 0 and 500 inclusive</p></td>
 </tr>
@@ -710,23 +744,467 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/dislike HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas HTTP/1.1
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
 Content-Type: application/json; charset=UTF-8
-Host: api.druwa.com</code></pre>
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
+Content-Length: 172
+
+{
+  &quot;title&quot;: &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot;: &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot;: &quot;플레이리스트&quot;
+}</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dramaId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">created id of drama entity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Response HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
+druwa-debug-token: A2C21921A9934286918E151008D9FCC5
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 20
+
+{
+  &quot;dramaId&quot; : 65
+}</code></pre>
+</div>
+</div>
+<hr>
 </div>
 <div class="sect2">
-<h3 id="response-2"><a class="link" href="#response-2">Response</a></h3>
+<h3 id="find"><a class="link" href="#find">find</a></h3>
+<div class="paragraph">
+<p>CURL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15' -i -X GET \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
+</div>
+<div class="paragraph">
+<p>Request Fields:</p>
+</div>
+<div class="paragraph">
+<p>Request HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/15 HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
+Content-Type: application/json; charset=UTF-8
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dramaId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">title</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 2 and 50 inclusive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">productionCompany</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 0 and 100 inclusive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">title</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 2 and 50 inclusive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">createdAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">updatedAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">summary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 0 and 500 inclusive</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Response HTTP Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: 3C401B8F234D41D98631E731508BE50F
+druwa-debug-token: D21588326F7C4E5CB8D09F85BB966CE1
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 292
+
+{
+  &quot;dramaId&quot; : 15,
+  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;like&quot; : 0,
+  &quot;createdAt&quot; : &quot;2020-01-08T03:37:28.12&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-09T04:41:59.381&quot;
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="update"><a class="link" href="#update">update</a></h3>
+<div class="paragraph">
+<p>CURL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15' -i -X PATCH \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
+    -H 'Content-Type: application/json; charset=UTF-8' \
+    -d '{
+  &quot;title&quot;: &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;productionCompany&quot;: &quot;플레이리스트&quot;
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
+</div>
+<div class="paragraph">
+<p>Request Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">title</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 2 and 50 inclusive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">productionCompany</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 0 and 100 inclusive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">summary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 0 and 500 inclusive</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Request HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15 HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
+Content-Type: application/json; charset=UTF-8
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
+Content-Length: 95
+
+{
+  &quot;title&quot;: &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;productionCompany&quot;: &quot;플레이리스트&quot;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<div class="paragraph">
+<p>Response HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+druwa-debug-token: 9C934C25C50E4D16A95D5BD6F18B5102
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 20
+
+{
+  &quot;dramaId&quot; : 15
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="like"><a class="link" href="#like">like</a></h3>
+<div class="paragraph">
+<p>CURL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/like' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
+</div>
+<div class="paragraph">
+<p>Request Fields:</p>
+</div>
+<div class="paragraph">
+<p>Request HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/like HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
+Content-Type: application/json; charset=UTF-8
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Response HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+druwa-debug-token: 463EC87F5F9F469FA787103E2652CFBB
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 16
+
+{
+  &quot;like&quot; : 1
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="dislike"><a class="link" href="#dislike">dislike</a></h3>
+<div class="paragraph">
+<p>CURL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/dislike' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
+</div>
+<div class="paragraph">
+<p>Request Fields:</p>
+</div>
+<div class="paragraph">
+<p>Request HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/dislike HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
+Content-Type: application/json; charset=UTF-8
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Response HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+druwa-debug-token: 1F2A3722606742978BC140421DC4A09C
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -742,36 +1220,45 @@ Content-Length: 16
 </div>
 </div>
 <div class="sect1">
-<h2 id="drama-episode-comment"><a class="link" href="#drama-episode-comment">drama-episode-comment API</a></h2>
+<h2 id="drama-episode-comment"><a class="link" href="#drama-episode-comment">drama-episode-comment</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="request-3"><a class="link" href="#request-3">Request</a></h3>
+<h3 id="create-2"><a class="link" href="#create-2">create</a></h3>
 <div class="paragraph">
 <p>CURL:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://api.druwa.com/dramas/15/episodes/1/comments/21/dislike' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/episodes/1/comments' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
-    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+    -H 'Content-Type: application/json; charset=UTF-8' \
+    -d '{
+        &quot;depth&quot;: 1,
+        &quot;contents&quot;: &quot;hello world!!&quot;
+}'</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
 </div>
 <div class="paragraph">
 <p>Request Fields:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Path</th>
 <th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
 <th class="tableblock halign-left valign-top">Constraints</th>
 </tr>
 </thead>
@@ -780,12 +1267,14 @@ Content-Length: 16
 <td class="tableblock halign-left valign-top"><p class="tableblock">depth</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">indent for comment. representing recursive sub-comment. default is 0 (no depth)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">contents</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">body for comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -795,23 +1284,226 @@ Content-Length: 16
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/21/dislike HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments HTTP/1.1
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
 Content-Type: application/json; charset=UTF-8
-Host: api.druwa.com</code></pre>
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
+Content-Length: 45
+
+{
+        &quot;depth&quot;: 1,
+        &quot;contents&quot;: &quot;hello world!!&quot;
+}</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">created comment&#8217;s id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">createdAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create time of comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Response HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
+druwa-debug-token: 903AEE8CA9B1498B98FCF8C430EC9DFC
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 58
+
+{
+  &quot;id&quot; : 64,
+  &quot;createdAt&quot; : &quot;2020-01-09T04:43:53.106&quot;
+}</code></pre>
+</div>
+</div>
+<hr>
 </div>
 <div class="sect2">
-<h3 id="response-3"><a class="link" href="#response-3">Response</a></h3>
+<h3 id="like-2"><a class="link" href="#like-2">like</a></h3>
+<div class="paragraph">
+<p>CURL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/episodes/1/comments/21/like' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
+</div>
+<div class="paragraph">
+<p>Request Fields:</p>
+</div>
+<div class="paragraph">
+<p>Request HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/21/like HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
+Content-Type: application/json; charset=UTF-8
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Response HTTP Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: B8CCFE91AE7D4B5AA1325A82075185EC
+druwa-debug-token: 6040B007E5334C45A02FE5CC913D7B40
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 17
+
+{
+  &quot;like&quot; : 18
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="dislike-2"><a class="link" href="#dislike-2">dislike</a></h3>
+<div class="paragraph">
+<p>CURL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/episodes/1/comments/21/dislike' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Request Parameters:</p>
+</div>
+<div class="paragraph">
+<p>Request Fields:</p>
+</div>
+<div class="paragraph">
+<p>Request HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/21/dislike HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDIwODEyLCJleHAiOjE1NzkyODQ4MTJ9.4EQIx8_TYNHJdKpxsxrcBI1HKmgAi80rtnk3dLgFZMfnuxNvmx2X3MfureiCRjz29O0uTJFnQ84JMvzu_a_kfQ
+Content-Type: application/json; charset=UTF-8
+Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response Fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Response HTTP Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+druwa-debug-token: 2BBA366443FE46908B316F92D4952C2A
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -830,7 +1522,7 @@ Content-Length: 17
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-01-09 03:00:33 +0900
+Last updated 2020-01-09 04:43:40 +0900
 </div>
 </div>
 </body>

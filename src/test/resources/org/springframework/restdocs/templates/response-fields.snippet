@@ -1,24 +1,13 @@
 |===
-|Path|Type|Description
+|Path|Type|Description|Optional|Constraints
 
-|`+name+`
-|`+String+`
-|this is name
+{{ #fields }}
+|{{path}}
+|{{type}}
+|{{description}}
+|{{optional}}
+|{{ #constraints }}{{.}}{{ /constraints }}
 
-|`+email+`
-|`+String+`
-|this is email
-
-|`+age+`
-|`+Number+`
-|this is age
-
-|`+birthday+`
-|`+String+`
-|wow
-
-|`+phone+`
-|`+String+`
-|wow
+{{ /fields }}
 
 |===

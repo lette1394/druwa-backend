@@ -62,7 +62,6 @@ asciidoctor {
     dependsOn test
 
     copy {
-        println "Copy index.adoc"
         from 'src/docs/asciidoc'
         into snippetsDir
     }

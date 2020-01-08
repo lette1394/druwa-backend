@@ -26,8 +26,8 @@ public class DocsUtils {
         return spec.addFilter(documentationConfiguration(restDocumentation)
                                       .operationPreprocessors()
                                       .withRequestDefaults(modifyUris()
-                                                                   .host("api.druwa.com")
-                                                                   .removePort())
+                                                                   .host("ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com")
+                                                                   .port(8080))
                                       .withResponseDefaults(prettyPrint(),
                                                             removeHeaders("Date",
                                                                           "Keep-Alive",

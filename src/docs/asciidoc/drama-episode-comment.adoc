@@ -1,27 +1,66 @@
 [[drama-episode-comment]]
-== drama-episode-comment API
+== drama-episode-comment
+=== create
 
-=== Request
 CURL:
-include::{snippets}/drama-episode-comment/curl-request.adoc[]
+include::{snippets}/drama-episode-comment__create/curl-request.adoc[]
 
-ifdef::{snippets}/drama-episode-comment/request-parameters.adoc[]
 Request Parameters:
-include::{snippets}/drama-episode-comment/request-parameters.adoc[]
-endif::[]
+include::{snippets}/drama-episode-comment__create/request-parameters.adoc[]
 
 Request Fields:
-include::{snippets}/drama-episode-comment/request-fields.adoc[]
+include::{snippets}/drama-episode-comment__create/request-fields.adoc[]
 
 Request HTTP Example:
-include::{snippets}/drama-episode-comment/http-request.adoc[]
+include::{snippets}/drama-episode-comment__create/http-request.adoc[]
 
-
-=== Response
-ifdef::{snippets}/drama-episode-comment/response-fields.adoc[]
 Response Fields:
-include::{snippets}/drama-episode-comment/response-fields.adoc[]
-endif::[]
+include::{snippets}/drama-episode-comment__create/response-fields.adoc[]
 
 Response HTTP Example:
-include::{snippets}/drama-episode-comment/http-response.adoc[]
+include::{snippets}/drama-episode-comment__create/http-response.adoc[]
+
+
+'''
+
+=== like
+
+CURL:
+include::{snippets}/drama-episode-comment__like/curl-request.adoc[]
+
+Request Parameters:
+include::{snippets}/drama-episode-comment__like/request-parameters.adoc[]
+
+Request Fields:
+include::{snippets}/drama-episode-comment__like/request-fields.adoc[]
+
+Request HTTP Example:
+include::{snippets}/drama-episode-comment__like/http-request.adoc[]
+
+Response Fields:
+include::{snippets}/drama-episode-comment__like/response-fields.adoc[]
+
+Response HTTP Example:
+include::{snippets}/drama-episode-comment__like/http-response.adoc[]
+
+'''
+
+=== dislike
+
+CURL:
+include::{snippets}/drama-episode-comment__dislike/curl-request.adoc[]
+
+Request Parameters:
+include::{snippets}/drama-episode-comment__dislike/request-parameters.adoc[]
+
+Request Fields:
+include::{snippets}/drama-episode-comment__dislike/request-fields.adoc[]
+
+Request HTTP Example:
+include::{snippets}/drama-episode-comment__dislike/http-request.adoc[]
+
+Response Fields:
+include::{snippets}/drama-episode-comment__dislike/response-fields.adoc[]
+
+Response HTTP Example:
+include::{snippets}/drama-episode-comment__dislike/http-response.adoc[]

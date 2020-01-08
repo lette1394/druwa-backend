@@ -1,4 +1,4 @@
-== Rest Docs Sample API Document
+= Rest Docs Sample API Document
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -9,35 +9,30 @@
 [[introduction]]
 == 소개
 
-
 [[common]]
 == 공통 사항
 
 
-=== Domain
+//=== Domain
+//|===
+//| 환경 | domain
+//|===
+//
+//=== Header
+//
+//|===
+//| name | 설명
+//|===
+
+=== Response header
 
 |===
-| 환경 | domain
-|===
-
-
-
-=== Header
-
-|===
-| name | 설명
-|===
-
-=== 공통 Response Body
-
-|===
-| field | 설명
+| field | desciption
 
 | `druwa-debug-token`
 | 에러가 발생한 경우 이 토큰을 알려주세요
 
 |===
-
 
 include::auth.adoc[]
 include::drama.adoc[]

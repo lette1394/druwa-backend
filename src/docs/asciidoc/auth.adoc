@@ -1,41 +1,29 @@
 [[Auth]]
-== Auth API
-test token (druwa 개발자 계정입니다)
+== Auth
+
+**TEST TOKEN** (druwa 개발자 계정)
 
 [source]
 ----
 eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDAzNTUwLCJleHAiOjE1NzkyNjc1NTB9.mbscQ7B8bcGdVoPGY8y88rp1gGQFUdGGw7fKW-8pES515iI7XxbTTD0yIMKGiKMlftgbYLT0VwyU8rx29nwsKQ
 ----
 
-=== Request
-ifdef::{snippets}/auth/curl-request.adoc[]
+=== kakao
+
 CURL:
-include::{snippets}/auth/curl-request.adoc[]
-endif::[]
+include::{snippets}/auth__kakao/curl-request.adoc[]
 
-ifdef::{snippets}/auth/request-parameters.adoc[]
 Request Parameters:
-include::{snippets}/auth/request-parameters.adoc[]
-endif::[]
+include::{snippets}/auth__kakao/request-parameters.adoc[]
 
-ifdef::{snippets}/auth/request-fields.adoc[]
 Request Fields:
-include::{snippets}/auth/request-fields.adoc[]
-endif::[]
+include::{snippets}/auth__kakao/request-fields.adoc[]
 
-ifdef::{snippets}/auth/http-request.adoc[]
 Request HTTP Example:
-include::{snippets}/auth/http-request.adoc[]
-endif::[]
+include::{snippets}/auth__kakao/http-request.adoc[]
 
-
-=== Response
-ifdef::{snippets}/auth/response-fields.adoc[]
 Response Fields:
-include::{snippets}/auth/response-fields.adoc[]
-endif::[]
+include::{snippets}/auth__kakao/response-fields.adoc[]
 
-ifdef::{snippets}/auth/http-response.adoc[]
 Response HTTP Example:
-include::{snippets}/auth/http-response.adoc[]
-endif::[]
+include::{snippets}/auth__kakao/http-response.adoc[]

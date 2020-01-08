@@ -33,8 +33,6 @@ class DramaControllerTest {
 
     private RequestSpecification spec;
 
-    private static final String documentKey = "drama";
-
     @BeforeEach
     public void setUp(RestDocumentationContextProvider restDocumentation) {
         spec = DocsUtils.requestSpecification(restDocumentation, port);
@@ -45,7 +43,7 @@ class DramaControllerTest {
         final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama__create",
                                     requestFields(
                                             fieldWithPath("title").description("")
                                                                   .type(JsonFieldType.STRING)
@@ -83,7 +81,7 @@ class DramaControllerTest {
         final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama__find",
                                     responseFields(
                                             fieldWithPath("dramaId").description("")
                                                                     .type(JsonFieldType.NUMBER)
@@ -126,7 +124,7 @@ class DramaControllerTest {
         final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama__update",
                                     requestFields(
                                             fieldWithPath("title").description("")
                                                                   .optional()
@@ -163,7 +161,7 @@ class DramaControllerTest {
         final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama__like",
                                     responseFields(
                                             fieldWithPath("like").description("")
                                                                     .type(JsonFieldType.NUMBER)
@@ -184,7 +182,7 @@ class DramaControllerTest {
         final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
 
         given(spec).that()
-                   .filter(document(documentKey,
+                   .filter(document("drama__dislike",
                                     responseFields(
                                             fieldWithPath("like").description("")
                                                                  .type(JsonFieldType.NUMBER)

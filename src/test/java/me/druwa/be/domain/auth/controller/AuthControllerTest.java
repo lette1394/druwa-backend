@@ -31,8 +31,6 @@ class AuthControllerTest {
 
     private RequestSpecification spec;
 
-    private static final String documentKey = "auth";
-
     @BeforeEach
     public void setUp(RestDocumentationContextProvider restDocumentation) {
         spec = DocsUtils.requestSpecification(restDocumentation, port)
@@ -45,8 +43,9 @@ class AuthControllerTest {
     void kakao() {
         String regex = "https:\\/\\/kauth\\.kakao\\.com\\/oauth\\/authorize\\?response_type=code&client_id=\\w+&state=.*&redirect_uri=.*";
         given(spec).that()
-                   .filter(document(documentKey, requestParameters(
-                           parameterWithName("redirect_uri").description("oauth가 종료된 이후 redirect 될 endpoint.\n이후 ?token={token} 형태로 redirect url이 생성됩니다.\n e.g. https://druwa.netlify.com/oauth/check?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NTAzNDg1LCJleHAiOjE1NzkzNjc0ODV9.5h4iW5CET9prk-hxTxOg3DeuPfHpT9TUb-7OQ6cKZHGRBIsRW7C3sRtZydSuzm_B_K5fzUYaAYLRdyBoHjxPDQ")
+                   .filter(document("auth__kakao", requestParameters(
+                           parameterWithName("redirect_uri").description(
+                                   "oauth가 종료된 이후 redirect 될 endpoint.\n이후 ?token={token} 형태로 redirect url이 생성됩니다.\n e.g. https://druwa.netlify.com/oauth/check?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NTAzNDg1LCJleHAiOjE1NzkzNjc0ODV9.5h4iW5CET9prk-hxTxOg3DeuPfHpT9TUb-7OQ6cKZHGRBIsRW7C3sRtZydSuzm_B_K5fzUYaAYLRdyBoHjxPDQ")
                    )))
                    .when().get("/oauth2/authorize/kakao?redirect_uri=https://druwa.netlify.com/oauth/check")
                    .then()
