@@ -1,6 +1,7 @@
 package me.druwa.be.domain.common.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +12,7 @@ public class PositiveOrZeroLong {
     public static PositiveOrZeroLong ZERO = new PositiveOrZeroLong(0L);
     public static PositiveOrZeroLong ONE = new PositiveOrZeroLong(1L);
 
+    @JsonProperty
     private final Long value;
 
     @JsonCreator

@@ -115,7 +115,7 @@ public class Drama implements Mergeable<Drama> {
 
     public View.Read.Response toReadResponse() {
         return View.Read.Response.builder()
-                                 .id(dramaId)
+                                 .dramaId(dramaId)
                                  .title(title)
                                  .like(dramaLike)
                                  .productionCompany(productionCompany)
@@ -163,7 +163,7 @@ public class Drama implements Mergeable<Drama> {
             @Data
             @Builder
             public static class Response {
-                private Long id;
+                private Long dramaId;
                 private String title;
                 private String summary;
                 private String productionCompany;

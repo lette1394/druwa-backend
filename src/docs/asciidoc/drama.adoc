@@ -1,0 +1,27 @@
+[[drama]]
+== drama API
+
+=== Request
+CURL:
+include::{snippets}/drama/curl-request.adoc[]
+
+ifdef::{snippets}/drama/request-parameters.adoc[]
+Request Parameters:
+include::{snippets}/drama/request-parameters.adoc[]
+endif::[]
+
+Request Fields:
+include::{snippets}/drama/request-fields.adoc[]
+
+Request HTTP Example:
+include::{snippets}/drama/http-request.adoc[]
+
+
+=== Response
+ifdef::{snippets}/drama/response-fields.adoc[]
+Response Fields:
+include::{snippets}/drama/response-fields.adoc[]
+endif::[]
+
+Response HTTP Example:
+include::{snippets}/drama/http-response.adoc[]

@@ -17,7 +17,6 @@ import me.druwa.be.util.AutoSpringBootTest;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static io.restassured.module.jsv.JsonSchemaValidator.settings;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -74,24 +73,130 @@ class DramaControllerTest {
                    .when().post("/dramas")
                    .then()
                    .assertThat()
-                   .body(matchesJsonSchemaInClasspath("json/schema/drama_create_response.json"))
+                   .body(matchesJsonSchemaInClasspath("json/schema/dramas_post.json"))
                    .statusCode(is(HttpStatus.CREATED.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
     @Test
     void find() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document(documentKey,
+                                    responseFields(
+                                            fieldWithPath("dramaId").description("")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(request.constraint("dramaId")),
+                                            fieldWithPath("title").description("")
+                                                                  .type(JsonFieldType.STRING)
+                                                                  .attributes(request.constraint("title")),
+                                            fieldWithPath("productionCompany").description("")
+                                                                              .type(JsonFieldType.STRING)
+                                                                              .attributes(request.constraint(
+                                                                                      "productionCompany")),
+                                            fieldWithPath("title").description("")
+                                                                  .type(JsonFieldType.STRING)
+                                                                  .attributes(request.constraint("title")),
+                                            fieldWithPath("like").description("")
+                                                                 .type(JsonFieldType.NUMBER)
+                                                                 .attributes(request.constraint("like")),
+                                            fieldWithPath("createdAt").description("")
+                                                                      .type(JsonFieldType.STRING)
+                                                                      .attributes(request.constraint("createdAt")),
+                                            fieldWithPath("updatedAt").description("")
+                                                                      .type(JsonFieldType.STRING)
+                                                                      .attributes(request.constraint("updatedAt")),
+                                            fieldWithPath("summary").description("")
+                                                                    .type(JsonFieldType.STRING)
+                                                                    .attributes(request.constraint("summary")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().get("/dramas/{dramaId}", 15)
+                   .then()
+                   .assertThat()
+                   .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_get.json"))
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
     @Test
     void update() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document(documentKey,
+                                    requestFields(
+                                            fieldWithPath("title").description("")
+                                                                  .optional()
+                                                                  .type(JsonFieldType.STRING)
+                                                                  .attributes(request.constraint("title")),
+                                            fieldWithPath("productionCompany").description("")
+                                                                              .optional()
+                                                                              .type(JsonFieldType.STRING)
+                                                                              .attributes(request.constraint(
+                                                                                      "productionCompany")),
+                                            fieldWithPath("summary").description("")
+                                                                    .optional()
+                                                                    .type(JsonFieldType.STRING)
+                                                                    .attributes(request.constraint("summary")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .body("" +
+                                 "{\n" +
+                                 "  \"title\": \"연애플레이리스트 시즌 1\",\n" +
+                                 "  \"productionCompany\": \"플레이리스트\"\n" +
+                                 "}"
+                   )
+                   .when().patch("/dramas/{dramaId}", 15)
+                   .then()
+                   .assertThat()
+                   .body(matchesJsonSchemaInClasspath("json/schema/dramas_post.json"))
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
     @Test
     void like() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document(documentKey,
+                                    responseFields(
+                                            fieldWithPath("like").description("")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(request.constraint("like")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().post("/dramas/{dramaId}/like", 15)
+                   .then()
+                   .assertThat()
+                   .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_like.json"))
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
     @Test
     void dislike() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document(documentKey,
+                                    responseFields(
+                                            fieldWithPath("like").description("")
+                                                                 .type(JsonFieldType.NUMBER)
+                                                                 .attributes(request.constraint("like")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().post("/dramas/{dramaId}/dislike", 15)
+                   .then()
+                   .assertThat()
+                   .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_like.json"))
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 }

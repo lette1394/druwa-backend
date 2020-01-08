@@ -1,0 +1,12 @@
+[
+  {
+    "id": 21,
+    "depth": "1",
+    "next": -1,
+    "prev": -1,
+    "contents": "hello world!!",
+    "like": 17,
+    "createdAt": "2020-01-09T02:34:53.314",
+    "updatedAt": "2020-01-09T02:40:08.274"
+  }
+]

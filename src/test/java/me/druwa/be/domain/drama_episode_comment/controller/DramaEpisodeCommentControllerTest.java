@@ -1,5 +1,6 @@
 package me.druwa.be.domain.drama_episode_comment.controller;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -68,33 +69,46 @@ class DramaEpisodeCommentControllerTest {
                                  "\t\"depth\": 1,\n" +
                                  "\t\"contents\": \"hello world!!\"\n" +
                                  "}")
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments", 41, 79)
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments", 15, 1)
                    .then()
                    .assertThat()
                    .statusCode(is(HttpStatus.CREATED.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
-    @Test
-    void list() {
-        given(spec).that()
-                   .filter(document(documentKey,
-                                    responseFields(
-                                            fieldWithPath(".").description("")
-                                                              .type(JsonFieldType.ARRAY),
-                                            fieldWithPath("id").description("comment's id")
-                                                               .type(JsonFieldType.NUMBER),
-                                            fieldWithPath("createdAt").description("create time of comment")
-                                                                      .type(JsonFieldType.STRING))))
-                   .accept(MediaType.APPLICATION_JSON_VALUE)
-                   .contentType(MediaType.APPLICATION_JSON_VALUE)
-                   .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments", 41, 79)
-                   .then().assertThat()
-                   .statusCode(is(HttpStatus.OK.value()))
-                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_comment.json"))
-                   .contentType(MediaType.APPLICATION_JSON_VALUE);
-    }
+//    @Test
+//    @Ignore
+//    void list() {
+//        given(spec).that()
+//                   .filter(document(documentKey,
+//                                    responseFields(
+//                                            fieldWithPath("[]").description("")
+//                                                               .type(JsonFieldType.ARRAY),
+//                                            fieldWithPath("[].id").description("comment's id")
+//                                                                  .type(JsonFieldType.NUMBER),
+//                                            fieldWithPath("[].depth").description("comment's id")
+//                                                                     .type(JsonFieldType.NUMBER),
+//                                            fieldWithPath("[].next").description("comment's id")
+//                                                                    .type(JsonFieldType.NUMBER),
+//                                            fieldWithPath("[].prev").description("comment's id")
+//                                                                    .type(JsonFieldType.NUMBER),
+//                                            fieldWithPath("[].contents").description("comment's id")
+//                                                                        .type(JsonFieldType.STRING),
+//                                            fieldWithPath("[].like").description("comment's id")
+//                                                                    .type(JsonFieldType.NUMBER),
+//                                            fieldWithPath("[].createdAt").description("create time of comment")
+//                                                                         .type(JsonFieldType.STRING),
+//                                            fieldWithPath("[].updatedAt").description("comment's id")
+//                                                                         .type(JsonFieldType.STRING))))
+//                   .accept(MediaType.APPLICATION_JSON_VALUE)
+//                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                   .header(DocsUtils.testAuthorization())
+//                   .when().get("/dramas/{dramaId}/episodes/{episodeId}/comments", 15, 1)
+//                   .then().assertThat()
+//                   .statusCode(is(HttpStatus.OK.value()))
+//                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_id_get_comment.json"))
+//                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+//    }
 
     @Test
     void like() {
@@ -109,9 +123,9 @@ class DramaEpisodeCommentControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like", 41, 79, 6)
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like", 15, 1, 21)
                    .then().assertThat()
-                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_comment.json"))
+                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_post_like.json"))
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
@@ -129,9 +143,9 @@ class DramaEpisodeCommentControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike", 41, 79, 497)
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike", 15, 1, 21)
                    .then().assertThat()
-                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_comment.json"))
+                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_post_like.json"))
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }

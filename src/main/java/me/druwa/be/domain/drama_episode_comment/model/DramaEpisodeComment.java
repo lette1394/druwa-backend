@@ -20,7 +20,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.transaction.annotation.Transactional;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -160,11 +163,20 @@ public class DramaEpisodeComment {
             @Builder
             public static class Response {
                 private Long id;
+
+                @JsonUnwrapped
                 private PositiveOrZeroLong depth;
+
+                @JsonInclude
                 private Long next;
+
+                @JsonInclude
                 private Long prev;
+
                 private String contents;
+
                 private Long like;
+
                 @JsonUnwrapped
                 private Timestamp timestamp;
             }
