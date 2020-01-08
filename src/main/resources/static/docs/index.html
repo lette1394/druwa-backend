@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>Rest Docs Sample API Document</title>
+<title>Drawa backend API documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -524,7 +524,7 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Rest Docs Sample API Document</h1>
+<h1>Drawa backend API documentation</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
@@ -565,7 +565,13 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">Introduce</a></h2>
 <div class="sectionbody">
-
+<div class="ulist">
+<ul>
+<li>
+<p>잘 부탁드립니다 ( _ _)</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -608,7 +614,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect2">
 <h3 id="kakao"><a class="link" href="#kakao">kakao</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -616,7 +622,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -639,10 +645,10 @@ table.CodeRay td.code>pre{padding:0}
 </tbody>
 </table>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -651,18 +657,18 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Field</strong></p>
 </div>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 302 Found
-druwa-debug-token: 41F9CE495BA342FFB8C01FE637FF4377
-Set-Cookie: oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAggCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyAB5qYXZhLnV0aWwuQ29sbGVjdGlvbnMkRW1wdHlNYXBZNhSFWtzn0AIAAHhwc3EAfgAHc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoTWFwNMBOXBBswPsCAAFaAAthY2Nlc3NPcmRlcnhyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAF3CAAAAAIAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAFa2FrYW94AHNyAD9vcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLkF1dGhvcml6YXRpb25HcmFudFR5cGUAAAAAAAACCAIAAUwABXZhbHVlcQB-AAN4cHQAEmF1dGhvcml6YXRpb25fY29kZXQA2Wh0dHBzOi8va2F1dGgua2FrYW8uY29tL29hdXRoL2F1dGhvcml6ZT9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTk1ZjBlYjc5M2RlZjIzYzM3YmE0ZDE1MDY5ZjI5OTliJnN0YXRlPUJSbV9td0VIc1o1eVJ4ZWRqM3Q1eG1QWUw4WkdCbklaYVNXbmRFMkw2VFUlM0QmcmVkaXJlY3RfdXJpPWh0dHA6Ly9sb2NhbGhvc3Q6NTg4Mzkvb2F1dGgyL2NhbGxiYWNrL2NvZGUva2FrYW90ACdodHRwczovL2thdXRoLmtha2FvLmNvbS9vYXV0aC9hdXRob3JpemV0ACA5NWYwZWI3OTNkZWYyM2MzN2JhNGQxNTA2OWYyOTk5YnQAMWh0dHA6Ly9sb2NhbGhvc3Q6NTg4Mzkvb2F1dGgyL2NhbGxiYWNrL2NvZGUva2FrYW9zcgBRb3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5lbmRwb2ludC5PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlAAAAAAAAAggCAAFMAAV2YWx1ZXEAfgADeHB0AARjb2Rlc3IAJWphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVTZXSAHZLRj5uAVQIAAHhyACxqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlQ29sbGVjdGlvbhlCAIDLXvceAgABTAABY3QAFkxqYXZhL3V0aWwvQ29sbGVjdGlvbjt4cHNyAB5qYXZhLnV0aWwuQ29sbGVjdGlvbnMkRW1wdHlTZXQV9XIdtAPLKAIAAHhwdAAsQlJtX213RUhzWjV5UnhlZGozdDV4bVBZTDhaR0JuSVphU1duZEUyTDZUVT0=; Max-Age=180; Expires=Wed, 08-Jan-2020 19:49:32 GMT; Path=/; HttpOnly
-Set-Cookie: redirect_uri=https://druwa.netlify.com/oauth/check; Max-Age=180; Expires=Wed, 08-Jan-2020 19:49:32 GMT; Path=/; HttpOnly
-Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=BRm_mwEHsZ5yRxedj3t5xmPYL8ZGBnIZaSWndE2L6TU%3D&amp;redirect_uri=http://localhost:58839/oauth2/callback/code/kakao</code></pre>
+druwa-debug-token: D3563EF781B84941BA1B99DB7DAEB1E0
+Set-Cookie: oauth2_auth_request=rO0ABXNyAExvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLmVuZHBvaW50Lk9BdXRoMkF1dGhvcml6YXRpb25SZXF1ZXN0AAAAAAAAAggCAApMABRhZGRpdGlvbmFsUGFyYW1ldGVyc3QAD0xqYXZhL3V0aWwvTWFwO0wACmF0dHJpYnV0ZXNxAH4AAUwAFmF1dGhvcml6YXRpb25HcmFudFR5cGV0AEFMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9BdXRob3JpemF0aW9uR3JhbnRUeXBlO0wAF2F1dGhvcml6YXRpb25SZXF1ZXN0VXJpdAASTGphdmEvbGFuZy9TdHJpbmc7TAAQYXV0aG9yaXphdGlvblVyaXEAfgADTAAIY2xpZW50SWRxAH4AA0wAC3JlZGlyZWN0VXJpcQB-AANMAAxyZXNwb25zZVR5cGV0AFNMb3JnL3NwcmluZ2ZyYW1ld29yay9zZWN1cml0eS9vYXV0aDIvY29yZS9lbmRwb2ludC9PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlO0wABnNjb3Blc3QAD0xqYXZhL3V0aWwvU2V0O0wABXN0YXRlcQB-AAN4cHNyACVqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTWFw8aWo_nT1B0ICAAFMAAFtcQB-AAF4cHNyAB5qYXZhLnV0aWwuQ29sbGVjdGlvbnMkRW1wdHlNYXBZNhSFWtzn0AIAAHhwc3EAfgAHc3IAF2phdmEudXRpbC5MaW5rZWRIYXNoTWFwNMBOXBBswPsCAAFaAAthY2Nlc3NPcmRlcnhyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAF3CAAAAAIAAAABdAAPcmVnaXN0cmF0aW9uX2lkdAAFa2FrYW94AHNyAD9vcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5Lm9hdXRoMi5jb3JlLkF1dGhvcml6YXRpb25HcmFudFR5cGUAAAAAAAACCAIAAUwABXZhbHVlcQB-AAN4cHQAEmF1dGhvcml6YXRpb25fY29kZXQA2Wh0dHBzOi8va2F1dGgua2FrYW8uY29tL29hdXRoL2F1dGhvcml6ZT9yZXNwb25zZV90eXBlPWNvZGUmY2xpZW50X2lkPTk1ZjBlYjc5M2RlZjIzYzM3YmE0ZDE1MDY5ZjI5OTliJnN0YXRlPWswdkxHbTFDelo1c3RmcmhORHhEY2RQQ3IyWVRvamxWWlpTQ0UwX1E4SU0lM0QmcmVkaXJlY3RfdXJpPWh0dHA6Ly9sb2NhbGhvc3Q6NTk2OTAvb2F1dGgyL2NhbGxiYWNrL2NvZGUva2FrYW90ACdodHRwczovL2thdXRoLmtha2FvLmNvbS9vYXV0aC9hdXRob3JpemV0ACA5NWYwZWI3OTNkZWYyM2MzN2JhNGQxNTA2OWYyOTk5YnQAMWh0dHA6Ly9sb2NhbGhvc3Q6NTk2OTAvb2F1dGgyL2NhbGxiYWNrL2NvZGUva2FrYW9zcgBRb3JnLnNwcmluZ2ZyYW1ld29yay5zZWN1cml0eS5vYXV0aDIuY29yZS5lbmRwb2ludC5PQXV0aDJBdXRob3JpemF0aW9uUmVzcG9uc2VUeXBlAAAAAAAAAggCAAFMAAV2YWx1ZXEAfgADeHB0AARjb2Rlc3IAJWphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVTZXSAHZLRj5uAVQIAAHhyACxqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlQ29sbGVjdGlvbhlCAIDLXvceAgABTAABY3QAFkxqYXZhL3V0aWwvQ29sbGVjdGlvbjt4cHNyAB5qYXZhLnV0aWwuQ29sbGVjdGlvbnMkRW1wdHlTZXQV9XIdtAPLKAIAAHhwdAAsazB2TEdtMUN6WjVzdGZyaE5EeERjZFBDcjJZVG9qbFZaWlNDRTBfUThJTT0=; Max-Age=180; Expires=Wed, 08-Jan-2020 19:56:56 GMT; Path=/; HttpOnly
+Set-Cookie: redirect_uri=https://druwa.netlify.com/oauth/check; Max-Age=180; Expires=Wed, 08-Jan-2020 19:56:56 GMT; Path=/; HttpOnly
+Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=k0vLGm1CzZ5stfrhNDxDcdPCr2YTojlVZZSCE0_Q8IM%3D&amp;redirect_uri=http://localhost:59690/oauth2/callback/code/kakao</code></pre>
 </div>
 </div>
 </div>
@@ -674,7 +680,7 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 <div class="sect2">
 <h3 id="create"><a class="link" href="#create">create</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -690,10 +696,10 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -740,7 +746,7 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 </tbody>
 </table>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -759,7 +765,7 @@ Content-Length: 172
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -789,12 +795,12 @@ Content-Length: 172
 </tbody>
 </table>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
-druwa-debug-token: 1B1C8F8505EC417B95BA1ADA2A0E1F5B
+druwa-debug-token: 424329D742204FD3ACF7B2CD73726736
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -802,7 +808,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 20
 
 {
-  &quot;dramaId&quot; : 67
+  &quot;dramaId&quot; : 69
 }</code></pre>
 </div>
 </div>
@@ -811,7 +817,7 @@ Content-Length: 20
 <div class="sect2">
 <h3 id="find"><a class="link" href="#find">find</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -822,13 +828,13 @@ Content-Length: 20
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -840,7 +846,7 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -923,12 +929,12 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: AAF58F366F6A4023B88B994BDEFAC078
+druwa-debug-token: 5382F9C71C6843C4A0F46872A21AB3B4
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -942,7 +948,7 @@ Content-Length: 292
   &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
   &quot;like&quot; : 0,
   &quot;createdAt&quot; : &quot;2020-01-08T03:37:28.12&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-09T04:43:54.041&quot;
+  &quot;updatedAt&quot; : &quot;2020-01-09T04:46:34.032&quot;
 }</code></pre>
 </div>
 </div>
@@ -951,7 +957,7 @@ Content-Length: 292
 <div class="sect2">
 <h3 id="update"><a class="link" href="#update">update</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -966,10 +972,10 @@ Content-Length: 292
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1016,7 +1022,7 @@ Content-Length: 292
 </tbody>
 </table>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1034,15 +1040,15 @@ Content-Length: 95
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: 7D978AE215E742B49688600B0E19CB2F
+druwa-debug-token: 7F69BA132F1F49C7A2AA3973200B79BE
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -1059,7 +1065,7 @@ Content-Length: 20
 <div class="sect2">
 <h3 id="like"><a class="link" href="#like">like</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1070,13 +1076,13 @@ Content-Length: 20
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1088,7 +1094,7 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1118,12 +1124,12 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: CB3E11897B76426A8B881064AC30E32D
+druwa-debug-token: CB8C216C960E47EBB3708A4C8167796F
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -1140,7 +1146,7 @@ Content-Length: 16
 <div class="sect2">
 <h3 id="dislike"><a class="link" href="#dislike">dislike</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1151,13 +1157,13 @@ Content-Length: 16
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1169,7 +1175,7 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1199,12 +1205,12 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: FE7DF0ED86AE476AACD84A39F8296B96
+druwa-debug-token: C35A07BCCBA045279938DF8868CCBB90
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -1225,7 +1231,7 @@ Content-Length: 16
 <div class="sect2">
 <h3 id="create-2"><a class="link" href="#create-2">create</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1240,10 +1246,10 @@ Content-Length: 16
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1280,7 +1286,7 @@ Content-Length: 16
 </tbody>
 </table>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1298,7 +1304,7 @@ Content-Length: 45
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1335,12 +1341,12 @@ Content-Length: 45
 </tbody>
 </table>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
-druwa-debug-token: 638B0FB40946410D80F8971F38986535
+druwa-debug-token: 20F35F1672C749AB831F282F6130CB4B
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -1348,8 +1354,8 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 58
 
 {
-  &quot;id&quot; : 66,
-  &quot;createdAt&quot; : &quot;2020-01-09T04:46:33.052&quot;
+  &quot;id&quot; : 68,
+  &quot;createdAt&quot; : &quot;2020-01-09T04:53:57.282&quot;
 }</code></pre>
 </div>
 </div>
@@ -1358,7 +1364,7 @@ Content-Length: 58
 <div class="sect2">
 <h3 id="like-2"><a class="link" href="#like-2">like</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1369,13 +1375,13 @@ Content-Length: 58
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1387,7 +1393,7 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1417,12 +1423,12 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: 7001CB61271C474BACCC601D454FCAAD
+druwa-debug-token: 1E02A98F9F9F4D4992A9F7F80EC490B3
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -1439,7 +1445,7 @@ Content-Length: 17
 <div class="sect2">
 <h3 id="dislike-2"><a class="link" href="#dislike-2">dislike</a></h3>
 <div class="paragraph">
-<p>CURL:</p>
+<p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1450,13 +1456,13 @@ Content-Length: 17
 </div>
 </div>
 <div class="paragraph">
-<p>Request Parameters:</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p>Request Fields:</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
-<p>Request HTTP Example:</p>
+<p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1468,7 +1474,7 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Response Fields:</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1498,12 +1504,12 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Response HTTP Example:</p>
+<p><strong>&gt; Response HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-druwa-debug-token: 7DA62A3E3E6846469D9B7A383CE57994
+druwa-debug-token: 921113EB045749D3BDA0DB081BCE9D1D
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -1522,7 +1528,7 @@ Content-Length: 17
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-01-09 04:46:20 +0900
+Last updated 2020-01-09 04:53:44 +0900
 </div>
 </div>
 </body>
