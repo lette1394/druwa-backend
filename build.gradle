@@ -138,6 +138,8 @@ dependencies {
     implementation('io.rest-assured:xml-path')
     implementation('io.rest-assured:spring-mock-mvc')
 
+    implementation('com.amazonaws:aws-java-sdk:1.11.703')
+
     testImplementation('org.junit.jupiter:junit-jupiter-api')
     testImplementation('org.junit.jupiter:junit-jupiter-engine')
     testImplementation('org.junit.jupiter:junit-jupiter-params')

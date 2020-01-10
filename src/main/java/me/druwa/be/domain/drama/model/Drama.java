@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -65,6 +65,9 @@ public class Drama implements Mergeable<Drama> {
     @Size(max = PRODUCT_COMPANY_MAX_LENGTH)
     private String productionCompany;
 
+    @Column
+    private String imageKey;
+
     @Embedded
     private Like dramaLike;
 
@@ -104,6 +107,16 @@ public class Drama implements Mergeable<Drama> {
         return this;
     }
 
+    public Drama populateImageKey(final String key) {
+        imageKey = key;
+        return this;
+    }
+
+    public Drama populateUser(final User user) {
+        registeredBy = user;
+        return this;
+    }
+
     @PrePersist
     public void onCreate() {
         timestamp = Timestamp.now();
@@ -127,6 +140,7 @@ public class Drama implements Mergeable<Drama> {
                                  .title(title)
                                  .like(dramaLike)
                                  .productionCompany(productionCompany)
+                                 .imageUrl("https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/" + imageKey)
                                  .summary(summary)
                                  .timestamp(timestamp)
                                  .build();
@@ -137,18 +151,33 @@ public class Drama implements Mergeable<Drama> {
         @Data
         public static class Create {
             @Data
+            @EqualsAndHashCode(callSuper = true)
+            public static class MultipartRequest extends Request {
+                @NotNull
+                private MultipartFile image;
+
+                public Drama toPartialDrama() {
+                    return Drama.builder()
+                                .title(title)
+                                .productionCompany(productionCompany)
+                                .summary(summary)
+                                .build();
+                }
+            }
+
+            @Data
             public static class Request {
                 @NotBlank
                 @Size(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH)
-                private String title;
+                protected String title;
 
                 @NotBlank
                 @Size(max = PRODUCT_COMPANY_MAX_LENGTH)
-                private String productionCompany;
+                protected String productionCompany;
 
                 @NotBlank
                 @Size(max = SUMMARY_MAX_LENGTH)
-                private String summary;
+                protected String summary;
 
                 public Drama toPartialDrama() {
                     return Drama.builder()
@@ -175,6 +204,7 @@ public class Drama implements Mergeable<Drama> {
                 private String title;
                 private String summary;
                 private String productionCompany;
+                private String imageUrl;
                 @JsonUnwrapped
                 private Like like;
                 @JsonUnwrapped
