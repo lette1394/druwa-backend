@@ -28,7 +28,10 @@ import me.druwa.be.domain.common.model.IgnoreMerge;
 import me.druwa.be.domain.common.model.Mergeable;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama_episode_comment.model.Like;
+import me.druwa.be.domain.drama_tag.DramaTag;
+import me.druwa.be.domain.drama_tag.DramaTags;
 import me.druwa.be.domain.user.model.User;
+import me.druwa.be.domain.user.model.Users;
 
 @Entity
 @EqualsAndHashCode(of = "dramaId")
@@ -72,12 +75,13 @@ public class Drama implements Mergeable<Drama> {
     @ManyToOne
     private User registeredBy;
 
+    @ManyToMany
+    private Set<DramaTag> dramaTags;
+
     @NotNull
     @Embedded
     private Timestamp timestamp;
 
-
-    @Transactional
     public Like doLike(final User user) {
         if (likeUsers.contains(user)) {
             return dramaLike;
@@ -86,7 +90,6 @@ public class Drama implements Mergeable<Drama> {
         return dramaLike.doLike();
     }
 
-    @Transactional
     public Like doDislike(final User user) {
         if (likeUsers.contains(user)) {
             likeUsers.remove(user);
@@ -95,6 +98,11 @@ public class Drama implements Mergeable<Drama> {
         return dramaLike;
     }
 
+    // TODO: 성능 개선 지점
+    public Drama update(final DramaTags dramaTags) {
+        setDramaTags(getDramaTags().merge(dramaTags));
+        return this;
+    }
 
     @PrePersist
     public void onCreate() {
@@ -196,5 +204,17 @@ public class Drama implements Mergeable<Drama> {
                 }
             }
         }
+    }
+
+    private Users getLikeUsers() {
+        return Users.users(likeUsers);
+    }
+
+    private DramaTags getDramaTags() {
+        return DramaTags.dramaTags(dramaTags);
+    }
+
+    public void setDramaTags(final DramaTags dramaTags) {
+        this.dramaTags = dramaTags.raw();
     }
 }

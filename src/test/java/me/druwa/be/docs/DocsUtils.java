@@ -30,8 +30,9 @@ public class DocsUtils {
                                               removeHeaders("Authorization",
                                                             "Host"),
                                               modifyUris()
-                                                      .host("ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com")
-                                                      .port(8080))
+                                                      .host("api.druwa.site")
+                                                      .scheme("https")
+                                                      .removePort())
                                       .withResponseDefaults(
                                               prettyPrint(),
                                               removeHeaders("Date",

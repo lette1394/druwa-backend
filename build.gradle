@@ -41,7 +41,7 @@ ext {
 sourceSets {
     main {
         java {
-            srcDirs += querydslOutputDir
+            srcDirs += file(querydslOutputDir)
         }
     }
 }

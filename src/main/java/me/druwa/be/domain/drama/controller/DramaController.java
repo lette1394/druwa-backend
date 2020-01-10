@@ -61,7 +61,7 @@ public class DramaController {
                                   @PathVariable final long dramaId,
                                   @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
-        final Like like = dramaService.doLike(user, dramaId);
+        final Like like = dramaService.doLike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
                              .body(like.toResponse());
@@ -72,7 +72,7 @@ public class DramaController {
                                      @PathVariable final long dramaId,
                                      @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
-        final Like like = dramaService.doDislike(user, dramaId);
+        final Like like = dramaService.doDislike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
                              .body(like.toResponse());

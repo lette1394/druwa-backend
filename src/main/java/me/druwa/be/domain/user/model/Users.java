@@ -16,6 +16,10 @@ public class Users {
         return new Users(Sets.newHashSet(users));
     }
 
+    public static Users users(final Set<User> users) {
+        return new Users(users);
+    }
+
     public boolean has(final User user) {
         return users.contains(user);
     }

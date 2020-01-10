@@ -2,6 +2,7 @@ package me.druwa.be.global.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.ConversionNotSupportedException;
@@ -119,6 +120,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                              final HttpStatus status,
                                                              final WebRequest request) {
         LoggingUtils.dumpThrowable(ex);
+        if (ex.getCause() instanceof NoSuchElementException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .build();
+        }
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 }

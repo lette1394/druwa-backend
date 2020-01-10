@@ -13,6 +13,7 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
+import com.google.common.base.Charsets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -55,10 +56,10 @@ class HttpMessageJsonLogFilter extends OncePerRequestFilter {
 
     protected void afterRequest(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response) {
         if (log.isInfoEnabled()) {
-            logBody("CLIENT -> body", request.getContentAsByteArray(), request.getCharacterEncoding());
+            logBody("CLIENT -> body", request.getContentAsByteArray(), Charsets.UTF_8.name());
 
             logHeaders(response);
-            logBody("body <- SERVER", response.getContentAsByteArray(), response.getCharacterEncoding());
+            logBody("body <- SERVER", response.getContentAsByteArray(), Charsets.UTF_8.name());
         }
     }
 
