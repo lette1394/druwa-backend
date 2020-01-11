@@ -115,7 +115,7 @@ class DramaControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().get("/dramas/{dramaId}", 95)
+                   .when().get("/dramas/{dramaId}", 38)
                    .then()
                    .assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_get.json"))

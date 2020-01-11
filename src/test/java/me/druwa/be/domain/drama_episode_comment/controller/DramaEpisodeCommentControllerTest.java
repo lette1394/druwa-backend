@@ -74,7 +74,6 @@ class DramaEpisodeCommentControllerTest {
     }
 
 //    @Test
-//    @Ignore
 //    void list() {
 //        given(spec).that()
 //                   .filter(document("drama-episode-comment__list",
@@ -120,7 +119,7 @@ class DramaEpisodeCommentControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like", 15, 1, 21)
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like", 15, 1, 19)
                    .then().assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_post_like.json"))
                    .statusCode(is(HttpStatus.OK.value()))
@@ -140,7 +139,7 @@ class DramaEpisodeCommentControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike", 15, 1, 21)
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike", 15, 1, 19)
                    .then().assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_post_like.json"))
                    .statusCode(is(HttpStatus.OK.value()))

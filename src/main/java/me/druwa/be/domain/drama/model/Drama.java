@@ -2,12 +2,15 @@ package me.druwa.be.domain.drama.model;
 
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
@@ -19,7 +22,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,10 +39,10 @@ import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.model.Users;
 
 @Entity
+@Table(name = "drama_")
 @EqualsAndHashCode(of = "dramaId")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "drama_")
 @Builder
 public class Drama implements Mergeable<Drama> {
     private static final int TITLE_MIN_LENGTH = 2;
@@ -52,6 +54,7 @@ public class Drama implements Mergeable<Drama> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @IgnoreMerge
     @Getter
+    @Column(name = "drama_id")
     private Long dramaId;
 
     @Column
@@ -74,8 +77,11 @@ public class Drama implements Mergeable<Drama> {
     @Embedded
     private Like dramaLike;
 
-    @ManyToMany
-    private Set<User> likeUsers;
+    @Embedded
+    @AssociationOverride(name = "users",
+                         joinColumns = @JoinColumn(name = "user_id"),
+                         joinTable = @JoinTable(name = "drama_like_"))
+    private Users likeUsers;
 
     @NotNull
     @ManyToOne
@@ -244,10 +250,6 @@ public class Drama implements Mergeable<Drama> {
                 }
             }
         }
-    }
-
-    private Users getLikeUsers() {
-        return Users.users(likeUsers);
     }
 
     private DramaTags getDramaTags() {

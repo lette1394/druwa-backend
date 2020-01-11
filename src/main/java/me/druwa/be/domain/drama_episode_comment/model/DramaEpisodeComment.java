@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
@@ -61,8 +63,8 @@ public class DramaEpisodeComment {
     private DramaEpisodeComment prev;
 
     @Embedded
-    @Builder.Default
     @NotNull
+    @Builder.Default
     private Like commentLike = new Like();
 
     @ManyToOne
@@ -82,6 +84,7 @@ public class DramaEpisodeComment {
     @PrePersist
     public void onCreate() {
         timestamp = Timestamp.now();
+        commentLike = new Like();
     }
 
     @PreUpdate
