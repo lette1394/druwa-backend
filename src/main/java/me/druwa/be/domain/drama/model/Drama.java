@@ -1,5 +1,6 @@
 package me.druwa.be.domain.drama.model;
 
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -17,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -65,8 +68,8 @@ public class Drama implements Mergeable<Drama> {
     @Size(max = PRODUCT_COMPANY_MAX_LENGTH)
     private String productionCompany;
 
-    @Column
-    private String imageKey;
+    @Embedded
+    private DramaImage dramaImage;
 
     @Embedded
     private Like dramaLike;
@@ -108,7 +111,7 @@ public class Drama implements Mergeable<Drama> {
     }
 
     public Drama populateImageKey(final String key) {
-        imageKey = key;
+        dramaImage = new DramaImage(key);
         return this;
     }
 
@@ -128,6 +131,13 @@ public class Drama implements Mergeable<Drama> {
         timestamp.onUpdate();
     }
 
+    @PostLoad
+    public void onLoad() {
+        if (Objects.isNull(dramaImage)) {
+            dramaImage = new NullDramaImage();
+        }
+    }
+
     public View.Create.Response toCreateResponse() {
         return View.Create.Response.builder()
                                    .dramaId(dramaId)
@@ -140,7 +150,7 @@ public class Drama implements Mergeable<Drama> {
                                  .title(title)
                                  .like(dramaLike)
                                  .productionCompany(productionCompany)
-                                 .imageUrl("https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/" + imageKey)
+                                 .imageUrl(dramaImage.toS3Url())
                                  .summary(summary)
                                  .timestamp(timestamp)
                                  .build();

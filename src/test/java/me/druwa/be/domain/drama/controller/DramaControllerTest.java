@@ -96,6 +96,10 @@ class DramaControllerTest {
                                             fieldWithPath("title").description("")
                                                                   .type(JsonFieldType.STRING)
                                                                   .attributes(request.constraint("title")),
+                                            fieldWithPath("imageUrl").description("")
+                                                                     .optional()
+                                                                     .type(JsonFieldType.STRING)
+                                                                     .attributes(request.constraint("imageUrl")),
                                             fieldWithPath("like").description("")
                                                                  .type(JsonFieldType.NUMBER)
                                                                  .attributes(request.constraint("like")),
@@ -111,7 +115,7 @@ class DramaControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().get("/dramas/{dramaId}", 15)
+                   .when().get("/dramas/{dramaId}", 95)
                    .then()
                    .assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_get.json"))
@@ -164,8 +168,8 @@ class DramaControllerTest {
                    .filter(document("drama__like",
                                     responseFields(
                                             fieldWithPath("like").description("")
-                                                                    .type(JsonFieldType.NUMBER)
-                                                                    .attributes(request.constraint("like")))))
+                                                                 .type(JsonFieldType.NUMBER)
+                                                                 .attributes(request.constraint("like")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())

@@ -1,9 +1,12 @@
 package me.druwa.be.domain.drama_episode_comment.model;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
+import me.druwa.be.domain.common.model.Timestamp;
 
 @Embeddable
 @NoArgsConstructor
@@ -23,9 +27,18 @@ public class Like {
     @Convert(converter = PositiveOrZeroLongConverter.class)
     private PositiveOrZeroLong likeCount = PositiveOrZeroLong.ZERO;
 
-    @PrePersist
+    @Column
+    @NotNull
+    @Embedded
+    private Timestamp likeCountTimestamp;
+
     public void onCreate() {
         likeCount = new PositiveOrZeroLong(0L);
+        likeCountTimestamp = new Timestamp();
+    }
+
+    public void onUpdate() {
+        likeCountTimestamp.onUpdate();
     }
 
     public Like doLike() {

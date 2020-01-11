@@ -618,7 +618,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorize/kakao?redirect_uri=https%3A%2F%2Fdruwa.netlify.com%2Foauth%2Fcheck' -i -X GET</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/oauth2/authorize/kakao?redirect_uri=https%3A%2F%2Fdruwa.netlify.com%2Foauth%2Fcheck' -i -X GET</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -653,7 +653,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /oauth2/authorize/kakao?redirect_uri=https%3A%2F%2Fdruwa.netlify.com%2Foauth%2Fcheck HTTP/1.1
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+Host: api.druwa.site</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -665,7 +665,7 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 302 Found
-Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=LCVm9UQZ791sJQzpOQZRQfFfETjJgIgjry6SQfD7Gqw%3D&amp;redirect_uri=http://localhost:60834/oauth2/callback/code/kakao</code></pre>
+Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=m-jB52-kxCt_ZDWcJorqzji-VXTYuUTOfUhF09o-QH8%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
 </div>
 </div>
 </div>
@@ -681,7 +681,7 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
@@ -750,7 +750,7 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Content-Length: 175
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
+Host: api.druwa.site
 
 {
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
@@ -796,10 +796,10 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 20
+Content-Length: 21
 
 {
-  &quot;dramaId&quot; : 73
+  &quot;dramaId&quot; : 137
 }</code></pre>
 </div>
 </div>
@@ -812,7 +812,7 @@ Content-Length: 20
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15' -i -X GET \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/95' -i -X GET \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
@@ -828,10 +828,10 @@ Content-Length: 20
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/15 HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/95 HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+Host: api.druwa.site</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -887,6 +887,13 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 <p class="tableblock">- Size must be between 2 and 50 inclusive</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">imageUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">like</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -924,16 +931,17 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 292
+Content-Length: 358
 
 {
-  &quot;dramaId&quot; : 15,
-  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
-  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
-  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;dramaId&quot; : 95,
+  &quot;title&quot; : &quot;title1&quot;,
+  &quot;summary&quot; : &quot;summary2&quot;,
+  &quot;productionCompany&quot; : &quot;productionCompany&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/1578678480058-465927-1578678480057-7986397660160686888540752.jpg&quot;,
   &quot;like&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-01-08T03:37:28.12&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-09T04:59:30.484&quot;
+  &quot;createdAt&quot; : &quot;2020-01-11T02:48:00.511&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-11T02:48:00.511&quot;
 }</code></pre>
 </div>
 </div>
@@ -946,7 +954,7 @@ Content-Length: 292
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15' -i -X PATCH \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15' -i -X PATCH \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
@@ -1014,7 +1022,7 @@ Content-Length: 292
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Content-Length: 97
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
+Host: api.druwa.site
 
 {
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
@@ -1048,7 +1056,7 @@ Content-Length: 20
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/like' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/like' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
@@ -1067,7 +1075,7 @@ Content-Length: 20
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/like HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+Host: api.druwa.site</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1123,7 +1131,7 @@ Content-Length: 16
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/dislike' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/dislike' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
@@ -1142,7 +1150,7 @@ Content-Length: 16
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/dislike HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+Host: api.druwa.site</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1202,7 +1210,7 @@ Content-Length: 16
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/episodes/1/comments' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
@@ -1260,7 +1268,7 @@ Content-Length: 16
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Content-Length: 49
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
+Host: api.druwa.site
 
 {
   &quot;depth&quot; : 1,
@@ -1312,11 +1320,11 @@ Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 58
+Content-Length: 59
 
 {
-  &quot;id&quot; : 72,
-  &quot;createdAt&quot; : &quot;2020-01-09T05:03:34.714&quot;
+  &quot;id&quot; : 136,
+  &quot;createdAt&quot; : &quot;2020-01-12T00:34:20.797&quot;
 }</code></pre>
 </div>
 </div>
@@ -1329,7 +1337,7 @@ Content-Length: 58
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/episodes/1/comments/21/like' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/21/like' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
@@ -1348,7 +1356,7 @@ Content-Length: 58
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/21/like HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+Host: api.druwa.site</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1404,7 +1412,7 @@ Content-Length: 17
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'http://ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080/dramas/15/episodes/1/comments/21/dislike' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/21/dislike' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
@@ -1423,7 +1431,7 @@ Content-Length: 17
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/21/dislike HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
-Host: ec2-54-180-32-97.ap-northeast-2.compute.amazonaws.com:8080</code></pre>
+Host: api.druwa.site</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1477,7 +1485,7 @@ Content-Length: 17
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-01-09 05:03:21 +0900
+Last updated 2020-01-12 00:34:03 +0900
 </div>
 </div>
 </body>

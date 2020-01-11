@@ -3,6 +3,8 @@ package me.druwa.be.domain.common.model;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -27,10 +29,12 @@ public class Timestamp {
         return new Timestamp();
     }
 
+    @PrePersist
     public void onCreate() {
         updatedAt = createdAt = LocalDateTime.now();
     }
 
+    @PreUpdate
     public void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
