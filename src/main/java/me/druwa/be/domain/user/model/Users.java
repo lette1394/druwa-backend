@@ -3,8 +3,6 @@ package me.druwa.be.domain.user.model;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import com.google.common.collect.Sets;
@@ -15,9 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users {
+
     @OneToMany
-    @JoinTable
-    @JoinColumn
     private Set<User> users;
 
     public static Users users(final List<User> users) {

@@ -1,16 +1,11 @@
 package me.druwa.be.domain.common.service;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.auth.AWSCredentials;
@@ -25,10 +20,8 @@ import com.amazonaws.services.s3.model.Permission;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import lombok.SneakyThrows;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 
 @Service
 public class S3Service {
@@ -45,7 +38,7 @@ public class S3Service {
     private AmazonS3 s3;
 
     @PostConstruct
-    private void post() {
+    private void onConstruct() {
         s3 = AmazonS3ClientBuilder
                      .standard()
                      .withCredentials(new AWSStaticCredentialsProvider(credentials()))

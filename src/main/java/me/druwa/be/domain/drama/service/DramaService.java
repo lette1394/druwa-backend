@@ -63,7 +63,7 @@ public class DramaService {
 
     @Transactional
     public Drama update(final Long dramaId, final DramaTags dramaTags) {
-        final DramaTags savedDramaTags = dramaTagService.create(dramaTags);
+        final DramaTags savedDramaTags = dramaTagService.createIfNotExists(dramaTags);
         return findByDramaId(dramaId).update(savedDramaTags);
     }
 

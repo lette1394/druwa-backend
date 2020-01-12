@@ -1,7 +1,6 @@
 package me.druwa.be.domain.drama.model;
 
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
@@ -29,11 +27,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.IgnoreMerge;
 import me.druwa.be.domain.common.model.Mergeable;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama_episode_comment.model.Like;
-import me.druwa.be.domain.drama_tag.DramaTag;
 import me.druwa.be.domain.drama_tag.DramaTags;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.model.Users;
@@ -79,16 +77,21 @@ public class Drama implements Mergeable<Drama> {
 
     @Embedded
     @AssociationOverride(name = "users",
-                         joinColumns = @JoinColumn(name = "user_id"),
-                         joinTable = @JoinTable(name = "drama_like_"))
+                         joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA,
+                                                joinColumns = @JoinColumn(name = "drama_id"),
+                                                inverseJoinColumns = @JoinColumn(name = "user_id")))
     private Users likeUsers;
 
     @NotNull
     @ManyToOne
     private User registeredBy;
 
-    @ManyToMany
-    private Set<DramaTag> dramaTags;
+    @Embedded
+    @AssociationOverride(name = "dramaTags",
+                         joinTable = @JoinTable(name = JoinTableName.DRAMA__HAS__DRAMA_TAG,
+                                                joinColumns = @JoinColumn(name = "drama_id"),
+                                                inverseJoinColumns = @JoinColumn(name = "tag_name")))
+    private DramaTags dramaTags;
 
     @NotNull
     @Embedded
@@ -110,9 +113,8 @@ public class Drama implements Mergeable<Drama> {
         return dramaLike;
     }
 
-    // TODO: 성능 개선 지점
-    public Drama update(final DramaTags dramaTags) {
-        setDramaTags(getDramaTags().merge(dramaTags));
+    public Drama update(final DramaTags other) {
+        dramaTags.update(other);
         return this;
     }
 
@@ -250,13 +252,5 @@ public class Drama implements Mergeable<Drama> {
                 }
             }
         }
-    }
-
-    private DramaTags getDramaTags() {
-        return DramaTags.dramaTags(dramaTags);
-    }
-
-    public void setDramaTags(final DramaTags dramaTags) {
-        this.dramaTags = dramaTags.raw();
     }
 }

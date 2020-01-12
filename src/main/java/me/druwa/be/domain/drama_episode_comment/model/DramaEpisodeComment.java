@@ -2,7 +2,7 @@ package me.druwa.be.domain.drama_episode_comment.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
+import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -30,10 +29,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
+import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama_episode.model.DramaEpisode;
 import me.druwa.be.domain.user.model.User;
+import me.druwa.be.domain.user.model.Users;
 
 @Entity
 @EqualsAndHashCode(of = "dramaEpisodeCommentId")
@@ -44,8 +45,9 @@ import me.druwa.be.domain.user.model.User;
 public class DramaEpisodeComment {
 
     @Id
+    @Column(name = "drama_episode_comment_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long dramaEpisodeCommentId;
+    private Long dramaEpisodeCommentId;
 
     @NotNull
     @Column
@@ -70,8 +72,12 @@ public class DramaEpisodeComment {
     @ManyToOne
     private DramaEpisode dramaEpisode;
 
-    @ManyToMany
-    private Set<User> likeUsers;
+    @Embedded
+    @AssociationOverride(name = "users",
+                         joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA_EPISODE_COMMENT,
+                                                joinColumns = @JoinColumn(name = "drama_episode_comment_id"),
+                                                inverseJoinColumns = @JoinColumn(name = "user_id")))
+    private Users likeUsers;
 
     @NotNull
     @ManyToOne

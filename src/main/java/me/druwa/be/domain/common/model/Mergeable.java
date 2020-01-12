@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 
 public interface Mergeable<T> {
 
+    // TODO: immutable
     @SneakyThrows
     default T merge(T other) {
         Field[] allFields = getClass().getDeclaredFields();

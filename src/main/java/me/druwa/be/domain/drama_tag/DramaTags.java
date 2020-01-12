@@ -4,18 +4,26 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToMany;
 
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import me.druwa.be.domain.common.model.Mergeable;
 
-@EqualsAndHashCode
-@RequiredArgsConstructor
+@Embeddable
+@EqualsAndHashCode(of = "dramaTags")
+@ToString(of = "dramaTags")
+@NoArgsConstructor
+@AllArgsConstructor
 public class DramaTags implements Mergeable<DramaTags> {
-    private final Set<DramaTag> dramaTags;
+
+    @ManyToMany
+    private Set<DramaTag> dramaTags;
 
     public static DramaTags dramaTags(final Collection<DramaTag> dramaTags) {
         return new DramaTags(Sets.newHashSet(dramaTags));
@@ -33,8 +41,30 @@ public class DramaTags implements Mergeable<DramaTags> {
 
     @Override
     public DramaTags merge(final DramaTags other) {
-        dramaTags.addAll(other.dramaTags);
+        return dramaTags(dramaTags).append(other);
+    }
+
+    public DramaTags filter(final DramaTags other) {
+        return dramaTags(other.dramaTags.stream()
+                                        .filter(other::have)
+                                        .collect(Collectors.toSet()));
+    }
+
+    private DramaTags append(final DramaTags other) {
+        this.dramaTags.addAll(other.dramaTags);
         return this;
+    }
+
+    private boolean have(final DramaTag tag) {
+        return dramaTags.contains(tag);
+    }
+
+    private boolean notHave(final DramaTag tag) {
+        return !have(tag);
+    }
+
+    public void update(final DramaTags other) {
+        dramaTags = other.dramaTags;
     }
 
     public static class View {
@@ -48,5 +78,11 @@ public class DramaTags implements Mergeable<DramaTags> {
 
     public Set<DramaTag> raw() {
         return dramaTags;
+    }
+
+    public Set<String> rawNames() {
+        return dramaTags.stream()
+                        .map(DramaTag::raw)
+                        .collect(Collectors.toSet());
     }
 }

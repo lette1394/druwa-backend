@@ -12,8 +12,11 @@ public class DramaTagService {
     private final DramaTagRepository dramaTagRepository;
 
     @Transactional
-    public DramaTags create(final DramaTags dramaTags) {
-        return new DramaTags(dramaTagRepository.saveAll(dramaTags.raw()));
+    public DramaTags createIfNotExists(final DramaTags newDramaTags) {
+        final DramaTags existed = dramaTagRepository.tryFindAll(newDramaTags);
+        final DramaTags needToSave = existed.filter(newDramaTags);
+
+        return dramaTagRepository.saveAll(needToSave);
     }
 
     @Transactional

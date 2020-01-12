@@ -8,7 +8,7 @@ import me.druwa.be.domain.drama_episode_comment.model.QDramaEpisodeComment;
 class ExtendedDramaEpisodeCommentRepositoryImpl extends QuerydslRepositorySupport
         implements ExtendedDramaEpisodeCommentRepository {
 
-    public ExtendedDramaEpisodeCommentRepositoryImpl() {
+    ExtendedDramaEpisodeCommentRepositoryImpl() {
         super(DramaEpisodeComment.class);
     }
 

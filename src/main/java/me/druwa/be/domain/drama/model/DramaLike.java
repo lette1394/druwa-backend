@@ -14,11 +14,13 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.user.model.User;
 
+
 @Entity
-@Table(name = "drama_like_")
+@Table(name = JoinTableName.USER__LIKES__DRAMA)
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "dramaLikeId")
@@ -27,12 +29,12 @@ public class DramaLike {
     private DramaLikeKey dramaLikeId;
 
     @ManyToOne
-    @MapsId("drama_id")
+    @MapsId("dramaId")
     @JoinColumn(name = "drama_id")
     private Drama drama;
 
     @ManyToOne
-    @MapsId("user_id")
+    @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 

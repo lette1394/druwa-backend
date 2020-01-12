@@ -79,27 +79,27 @@
     </logger>
 
     <springProfile name="dev,beta,local,default">
-        <logger name="org.springframework" additivity="false">
-            <level value="INFO"/>
-            <appender-ref ref="DEBUG_LOG_FILE"/>
-            <appender-ref ref="STDOUT"/>
-        </logger>
+<!--        <logger name="org.springframework" additivity="false">-->
+<!--            <level value="INFO"/>-->
+<!--            <appender-ref ref="DEBUG_LOG_FILE"/>-->
+<!--            <appender-ref ref="STDOUT"/>-->
+<!--        </logger>-->
 
-        <logger name="com.druwa" additivity="false">
-            <level value="DEBUG"/>
-            <appender-ref ref="DEBUG_LOG_FILE"/>
-            <appender-ref ref="STDOUT"/>
-        </logger>
+<!--        <logger name="com.druwa" additivity="false">-->
+<!--            <level value="DEBUG"/>-->
+<!--            <appender-ref ref="DEBUG_LOG_FILE"/>-->
+<!--            <appender-ref ref="STDOUT"/>-->
+<!--        </logger>-->
 
-        <logger name="StaticResourceAccessLogger" additivity="false">
-            <appender-ref ref="STATIC_RESOURCE_ACCESS_LOG_FILE"/>
-        </logger>
+<!--        <logger name="StaticResourceAccessLogger" additivity="false">-->
+<!--            <appender-ref ref="STATIC_RESOURCE_ACCESS_LOG_FILE"/>-->
+<!--        </logger>-->
 
-        <root additivity="false">
-            <level value="INFO"/>
-            <appender-ref ref="DEBUG_LOG_FILE"/>
-            <appender-ref ref="STDOUT"/>
-        </root>
+<!--        <root additivity="false">-->
+<!--            <level value="INFO"/>-->
+<!--            <appender-ref ref="DEBUG_LOG_FILE"/>-->
+<!--            <appender-ref ref="STDOUT"/>-->
+<!--        </root>-->
     </springProfile>
 
     <springProfile name="release,rc,prod">
