@@ -69,12 +69,12 @@ public class DramaService {
 
     @Transactional
     public Like doLike(final Long dramaId, final User user) {
-        return findByDramaId(dramaId).doLike(user);
+        return findByDramaId(dramaId).like(user);
     }
 
     @Transactional
     public Like doDislike(final Long dramaId, final User user) {
-        return findByDramaId(dramaId).doDislike(user);
+        return findByDramaId(dramaId).dislike(user);
     }
 
     @Transactional

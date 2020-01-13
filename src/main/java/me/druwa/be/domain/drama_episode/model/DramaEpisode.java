@@ -12,10 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -55,4 +59,20 @@ public class DramaEpisode {
     @Column
     @Convert(converter = PositiveOrZeroLongConverter.class)
     private PositiveOrZeroLong number;
+
+    public static class View {
+        public static class Create {
+            @Data
+            public static class Request {
+                @NotBlank
+                private String title;
+
+                @JsonUnwrapped
+                private PositiveOrZeroLong order;
+
+                @JsonUnwrapped
+                private PositiveOrZeroLong durationSecond;
+            }
+        }
+    }
 }

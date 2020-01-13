@@ -1,10 +1,14 @@
 package me.druwa.be.domain.drama.model;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,6 +33,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.druwa.be.domain.common.db.Image;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.IgnoreMerge;
 import me.druwa.be.domain.common.model.Mergeable;
@@ -36,6 +43,8 @@ import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_tag.DramaTags;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.model.Users;
+
+import static me.druwa.be.domain.drama.model.DramaImages.dramaImages;
 
 @Entity
 @Table(name = "drama_")
@@ -71,14 +80,10 @@ public class Drama implements Mergeable<Drama> {
     private String productionCompany;
 
     @Embedded
-    private DramaImage dramaImage;
+    private DramaEpisodes dramaEpisodes;
 
     @Embedded
-    @AssociationOverride(name = "dramaEpisodes",
-                         joinTable = @JoinTable(name = "drama_episode_",
-                                                joinColumns = @JoinColumn(name = "drama_id"),
-                                                inverseJoinColumns = @JoinColumn(name = "drama_episode_id")))
-    private DramaEpisodes dramaEpisodes;
+    private DramaImages dramaImages;
 
     @Embedded
     private Like dramaLike;
@@ -105,7 +110,7 @@ public class Drama implements Mergeable<Drama> {
     @Embedded
     private Timestamp timestamp;
 
-    public Like doLike(final User user) {
+    public Like like(final User user) {
         if (likeUsers.contains(user)) {
             return dramaLike;
         }
@@ -113,7 +118,7 @@ public class Drama implements Mergeable<Drama> {
         return dramaLike.doLike();
     }
 
-    public Like doDislike(final User user) {
+    public Like dislike(final User user) {
         if (likeUsers.contains(user)) {
             likeUsers.remove(user);
             return dramaLike.doDislike();
@@ -126,8 +131,18 @@ public class Drama implements Mergeable<Drama> {
         return this;
     }
 
+    public Drama update(final DramaEpisodes dramaEpisodes) {
+        dramaEpisodes.update(dramaEpisodes);
+        return this;
+    }
+
     public Drama populateImageKey(final String key) {
-        dramaImage = new DramaImage(key);
+        dramaImages = dramaImages(key);
+        return this;
+    }
+
+    public Drama populateImageKey(final String... keys) {
+        dramaImages = dramaImages(keys);
         return this;
     }
 
@@ -149,8 +164,8 @@ public class Drama implements Mergeable<Drama> {
 
     @PostLoad
     public void onLoad() {
-        if (Objects.isNull(dramaImage)) {
-            dramaImage = new NullDramaImage();
+        if (Objects.isNull(dramaImages)) {
+            dramaImages = dramaImages();
         }
     }
 
@@ -166,7 +181,7 @@ public class Drama implements Mergeable<Drama> {
                                  .title(title)
                                  .like(dramaLike)
                                  .productionCompany(productionCompany)
-                                 .imageUrl(dramaImage.toS3Url())
+                                 .images(dramaImages.toResponse())
                                  .summary(summary)
                                  .timestamp(timestamp)
                                  .build();
@@ -205,6 +220,9 @@ public class Drama implements Mergeable<Drama> {
                 @Size(max = SUMMARY_MAX_LENGTH)
                 protected String summary;
 
+                @NotEmpty
+                protected List<String> episodes;
+
                 public Drama toPartialDrama() {
                     return Drama.builder()
                                 .title(title)
@@ -230,7 +248,7 @@ public class Drama implements Mergeable<Drama> {
                 private String title;
                 private String summary;
                 private String productionCompany;
-                private String imageUrl;
+                private Set<Image.View.Read.Response> images;
                 @JsonUnwrapped
                 private Like like;
                 @JsonUnwrapped

@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 public class NullDramaImage extends DramaImage {
 
     public NullDramaImage() {
-        super(null);
+        super();
     }
 
     @Override

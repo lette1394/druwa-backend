@@ -16,12 +16,14 @@ import lombok.ToString;
 @NoArgsConstructor
 public class DramaEpisodes {
 
-    @OneToMany
+    @OneToMany(mappedBy = "drama")
     private List<DramaEpisode> dramaEpisodes;
 
     public static DramaEpisodes dramaEpisodes(final List<DramaEpisode> dramaEpisodes) {
         return new DramaEpisodes(dramaEpisodes);
     }
 
-
+    public void update(final DramaEpisodes other) {
+        this.dramaEpisodes = other.dramaEpisodes;
+    }
 }
