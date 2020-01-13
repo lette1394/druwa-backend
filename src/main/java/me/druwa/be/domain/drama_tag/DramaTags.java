@@ -29,6 +29,13 @@ public class DramaTags implements Mergeable<DramaTags> {
         return new DramaTags(Sets.newHashSet(dramaTags));
     }
 
+    public static DramaTags dramaTags(final String... str) {
+        return DramaTags.dramaTags(Sets.newHashSet(str)
+                                       .stream()
+                                       .map(DramaTag::new)
+                                       .collect(Collectors.toSet()));
+    }
+
     public DramaTags(final List<DramaTag> dramaTags) {
         this.dramaTags = Sets.newHashSet(dramaTags);
     }

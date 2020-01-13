@@ -10,35 +10,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
+import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 
 @Entity
+@Table(name = "drama_episode_")
+@ToString
 @EqualsAndHashCode(of = "dramaEpisodeId")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "drama_episode_")
 @Builder
 public class DramaEpisode {
     @Id
+    @Column(name = "drama_episode_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long dramaEpisodeId;
+    private Long dramaEpisodeId;
 
     @Column
     private String title;
 
+    @ManyToOne
+    @JoinColumn(name = "drama_id")
+    private Drama drama;
+
     @Embedded
     @AssociationOverride(name = "dramaEpisodeComments",
                          joinTable = @JoinTable(name = JoinTableName.DRAMA_EPISODE__HAS__DRAMA_EPISODE_COMMENT,
-                                                joinColumns = @JoinColumn(name = "drama_id"),
+                                                joinColumns = @JoinColumn(name = "drama_episode_id"),
                                                 inverseJoinColumns = @JoinColumn(name = "drama_episode_comment_id")))
     private DramaEpisodeComments dramaEpisodeComments;
 

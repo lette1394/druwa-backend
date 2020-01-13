@@ -147,6 +147,10 @@ dependencies {
     testImplementation('org.assertj:assertj-core')
     testImplementation('org.assertj:assertj-guava:3.3.0')
 
+    testImplementation('org.testcontainers:testcontainers:1.12.4')
+    testImplementation('org.testcontainers:postgresql:1.12.4')
+    testImplementation('org.testcontainers:junit-jupiter:1.12.4')
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.security.oauth:spring-security-oauth2')
     testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')

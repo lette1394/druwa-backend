@@ -31,6 +31,7 @@ import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.IgnoreMerge;
 import me.druwa.be.domain.common.model.Mergeable;
 import me.druwa.be.domain.common.model.Timestamp;
+import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
 import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_tag.DramaTags;
 import me.druwa.be.domain.user.model.User;
@@ -71,6 +72,13 @@ public class Drama implements Mergeable<Drama> {
 
     @Embedded
     private DramaImage dramaImage;
+
+    @Embedded
+    @AssociationOverride(name = "dramaEpisodes",
+                         joinTable = @JoinTable(name = "drama_episode_",
+                                                joinColumns = @JoinColumn(name = "drama_id"),
+                                                inverseJoinColumns = @JoinColumn(name = "drama_episode_id")))
+    private DramaEpisodes dramaEpisodes;
 
     @Embedded
     private Like dramaLike;
