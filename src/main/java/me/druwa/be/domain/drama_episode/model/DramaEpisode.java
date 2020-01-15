@@ -10,11 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
@@ -28,6 +27,7 @@ import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
+import me.druwa.be.domain.drama_episode_comment.model.Like;
 
 @Entity
 @Table(name = "drama_episode_")
@@ -37,6 +37,8 @@ import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 @AllArgsConstructor
 @Builder
 public class DramaEpisode {
+    private static final int SUMMARY_MAX_LENGTH = 500;
+
     @Id
     @Column(name = "drama_episode_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -44,6 +46,17 @@ public class DramaEpisode {
 
     @Column
     private String title;
+
+    @Column
+    @Size(max = SUMMARY_MAX_LENGTH)
+    private String summary;
+
+    @Column
+    @Convert(converter = PositiveOrZeroLongConverter.class)
+    private PositiveOrZeroLong durationMillis;
+
+    @Embedded
+    private Like episodeLike;
 
     @ManyToOne
     @JoinColumn(name = "drama_id")

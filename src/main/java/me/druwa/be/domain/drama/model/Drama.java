@@ -5,10 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -40,6 +37,7 @@ import me.druwa.be.domain.common.model.Mergeable;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
 import me.druwa.be.domain.drama_episode_comment.model.Like;
+import me.druwa.be.domain.drama_review.DramaReviews;
 import me.druwa.be.domain.drama_tag.DramaTags;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.model.Users;
@@ -62,7 +60,6 @@ public class Drama implements Mergeable<Drama> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @IgnoreMerge
     @Getter
-    @Column(name = "drama_id")
     private Long dramaId;
 
     @Column
@@ -105,6 +102,13 @@ public class Drama implements Mergeable<Drama> {
                                                 joinColumns = @JoinColumn(name = "drama_id"),
                                                 inverseJoinColumns = @JoinColumn(name = "tag_name")))
     private DramaTags dramaTags;
+
+    @Embedded
+    @AssociationOverride(name = "dramaReviews",
+                         joinTable = @JoinTable(name = JoinTableName.USER__REVIEWS__DRAMA,
+                                                joinColumns = @JoinColumn(name = "drama_id"),
+                                                inverseJoinColumns = @JoinColumn(name = "drama_review_id")))
+    private DramaReviews dramaReviews;
 
     @NotNull
     @Embedded

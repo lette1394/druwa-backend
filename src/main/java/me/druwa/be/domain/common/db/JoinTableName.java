@@ -11,4 +11,9 @@ public class JoinTableName {
 
     public static final String USER__LIKES__DRAMA = "user__likes__drama_";
     public static final String USER__LIKES__DRAMA_EPISODE_COMMENT = "user__likes__drama_episode_comment_";
+
+
+    public static final String USER__REVIEWS__DRAMA = "user__reviews__drama_";
+
+
 }

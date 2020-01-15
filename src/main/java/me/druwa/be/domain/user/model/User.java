@@ -1,6 +1,7 @@
 package me.druwa.be.domain.user.model;
 
 import java.util.List;
+import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -9,7 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -25,7 +27,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.Timestamp;
+import me.druwa.be.domain.drama_review.DramaReview;
+import me.druwa.be.domain.drama_review.DramaReviews;
 
 import static java.util.Objects.nonNull;
 
@@ -78,6 +83,9 @@ public class User {
     @Column
     @NotNull
     private Timestamp timestamp;
+
+    @Embedded
+    private DramaReviews dramaReviews;
 
     @PrePersist
     public void onCreate() {
