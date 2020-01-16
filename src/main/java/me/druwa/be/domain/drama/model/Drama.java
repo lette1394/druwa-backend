@@ -1,6 +1,5 @@
 package me.druwa.be.domain.drama.model;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.AssociationOverride;
@@ -17,12 +16,11 @@ import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -130,23 +128,18 @@ public class Drama implements Mergeable<Drama> {
         return dramaLike;
     }
 
-    public Drama update(final DramaTags other) {
-        dramaTags.update(other);
+    public Drama update(final DramaTags dramaTags) {
+        this.dramaTags.update(dramaTags);
         return this;
     }
 
     public Drama update(final DramaEpisodes dramaEpisodes) {
-        dramaEpisodes.update(dramaEpisodes);
+        this.dramaEpisodes.update(dramaEpisodes);
         return this;
     }
 
-    public Drama populateImageKey(final String key) {
-        dramaImages = dramaImages(key);
-        return this;
-    }
-
-    public Drama populateImageKey(final String... keys) {
-        dramaImages = dramaImages(keys);
+    public Drama merge(final DramaImages dramaImages) {
+        this.dramaImages.merge(dramaImages);
         return this;
     }
 
@@ -191,6 +184,10 @@ public class Drama implements Mergeable<Drama> {
                                  .build();
     }
 
+    public Set<Image.View.Read.Response> toImageOnlyResponse() {
+        return dramaImages.toResponse();
+    }
+
     @Data
     public static class View {
         @Data
@@ -199,7 +196,8 @@ public class Drama implements Mergeable<Drama> {
             @EqualsAndHashCode(callSuper = true)
             public static class MultipartRequest extends Request {
                 @NotNull
-                private MultipartFile image;
+                @Valid
+                private DramaMultipartImages images;
 
                 public Drama toPartialDrama() {
                     return Drama.builder()
@@ -223,9 +221,6 @@ public class Drama implements Mergeable<Drama> {
                 @NotBlank
                 @Size(max = SUMMARY_MAX_LENGTH)
                 protected String summary;
-
-                @NotEmpty
-                protected List<String> episodes;
 
                 public Drama toPartialDrama() {
                     return Drama.builder()

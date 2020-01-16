@@ -1,25 +1,21 @@
 package me.druwa.be.domain.drama.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import javax.activation.MimeTypeParameterList;
+import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeType;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.model.Drama;
@@ -27,6 +23,8 @@ import me.druwa.be.domain.drama.service.DramaService;
 import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
+
+import static me.druwa.be.domain.drama.model.DramaMultipartImages.dramaMultipartImages;
 
 @Slf4j
 @RestController
@@ -44,14 +42,14 @@ public class DramaController {
                              .body(drama.toCreateResponse());
     }
 
-    @PostMapping(value = "/dramas", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> createMultipart(@Valid Drama.View.Create.MultipartRequest body,
-                                             @CurrentUser User user) {
-
-        final Drama drama = dramaService.createMultipart(user, body);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                             .body(drama.toCreateResponse());
-    }
+//    @PostMapping(value = "/dramas", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<?> createMultipart(@Valid Drama.View.Create.MultipartRequest body,
+//                                             @CurrentUser User user) {
+//
+//        final Drama drama = dramaService.createMultipart(user, body);
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                             .body(drama.toCreateResponse());
+//    }
 
     @GetMapping("/dramas/{dramaId}")
     public ResponseEntity<?> find(@Valid
@@ -72,6 +70,24 @@ public class DramaController {
         final Drama drama = dramaService.update(dramaBefore, user, body);
         return ResponseEntity.status(HttpStatus.OK)
                              .body(drama.toCreateResponse());
+    }
+
+    @GetMapping("/dramas/{dramaId}/images")
+    public ResponseEntity<?> listImages(@PathVariable final long dramaId) {
+        final Drama drama = dramaService.findByDramaId(dramaId);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(drama.toImageOnlyResponse());
+    }
+
+    @PostMapping(value = "/dramas/{dramaId}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createImages(@PathVariable final long dramaId,
+                                          @Valid @NonNull @RequestParam Map<String, MultipartFile> images) {
+
+        final Drama drama = dramaService.createDramaImage(dramaId, dramaMultipartImages(images));
+
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(drama.toImageOnlyResponse());
     }
 
     @PostMapping("/dramas/{dramaId}/like")

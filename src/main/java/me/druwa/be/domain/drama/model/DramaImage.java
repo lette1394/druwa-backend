@@ -26,21 +26,19 @@ import me.druwa.be.domain.common.model.Timestamp;
 public class DramaImage extends Image {
 
     @Builder
-    public DramaImage(final Long imageId,
+    public DramaImage(final Drama drama,
+                      final Long imageId,
+                      @NotBlank final String imageName,
                       @NotBlank final String imageKey,
                       final PositiveOrZeroLong widthPixel,
                       final PositiveOrZeroLong heightPixel,
-                      final ImageType imageType, final Timestamp timestamp) {
-        super(imageId, imageKey, widthPixel, heightPixel, imageType, timestamp);
+                      final ImageType imageType,
+                      final Timestamp timestamp) {
+        super(imageId, imageName, imageKey, widthPixel, heightPixel, imageType, timestamp);
+        this.drama = drama;
     }
 
     @ManyToOne
     @JoinColumn(name = "drama_id")
     private Drama drama;
-
-    public static DramaImage dramaImage(final String imageKey) {
-        return DramaImage.builder()
-                         .imageKey(imageKey)
-                         .build();
-    }
 }

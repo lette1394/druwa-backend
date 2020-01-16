@@ -3,7 +3,6 @@ package me.druwa.be.domain.common.db;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -12,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +30,7 @@ import static java.util.Objects.nonNull;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "imageId")
+@EqualsAndHashCode(of = { "imageId", "imageName" })
 public class Image {
     private static final String S3_URL_BASE_ENDPOINT = "https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com";
 
@@ -39,6 +38,10 @@ public class Image {
     @Column(name = "image_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long imageId;
+
+    @Column
+    @NotBlank
+    private String imageName;
 
     @Column
     @NotBlank
@@ -78,10 +81,12 @@ public class Image {
 
     public View.Read.Response toResponse() {
         return View.Read.Response.builder()
+                                 .imageName(imageName)
                                  .imageUrl(toS3Url())
                                  .imageType(imageType)
                                  .widthPixel(widthPixel)
                                  .heightPixel(heightPixel)
+                                 .timestamp(timestamp)
                                  .build();
     }
 
@@ -90,10 +95,13 @@ public class Image {
             @Data
             @Builder
             public static class Response {
+                private String imageName;
                 private String imageUrl;
                 private PositiveOrZeroLong widthPixel;
                 private PositiveOrZeroLong heightPixel;
                 private ImageType imageType;
+                @JsonUnwrapped
+                private Timestamp timestamp;
             }
         }
     }

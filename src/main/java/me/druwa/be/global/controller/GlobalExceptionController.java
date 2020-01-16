@@ -120,6 +120,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                              final HttpStatus status,
                                                              final WebRequest request) {
         LoggingUtils.dumpThrowable(ex);
+        if (ex instanceof NoSuchElementException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .build();
+        }
         if (ex.getCause() instanceof NoSuchElementException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                  .build();

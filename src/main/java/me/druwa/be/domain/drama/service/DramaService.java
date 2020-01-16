@@ -2,14 +2,14 @@ package me.druwa.be.domain.drama.service;
 
 import java.util.NoSuchElementException;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import me.druwa.be.domain.common.cache.CacheKey;
 import me.druwa.be.domain.common.service.S3Service;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.DramaImageRepository;
+import me.druwa.be.domain.drama.model.DramaImages;
+import me.druwa.be.domain.drama.model.DramaMultipartImages;
 import me.druwa.be.domain.drama.repository.DramaRepository;
 import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_tag.DramaTagService;
@@ -25,9 +25,10 @@ public class DramaService {
     private final DramaCacheService dramaCacheService;
     private final DramaTagService dramaTagService;
 
+    private final DramaImageRepository dramaImageRepository;
     private final S3Service s3Service;
 
-    @Cacheable(cacheNames = CacheKey.Drama.ID, key = "#dramaId")
+//    @Cacheable(cacheNames = CacheKey.Drama.ID, key = "#dramaId")
     public Drama findByDramaId(final Long dramaId) {
         return repository.findById(dramaId)
                          .orElseThrow(() -> new NoSuchElementException(format("no drama with id:[%s]", dramaId)));
@@ -48,17 +49,6 @@ public class DramaService {
         final Drama drama = body.toPartialDrama()
                                 .populateUser(user);
         return repository.save(drama);
-    }
-
-    @SneakyThrows
-    public Drama createMultipart(final User user, final Drama.View.Create.MultipartRequest body) {
-        final String key = s3Service.put(body.getImage());
-
-        final Drama drama = body.toPartialDrama()
-                                .populateUser(user)
-                                .populateImageKey(key);
-
-        return create(drama);
     }
 
     @Transactional
@@ -85,5 +75,15 @@ public class DramaService {
         dramaCacheService.evictByDramaId(dramaBefore.getDramaId());
 
         return drama;
+    }
+
+    @Transactional
+    public Drama createDramaImage(final long dramaId, final DramaMultipartImages images) {
+        final Drama drama = findByDramaId(dramaId);
+        final DramaImages s3SavedImages = s3Service.put(images)
+                                                   .toDramaImages(drama);
+        dramaImageRepository.saveAll(s3SavedImages);
+
+        return drama.merge(s3SavedImages);
     }
 }

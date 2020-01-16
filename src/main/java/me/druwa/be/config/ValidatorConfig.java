@@ -30,7 +30,7 @@ public class ValidatorConfig {
         public void validate(Object target, Errors errors) {
             Drama.View.Create.MultipartRequest fileModel = (Drama.View.Create.MultipartRequest) target;
 
-            if (fileModel.getImage() != null && fileModel.getImage().isEmpty()) {
+            if (fileModel.getImages().isEmpty()) {
                 errors.rejectValue("file", "file.empty");
             }
             defaultValidator.validate(fileModel, errors);
