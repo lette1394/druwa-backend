@@ -13,14 +13,18 @@ public class DramaTagService {
 
     @Transactional
     public DramaTags createIfNotExists(final DramaTags newDramaTags) {
-        final DramaTags existed = dramaTagRepository.tryFindAll(newDramaTags);
+        final DramaTags existed = dramaTagRepository.findAll(newDramaTags);
         final DramaTags needToSave = existed.filter(newDramaTags);
 
         return dramaTagRepository.saveAll(needToSave);
     }
 
+    // TODO: cache 붙이기
     @Transactional
-    public DramaTags findAll() {
-        return DramaTags.dramaTags(dramaTagRepository.findAll());
+    public DramaTags findAll(final DramaTagSearchStrings searchWords) {
+        if (searchWords.isEmpty()) {
+            return DramaTags.dramaTags(dramaTagRepository.findAll());
+        }
+        return dramaTagRepository.findAll(searchWords);
     }
 }

@@ -1,0 +1,46 @@
+[[drama-tag]]
+== drama-tag
+
+=== find
+
+**<> CURL**
+include::{snippets}/drama-tag__find/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-tag__find/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-tag__find/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-tag__find/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-tag__find/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-tag__find/http-response.adoc[]
+
+'''
+
+=== findAll
+
+**<> CURL**
+include::{snippets}/drama-tag__find__all/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-tag__find__all/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-tag__find__all/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-tag__find__all/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-tag__find__all/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-tag__find__all/http-response.adoc[]
+
+'''

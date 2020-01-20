@@ -36,4 +36,5 @@
 
 include::auth.adoc[]
 include::drama.adoc[]
+include::drama-tag.adoc[]
 include::drama-episode-comment.adoc[]

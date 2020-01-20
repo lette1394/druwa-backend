@@ -549,6 +549,14 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#update">update</a></li>
 <li><a href="#like">like</a></li>
 <li><a href="#dislike">dislike</a></li>
+<li><a href="#create-images">create images</a></li>
+<li><a href="#list-images">list images</a></li>
+</ul>
+</li>
+<li><a href="#drama-tag">drama-tag</a>
+<ul class="sectlevel2">
+<li><a href="#find-2">find</a></li>
+<li><a href="#findall">findAll</a></li>
 </ul>
 </li>
 <li><a href="#drama-episode-comment">drama-episode-comment</a>
@@ -665,7 +673,7 @@ Host: api.druwa.site</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 302 Found
-Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=k9VR4j-Nu_srH_UYSIqb5vXJf18LTgFgzvYNgwf8Xd0%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
+Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=_Vto0f3XyZxzW_lKN6RR-HtVpHFmuy5aVvgqJxte1IU%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
 </div>
 </div>
 </div>
@@ -692,8 +700,7 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__create/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request Fields</strong></p>
@@ -797,10 +804,10 @@ Host: api.druwa.site
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 20
+Content-Length: 21
 
 {
-  &quot;dramaId&quot; : 45
+  &quot;dramaId&quot; : 117
 }</code></pre>
 </div>
 </div>
@@ -813,25 +820,23 @@ Content-Length: 20
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/38' -i -X GET \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15' -i -X GET \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__find/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Fields</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__find/request-fields.adoc[]</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/38 HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/15 HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
@@ -890,8 +895,8 @@ Host: api.druwa.site</code></pre>
 <p class="tableblock">- Size must be between 2 and 50 inclusive</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">imageUrl</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">images</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -934,17 +939,17 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 356
+Content-Length: 311
 
 {
-  &quot;dramaId&quot; : 38,
-  &quot;title&quot; : &quot;title1&quot;,
-  &quot;summary&quot; : &quot;summary2&quot;,
-  &quot;productionCompany&quot; : &quot;productionCompany&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/1578767901667-820497-1578767901667-1007922005193682178155696.jpg&quot;,
+  &quot;dramaId&quot; : 15,
+  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;images&quot; : [ ],
   &quot;like&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-01-12T03:38:27.85&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-12T03:38:27.85&quot;
+  &quot;createdAt&quot; : &quot;2020-01-21T01:51:30.182&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:33:29.696&quot;
 }</code></pre>
 </div>
 </div>
@@ -967,8 +972,7 @@ Content-Length: 356
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__update/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request Fields</strong></p>
@@ -1035,8 +1039,7 @@ Host: api.druwa.site
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&gt; Response Fields</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__update/response-fields.adoc[]</p>
+<p><strong>&gt; Response Fields</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&gt; Response HTTP Example</strong></p>
@@ -1067,12 +1070,10 @@ Content-Length: 20
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__like/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Fields</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__like/request-fields.adoc[]</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request HTTP Example</strong></p>
@@ -1144,12 +1145,10 @@ Content-Length: 16
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__dislike/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Fields</strong>
-Unresolved directive in drama.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama__dislike/request-fields.adoc[]</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request HTTP Example</strong></p>
@@ -1206,6 +1205,875 @@ Content-Length: 16
 }</code></pre>
 </div>
 </div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="create-images"><a class="link" href="#create-images">create images</a></h3>
+<div class="paragraph">
+<p><strong>&lt;&gt; CURL</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/images' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: multipart/form-data; boundary=&quot;Nouq_8wq2pf2maqdQfBiOfk5zB3HO5m&quot;' \
+    -F 'imageName1=@320x200.jpg;type=image/jpeg'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Parameters</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Fields</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Multipart Parts</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Part</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imageName1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The unique name and key of image in this drama. You can set any string in here. It could be overwrited and you can get the image using this key.for example, 'GET /dramas/{dramaId}/images/{imageName}</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]imageName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]imageUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]widthPixel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]imageType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must be one of , "JPG", "JPEG", "GIF", "PNG", "UNKNOWN",  (case sensitive)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]heightPixel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]createdAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]updatedAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 8799
+
+[ {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579540811610-440707.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:20:12.099&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:20:12.099&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539090801-948865.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:51:31.154&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:51:31.154&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541427370-264328.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:30:27.747&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:30:27.747&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541609178-234678.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:33:29.576&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:33:29.576&quot;
+}, {
+  &quot;imageName&quot; : &quot;asdfasdf&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/asdfasdf-1579190764735-501827.png&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;PNG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:06:09.753&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:06:09.753&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541503882-788591.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:31:44.301&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:31:44.301&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539346805-47241.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:55:47.185&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:55:47.185&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579533963227-395141.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:26:03.595&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:26:03.595&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579534167830-2435.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:29:28.229&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:29:28.229&quot;
+}, {
+  &quot;imageName&quot; : &quot;im1324124&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541248048-946138.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:27:28.498&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:27:28.498&quot;
+}, {
+  &quot;imageName&quot; : &quot;image123&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/image123-1579190724863-168565.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:28.924&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:28.924&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579540112939-50200.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:08:33.338&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:08:33.338&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579533993990-203582.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:26:34.341&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:26:34.341&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539150191-207873.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:52:30.541&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:52:30.541&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539110689-364827.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:51:51.169&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:51:51.169&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579532936294-124024.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:08:56.638&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:08:56.638&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579532837233-409786.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:07:17.635&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:07:17.635&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541698090-43428.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:34:58.466&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:34:58.466&quot;
+}, {
+  &quot;imageName&quot; : &quot;image123&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/image123-1579190769040-751588.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:06:09.75&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:06:09.75&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541347345-612527.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:29:07.706&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:29:07.706&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541000392-234607.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:23:28.084&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:23:28.084&quot;
+}, {
+  &quot;imageName&quot; : &quot;asdfasdf&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/asdfasdf-1579190711506-453677.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.426&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.426&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539644080-943728.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:00:44.413&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:00:44.413&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579540241557-418373.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:10:41.921&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:10:41.921&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539242602-647715.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:54:02.941&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:54:02.941&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579534649888-649423.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:37:30.308&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:37:30.308&quot;
+}, {
+  &quot;imageName&quot; : &quot;asdfasdf&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/asdfasdf-1579190726077-872976.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:28.926&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:28.926&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579533658012-323730.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:20:58.407&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:20:58.407&quot;
+} ]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="list-images"><a class="link" href="#list-images">list images</a></h3>
+<div class="paragraph">
+<p><strong>&lt;&gt; CURL</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/images' -i -X GET \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Parameters</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Fields</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/1/images HTTP/1.1
+Accept: application/json
+Host: api.druwa.site</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&gt; Response Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]imageName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]imageUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]widthPixel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]imageType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must be one of , "JPG", "JPEG", "GIF", "PNG", "UNKNOWN",  (case sensitive)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]heightPixel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]createdAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]updatedAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 8494
+
+[ {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579540811610-440707.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:20:12.099&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:20:12.099&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539090801-948865.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:51:31.154&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:51:31.154&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541427370-264328.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:30:27.747&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:30:27.747&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541609178-234678.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:33:29.576&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:33:29.576&quot;
+}, {
+  &quot;imageName&quot; : &quot;asdfasdf&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/asdfasdf-1579190764735-501827.png&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;PNG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:06:09.753&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:06:09.753&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541503882-788591.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:31:44.301&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:31:44.301&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539346805-47241.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:55:47.185&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:55:47.185&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579533963227-395141.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:26:03.595&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:26:03.595&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579534167830-2435.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:29:28.229&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:29:28.229&quot;
+}, {
+  &quot;imageName&quot; : &quot;im1324124&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541248048-946138.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:27:28.498&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:27:28.498&quot;
+}, {
+  &quot;imageName&quot; : &quot;image123&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/image123-1579190724863-168565.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:28.924&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:28.924&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579540112939-50200.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:08:33.338&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:08:33.338&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579533993990-203582.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:26:34.341&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:26:34.341&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539150191-207873.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:52:30.541&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:52:30.541&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539110689-364827.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:51:51.169&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:51:51.169&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579532936294-124024.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:08:56.638&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:08:56.638&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579532837233-409786.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:07:17.635&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:07:17.635&quot;
+}, {
+  &quot;imageName&quot; : &quot;image123&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/image123-1579190769040-751588.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:06:09.75&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:06:09.75&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541347345-612527.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:29:07.706&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:29:07.706&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579541000392-234607.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:23:28.084&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:23:28.084&quot;
+}, {
+  &quot;imageName&quot; : &quot;asdfasdf&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/asdfasdf-1579190711506-453677.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.426&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.426&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539644080-943728.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:00:44.413&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:00:44.413&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579540241557-418373.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:10:41.921&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T02:10:41.921&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579539242602-647715.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T01:54:02.941&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T01:54:02.941&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579534649888-649423.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:37:30.308&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:37:30.308&quot;
+}, {
+  &quot;imageName&quot; : &quot;asdfasdf&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/asdfasdf-1579190726077-872976.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:28.926&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:28.926&quot;
+}, {
+  &quot;imageName&quot; : &quot;key1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/key1-1579533658012-323730.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-21T00:20:58.407&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-21T00:20:58.407&quot;
+} ]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="drama-tag"><a class="link" href="#drama-tag">drama-tag</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="find-2"><a class="link" href="#find-2">find</a></h3>
+<div class="paragraph">
+<p><strong>&lt;&gt; CURL</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/tags?q=%EC%98%A4%ED%94%BC%EC%8A%A4%2C%ED%9E%90%EB%A7%81' -i -X GET \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Parameters</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>q</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search texts. The delimiter is ","</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&lt; Request Fields</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /tags?q=%EC%98%A4%ED%94%BC%EC%8A%A4%2C%ED%9E%90%EB%A7%81 HTTP/1.1
+Accept: application/json
+Content-Type: application/json; charset=UTF-8
+Host: api.druwa.site</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&gt; Response Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 62
+
+{
+  &quot;tags&quot; : [ &quot;힐링&quot;, &quot;힐링2&quot;, &quot;오피스&quot;, &quot;힐링1&quot; ]
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="findall"><a class="link" href="#findall">findAll</a></h3>
+<div class="paragraph">
+<p><strong>&lt;&gt; CURL</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/tags' -i -X GET \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Parameters</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Fields</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /tags HTTP/1.1
+Accept: application/json
+Content-Type: application/json; charset=UTF-8
+Host: api.druwa.site</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&gt; Response Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 88
+
+{
+  &quot;tags&quot; : [ &quot;코미디&quot;, &quot;캠퍼스&quot;, &quot;힐링&quot;, &quot;힐링2&quot;, &quot;오피스&quot;, &quot;힐링1&quot; ]
+}</code></pre>
+</div>
+</div>
+<hr>
 </div>
 </div>
 </div>
@@ -1229,8 +2097,7 @@ Content-Length: 16
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama-episode-comment.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama-episode-comment__create/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request Fields</strong></p>
@@ -1330,11 +2197,11 @@ Host: api.druwa.site
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 58
+Content-Length: 59
 
 {
-  &quot;id&quot; : 44,
-  &quot;createdAt&quot; : &quot;2020-01-13T22:41:23.092&quot;
+  &quot;id&quot; : 116,
+  &quot;createdAt&quot; : &quot;2020-01-21T02:34:49.953&quot;
 }</code></pre>
 </div>
 </div>
@@ -1347,25 +2214,23 @@ Content-Length: 58
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/19/like' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/80/like' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama-episode-comment.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama-episode-comment__like/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Fields</strong>
-Unresolved directive in drama-episode-comment.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama-episode-comment__like/request-fields.adoc[]</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/19/like HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/80/like HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
@@ -1424,25 +2289,23 @@ Content-Length: 16
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/19/dislike' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/80/dislike' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Parameters</strong>
-Unresolved directive in drama-episode-comment.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama-episode-comment__dislike/request-parameters.adoc[]</p>
+<p><strong>&lt; Request Parameters</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>&lt; Request Fields</strong>
-Unresolved directive in drama-episode-comment.adoc - include::/Users/user/Project/druwa-backend/build/generated-snippets/drama-episode-comment__dislike/request-fields.adoc[]</p>
+<p><strong>&lt; Request Fields</strong></p>
 </div>
 <div class="paragraph">
 <p><strong>&lt; Request HTTP Example</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/19/dislike HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/80/dislike HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
@@ -1499,7 +2362,7 @@ Content-Length: 16
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-01-13 22:41:04 +0900
+Last updated 2020-01-21 02:34:40 +0900
 </div>
 </div>
 </body>

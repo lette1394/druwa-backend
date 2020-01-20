@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import me.druwa.be.domain.common.converter.MultipartFilesConverter;
+import me.druwa.be.domain.common.converter.StringToDramaTagSearchStringsConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -25,6 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(final FormatterRegistry registry) {
         registry.addConverter(new MultipartFilesConverter());
+        registry.addConverter(new StringToDramaTagSearchStringsConverter());
     }
 
     @Override

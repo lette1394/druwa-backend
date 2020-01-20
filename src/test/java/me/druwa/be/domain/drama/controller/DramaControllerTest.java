@@ -1,5 +1,7 @@
 package me.druwa.be.domain.drama.controller;
 
+import java.io.File;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -9,9 +11,11 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import me.druwa.be.docs.ConstraintAttribute;
 import me.druwa.be.docs.DocsUtils;
+import me.druwa.be.domain.common.db.Image;
 import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.util.AutoSpringBootTest;
 
@@ -21,6 +25,8 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 @Rollback
@@ -96,10 +102,10 @@ class DramaControllerTest {
                                             fieldWithPath("title").description("")
                                                                   .type(JsonFieldType.STRING)
                                                                   .attributes(request.constraint("title")),
-                                            fieldWithPath("imageUrl").description("")
+                                            fieldWithPath("images").description("")
                                                                      .optional()
-                                                                     .type(JsonFieldType.STRING)
-                                                                     .attributes(request.constraint("imageUrl")),
+                                                                     .type(JsonFieldType.ARRAY)
+                                                                     .attributes(request.constraint("images")),
                                             fieldWithPath("like").description("")
                                                                  .type(JsonFieldType.NUMBER)
                                                                  .attributes(request.constraint("like")),
@@ -115,7 +121,7 @@ class DramaControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().get("/dramas/{dramaId}", 38)
+                   .when().get("/dramas/{dramaId}", 15)
                    .then()
                    .assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_get.json"))
@@ -198,6 +204,100 @@ class DramaControllerTest {
                    .then()
                    .assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_like.json"))
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
+
+    @Test
+    void createImages() {
+        final ConstraintAttribute response = ConstraintAttribute.createAttribute(Image.View.Read.Response.class);
+
+        given(spec).that()
+                   .filter(document("drama__create__image",
+                                    requestParts(
+                                            partWithName("imageName1").description(
+                                                    "The unique name and key of image in this drama. You can set any string in here. " +
+                                                            "It could be overwrited and you can get the image using this key." +
+                                                            "for example, 'GET /dramas/{dramaId}/images/{imageName}")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("[]imageName").description("")
+                                                                        .optional()
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("imageName")),
+                                            fieldWithPath("[]imageUrl").description("")
+                                                                       .optional()
+                                                                       .type(JsonFieldType.STRING)
+                                                                       .attributes(response.constraint(
+                                                                               "imageUrl")),
+                                            fieldWithPath("[]widthPixel").description("")
+                                                                         .optional()
+                                                                         .type(JsonFieldType.NUMBER)
+                                                                         .attributes(response.constraint("widthPixel")),
+                                            fieldWithPath("[]imageType").description("")
+                                                                        .optional()
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("imageType")),
+                                            fieldWithPath("[]heightPixel").description("")
+                                                                          .optional()
+                                                                          .type(JsonFieldType.NUMBER)
+                                                                          .attributes(response.constraint("heightPixel")),
+                                            fieldWithPath("[]createdAt").description("")
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("createdAt")),
+                                            fieldWithPath("[]updatedAt").description("")
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("updatedAt")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                   .multiPart("imageName1", new File("src/test/resources/img/320x200.jpg"), MediaType.IMAGE_JPEG_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().post("/dramas/{dramaId}/images", 1)
+                   .then()
+                   .assertThat()
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
+
+    @Test
+    void listImages() {
+        final ConstraintAttribute response = ConstraintAttribute.createAttribute(Image.View.Read.Response.class);
+
+        given(spec).that()
+                   .filter(document("drama__list__image",
+                                    responseFields(
+                                            fieldWithPath("[]imageName").description("")
+                                                                        .optional()
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("imageName")),
+                                            fieldWithPath("[]imageUrl").description("")
+                                                                       .optional()
+                                                                       .type(JsonFieldType.STRING)
+                                                                       .attributes(response.constraint(
+                                                                               "imageUrl")),
+                                            fieldWithPath("[]widthPixel").description("")
+                                                                         .optional()
+                                                                         .type(JsonFieldType.NUMBER)
+                                                                         .attributes(response.constraint("widthPixel")),
+                                            fieldWithPath("[]imageType").description("")
+                                                                        .optional()
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("imageType")),
+                                            fieldWithPath("[]heightPixel").description("")
+                                                                          .optional()
+                                                                          .type(JsonFieldType.NUMBER)
+                                                                          .attributes(response.constraint("heightPixel")),
+                                            fieldWithPath("[]createdAt").description("")
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("createdAt")),
+                                            fieldWithPath("[]updatedAt").description("")
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(response.constraint("updatedAt")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().get("/dramas/{dramaId}/images", 1)
+                   .then()
+                   .assertThat()
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }

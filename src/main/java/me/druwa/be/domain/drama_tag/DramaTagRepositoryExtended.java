@@ -1,5 +1,7 @@
 package me.druwa.be.domain.drama_tag;
 
 interface DramaTagRepositoryExtended {
-    DramaTags tryFindAll(final DramaTags dramaTags);
+    DramaTags findAll(final DramaTags dramaTags);
+
+    DramaTags findAll(DramaTagSearchStrings searchWord);
 }

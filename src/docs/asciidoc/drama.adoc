@@ -110,3 +110,49 @@ include::{snippets}/drama__dislike/response-fields.adoc[]
 
 **> Response HTTP Example**
 include::{snippets}/drama__dislike/http-response.adoc[]
+
+'''
+
+=== create images
+
+**<> CURL**
+include::{snippets}/drama__create__image/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama__create__image/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama__create__image/request-fields.adoc[]
+
+**< Multipart Parts**
+include::{snippets}/drama__create__image/request-parts.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama__create__image/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama__create__image/http-response.adoc[]
+
+'''
+
+=== list images
+
+**<> CURL**
+include::{snippets}/drama__list__image/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama__list__image/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama__list__image/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama__list__image/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama__list__image/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama__list__image/http-response.adoc[]
+
+'''
