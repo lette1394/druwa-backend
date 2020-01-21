@@ -22,7 +22,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 @AutoSpringBootTest
-class DramaEpisodeServiceTest {
+class DramaEpisodeControllerTest {
 
     @LocalServerPort
     private int port;
@@ -81,7 +81,7 @@ class DramaEpisodeServiceTest {
         final ConstraintAttribute response = ConstraintAttribute.createAttribute(DramaEpisode.View.Read.Response.class);
 
         given(spec).that()
-                   .filter(document("drama-episode__create",
+                   .filter(document("drama-episode__find",
                                     responseFields(
                                             fieldWithPath("dramaEpisodeId").type(JsonFieldType.NUMBER)
                                                                            .attributes(response.constraint(

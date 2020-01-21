@@ -1,0 +1,24 @@
+[[User]]
+== User
+
+=== me
+
+**<> CURL**
+include::{snippets}/user__me/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/user__me/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/user__me/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/user__me/http-request.adoc[]
+
+**> Response Field**
+include::{snippets}/user__me/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/user__me/http-response.adoc[]
+
+'''

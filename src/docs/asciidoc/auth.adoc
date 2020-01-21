@@ -27,3 +27,5 @@ include::{snippets}/auth__kakao/response-fields.adoc[]
 
 **> Response HTTP Example**
 include::{snippets}/auth__kakao/http-response.adoc[]
+
+'''
