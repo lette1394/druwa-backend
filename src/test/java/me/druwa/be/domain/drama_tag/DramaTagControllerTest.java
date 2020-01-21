@@ -23,7 +23,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
-@Rollback
 @AutoSpringBootTest
 @ActiveProfiles("test")
 class DramaTagControllerTest {

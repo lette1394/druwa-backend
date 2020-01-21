@@ -25,8 +25,6 @@ import me.druwa.be.domain.common.model.Mergeable;
 @NoArgsConstructor
 public class DramaImages implements Mergeable<DramaImages> {
 
-    // FIXME: equals hashcode가 똑같아서 덮어쓰기 기능이 동작하지 않는다.
-    //  db에는 잘 저장되고, java set의 문제임. 디비에 versioning을 둬야 할 듯.
     @OneToMany(mappedBy = "drama")
     private Set<DramaImage> dramaImages;
 
@@ -54,7 +52,9 @@ public class DramaImages implements Mergeable<DramaImages> {
 
     @Override
     public DramaImages merge(final DramaImages other) {
-        this.dramaImages.addAll(other.dramaImages);
+        other.dramaImages.addAll(this.dramaImages);
+        this.dramaImages = other.dramaImages;
+
         return this;
     }
 

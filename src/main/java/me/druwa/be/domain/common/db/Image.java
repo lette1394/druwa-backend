@@ -30,7 +30,7 @@ import static java.util.Objects.nonNull;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = { "imageId", "imageName" })
+@EqualsAndHashCode(of = { "imageName" })
 public class Image {
     private static final String S3_URL_BASE_ENDPOINT = "https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com";
 

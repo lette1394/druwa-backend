@@ -13,12 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import me.druwa.be.global.exception.ExceptionResponse;
 import me.druwa.be.log.LoggingUtils;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 @RestControllerAdvice
 public class GlobalExceptionController extends ResponseEntityExceptionHandler {
@@ -129,5 +130,12 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                  .build();
         }
         return super.handleExceptionInternal(ex, body, headers, status, request);
+    }
+
+    @ExceptionHandler({ NoSuchElementException.class })
+    public ResponseEntity<Object> handleOtherException(Exception ex, WebRequest request) throws Exception {
+        LoggingUtils.dumpThrowable(ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                             .build();
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import lombok.NonNull;
@@ -47,7 +46,7 @@ public class DramaController {
 
     @GetMapping("/dramas/{dramaId}")
     public ResponseEntity<?> find(@Valid
-                                  @PathVariable final long dramaId) {
+                                  @PathVariable Long dramaId) {
         dramaService.ensureExistsBy(dramaId);
         final Drama drama = dramaService.findByDramaId(dramaId);
 
@@ -56,7 +55,7 @@ public class DramaController {
     }
 
     @PatchMapping("/dramas/{dramaId}")
-    public ResponseEntity<?> update(@PathVariable final long dramaId,
+    public ResponseEntity<?> update(@PathVariable final Long dramaId,
                                     @Valid
                                     @RequestBody Drama.View.Patch.Request body,
                                     @CurrentUser User user) {
@@ -67,15 +66,16 @@ public class DramaController {
     }
 
     @GetMapping("/dramas/{dramaId}/images")
-    public ResponseEntity<?> listImages(@PathVariable final long dramaId) {
+    public ResponseEntity<?> listImages(@PathVariable final Long dramaId) {
         final Drama drama = dramaService.findByDramaId(dramaId);
 
         return ResponseEntity.status(HttpStatus.OK)
                              .body(drama.toImageOnlyResponse());
     }
 
+    // TODO: image/{imageId} GET 요청 받을 수 있게 해야함
     @PostMapping(value = "/dramas/{dramaId}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> createImages(@PathVariable final long dramaId,
+    public ResponseEntity<?> createImages(@PathVariable final Long dramaId,
                                           @Valid @NonNull @RequestParam Map<String, MultipartFile> images) {
 
         final Drama drama = dramaService.createDramaImage(dramaId, dramaMultipartImages(images));
@@ -86,7 +86,7 @@ public class DramaController {
 
     @PostMapping("/dramas/{dramaId}/like")
     public ResponseEntity<?> like(@Valid
-                                  @PathVariable final long dramaId,
+                                  @PathVariable final Long dramaId,
                                   @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
         final Like like = dramaService.doLike(dramaId, user);
@@ -97,7 +97,7 @@ public class DramaController {
 
     @PostMapping("/dramas/{dramaId}/dislike")
     public ResponseEntity<?> dislike(@Valid
-                                     @PathVariable final long dramaId,
+                                     @PathVariable final Long dramaId,
                                      @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
         final Like like = dramaService.doDislike(dramaId, user);

@@ -1,12 +1,23 @@
 package me.druwa.be.domain.test;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLDecoder;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.operation.OperationRequest;
+import org.springframework.restdocs.operation.OperationRequestFactory;
+import org.springframework.restdocs.operation.OperationResponse;
+import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.util.StringUtils;
+import org.springframework.web.util.UriComponentsBuilder;
 import me.druwa.be.docs.ConstraintAttribute;
 import me.druwa.be.util.AutoSpringBootTest;
 import io.restassured.builder.RequestSpecBuilder;
@@ -17,6 +28,7 @@ import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.modifyUris;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.removeHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -36,12 +48,34 @@ class TestControllerTest {
 
     @BeforeEach
     public void setUp(RestDocumentationContextProvider restDocumentation) {
+        OperationPreprocessor noUrlEncoded = new OperationPreprocessor() {
+            @Override
+            public OperationRequest preprocess(final OperationRequest request) {
+                UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUri(request.getUri());
+                return new OperationRequestFactory().create(uriBuilder.build(false).toUri(),
+                                                            request.getMethod(),
+                                                            request.getContent(),
+                                                            request.getHeaders(),
+                                                            request.getParameters(),
+                                                            request.getParts(),
+                                                            request.getCookies());
+            }
+
+            @Override
+            public OperationResponse preprocess(final OperationResponse response) {
+                return response;
+            }
+        };
+
         RequestSpecBuilder spec = new RequestSpecBuilder();
         this.spec = spec.addFilter(documentationConfiguration(restDocumentation)
                                            .operationPreprocessors()
-                                           .withRequestDefaults(modifyUris()
-                                                                        .host("api.druwa.com")
-                                                                        .removePort())
+                                           .withRequestDefaults(
+                                                   noUrlEncoded,
+                                                   prettyPrint(),
+                                                   modifyUris()
+                                                           .host("api.druwa.com")
+                                                           .removePort())
                                            .withResponseDefaults(prettyPrint(),
                                                                  removeHeaders("Date",
                                                                                "Keep-Alive",

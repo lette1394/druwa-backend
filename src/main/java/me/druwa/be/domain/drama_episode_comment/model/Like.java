@@ -39,7 +39,7 @@ public class Like {
     }
 
     @JsonProperty("like")
-    public long sum() {
+    public Long sum() {
         return likeCount.getValue();
     }
 

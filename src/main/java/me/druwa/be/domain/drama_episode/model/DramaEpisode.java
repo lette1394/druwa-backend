@@ -11,8 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -25,9 +29,13 @@ import lombok.ToString;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
+import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 import me.druwa.be.domain.drama_episode_comment.model.Like;
+import me.druwa.be.domain.user.model.User;
+
+import static me.druwa.be.domain.common.model.PositiveOrZeroLong.positiveOrZeroLong;
 
 @Entity
 @Table(name = "drama_episode_")
@@ -53,10 +61,21 @@ public class DramaEpisode {
 
     @Column
     @Convert(converter = PositiveOrZeroLongConverter.class)
-    private PositiveOrZeroLong durationMillis;
+    private PositiveOrZeroLong durationInMillis;
 
     @Embedded
     private Like episodeLike;
+
+    @Column
+    @Convert(converter = PositiveOrZeroLongConverter.class)
+    private PositiveOrZeroLong episodeNumber;
+
+    @NotNull
+    @ManyToOne
+    private User registeredBy;
+
+    @Embedded
+    private Timestamp timestamp;
 
     @ManyToOne
     @JoinColumn(name = "drama_id")
@@ -69,9 +88,34 @@ public class DramaEpisode {
                                                 inverseJoinColumns = @JoinColumn(name = "drama_episode_comment_id")))
     private DramaEpisodeComments dramaEpisodeComments;
 
-    @Column
-    @Convert(converter = PositiveOrZeroLongConverter.class)
-    private PositiveOrZeroLong number;
+
+    @PrePersist
+    public void onCreate() {
+        timestamp = Timestamp.now();
+        episodeLike = new Like();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        timestamp.onUpdate();
+    }
+
+    public View.Read.Response toReadResponse() {
+        return View.Read.Response.builder()
+                                 .dramaEpisodeId(dramaEpisodeId)
+                                 .title(title)
+                                 .summary(summary)
+                                 .durationInMillis(durationInMillis)
+                                 .like(episodeLike)
+                                 .episodeNumber(episodeNumber)
+                                 .build();
+    }
+
+    public View.Create.Response toCreateResponse() {
+        return View.Create.Response.builder()
+                                   .dramaEpisodeId(dramaEpisodeId)
+                                   .build();
+    }
 
     public static class View {
         public static class Create {
@@ -79,12 +123,50 @@ public class DramaEpisode {
             public static class Request {
                 @NotBlank
                 private String title;
+                @NotBlank
+                private String summary;
+                @Positive
+                private Long episodeNumber;
+                @Positive
+                private Long durationInMillis;
 
-                @JsonUnwrapped
-                private PositiveOrZeroLong order;
+                @Builder(builderMethodName = "toPartialDramaEpisode")
+                public DramaEpisode toPartialDramaEpisodeBuilder(final Drama drama, final User user) {
+                    return DramaEpisode.builder()
+                                       .drama(drama)
+                                       .registeredBy(user)
+                                       .title(title)
+                                       .summary(summary)
+                                       .episodeNumber(positiveOrZeroLong(episodeNumber))
+                                       .durationInMillis(positiveOrZeroLong(durationInMillis))
+                                       .build();
+                }
+            }
 
+            @Data
+            @Builder
+            public static class Response {
+                @Positive
+                private Long dramaEpisodeId;
+            }
+        }
+
+        public static class Read {
+            @Data
+            @Builder
+            public static class Response {
+                @Positive
+                public Long dramaEpisodeId;
+                @NotBlank
+                public String title;
+                @NotBlank
+                public String summary;
                 @JsonUnwrapped
-                private PositiveOrZeroLong durationSecond;
+                public PositiveOrZeroLong durationInMillis;
+                @JsonUnwrapped
+                public Like like;
+                @JsonUnwrapped
+                public PositiveOrZeroLong episodeNumber;
             }
         }
     }

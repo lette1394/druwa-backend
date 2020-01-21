@@ -1,6 +1,11 @@
 package me.druwa.be.docs;
 
 import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.operation.OperationRequest;
+import org.springframework.restdocs.operation.OperationRequestFactory;
+import org.springframework.restdocs.operation.OperationResponse;
+import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
+import org.springframework.web.util.UriComponentsBuilder;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.HttpClientConfig;
 import io.restassured.config.RestAssuredConfig;
@@ -22,10 +27,32 @@ public class DocsUtils {
 
     public static RequestSpecification requestSpecification(final RestDocumentationContextProvider restDocumentation,
                                                             final int port) {
+
+        OperationPreprocessor noUrlEncoded = new OperationPreprocessor() {
+            @Override
+            public OperationRequest preprocess(final OperationRequest request) {
+
+                return new OperationRequestFactory().create(request.getUri(),
+                                                            request.getMethod(),
+                                                            request.getContent(),
+                                                            request.getHeaders(),
+                                                            request.getParameters(),
+                                                            request.getParts(),
+                                                            request.getCookies());
+            }
+
+            @Override
+            public OperationResponse preprocess(final OperationResponse response) {
+                return response;
+            }
+        };
+
         RequestSpecBuilder spec = new RequestSpecBuilder();
+
         return spec.addFilter(documentationConfiguration(restDocumentation)
                                       .operationPreprocessors()
                                       .withRequestDefaults(
+                                              noUrlEncoded,
                                               prettyPrint(),
                                               removeHeaders("Authorization",
                                                             "Host"),
