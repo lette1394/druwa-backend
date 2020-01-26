@@ -57,7 +57,11 @@ class DramaEpisodeCommentControllerTest {
                                             fieldWithPath("id").description("created comment's id")
                                                                .type(JsonFieldType.NUMBER),
                                             fieldWithPath("createdAt").description("create time of comment")
-                                                                      .type(JsonFieldType.STRING))))
+                                                                      .type(JsonFieldType.STRING),
+                                            fieldWithPath("prev").description("previous comment's id")
+                                                                 .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("next").description("next comment's id")
+                                                                 .type(JsonFieldType.NUMBER))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
@@ -66,45 +70,112 @@ class DramaEpisodeCommentControllerTest {
                                  "\t\"depth\": 1,\n" +
                                  "\t\"contents\": \"hello world!!\"\n" +
                                  "}")
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments", 15, 1)
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments", 15, 128)
                    .then()
                    .assertThat()
                    .statusCode(is(HttpStatus.CREATED.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
 
-//    @Test
-//    void list() {
-//        given(spec).that()
-//                   .filter(document("drama-episode-comment__list",
-//                                    responseFields(
-//                                            fieldWithPath("[]").description("")
-//                                                               .type(JsonFieldType.ARRAY),
-//                                            fieldWithPath("[].id").description("comment's id")
-//                                                                  .type(JsonFieldType.NUMBER),
-//                                            fieldWithPath("[].depth").description("comment's id")
-//                                                                     .type(JsonFieldType.NUMBER),
-//                                            fieldWithPath("[].next").description("comment's id")
-//                                                                    .type(JsonFieldType.NUMBER),
-//                                            fieldWithPath("[].prev").description("comment's id")
-//                                                                    .type(JsonFieldType.NUMBER),
-//                                            fieldWithPath("[].contents").description("comment's id")
-//                                                                        .type(JsonFieldType.STRING),
-//                                            fieldWithPath("[].like").description("comment's id")
-//                                                                    .type(JsonFieldType.NUMBER),
-//                                            fieldWithPath("[].createdAt").description("create time of comment")
-//                                                                         .type(JsonFieldType.STRING),
-//                                            fieldWithPath("[].updatedAt").description("comment's id")
-//                                                                         .type(JsonFieldType.STRING))))
-//                   .accept(MediaType.APPLICATION_JSON_VALUE)
-//                   .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                   .header(DocsUtils.testAuthorization())
-//                   .when().get("/dramas/{dramaId}/episodes/{episodeId}/comments", 15, 1)
-//                   .then().assertThat()
-//                   .statusCode(is(HttpStatus.OK.value()))
-//                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_id_get_comment.json"))
-//                   .contentType(MediaType.APPLICATION_JSON_VALUE);
-//    }
+    @Test
+    void append() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(DramaEpisodeComment.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document("drama-episode-comment__append",
+                                    requestFields(
+                                            fieldWithPath("depth").description(
+                                                    "indent for comment. representing recursive sub-comment. default is 0 (no depth)")
+                                                                  .type(JsonFieldType.NUMBER)
+                                                                  .optional()
+                                                                  .attributes(request.constraint("depth")),
+                                            fieldWithPath("contents").description("body for comment")
+                                                                     .type(JsonFieldType.STRING)
+                                                                     .attributes(request.constraint("contents"))),
+                                    responseFields(
+                                            fieldWithPath("id").description("created comment's id")
+                                                               .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("createdAt").description("create time of comment")
+                                                                      .type(JsonFieldType.STRING),
+                                            fieldWithPath("prev").description("previous comment's id")
+                                                                 .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("next").description("next comment's id")
+                                                                 .type(JsonFieldType.NUMBER))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .body("" +
+                                 "{\n" +
+                                 "\t\"depth\": 1,\n" +
+                                 "\t\"contents\": \"append comments\"\n" +
+                                 "}")
+                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}", 15, 128, 119)
+                   .then()
+                   .assertThat()
+                   .statusCode(is(HttpStatus.CREATED.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
+
+    @Test
+    void edit() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(DramaEpisodeComment.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document("drama-episode-comment__edit",
+                                    requestFields(
+                                            fieldWithPath("contents").description("body for comment")
+                                                                     .type(JsonFieldType.STRING)
+                                                                     .attributes(request.constraint("contents")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .body("" +
+                                 "{\n" +
+                                 "\t\"contents\": \"서강준 갑자기 노래부르고 쓰러질 때 뿜었다진짜\"\n" +
+                                 "}")
+                   .when().patch("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}", 15, 128, 119)
+                   .then()
+                   .assertThat()
+                   .statusCode(is(HttpStatus.OK.value()));
+    }
+
+    @Test
+    void list() {
+        given(spec).that()
+                   .filter(document("drama-episode-comment__list",
+                                    responseFields(
+                                            fieldWithPath("[]").description("")
+                                                               .type(JsonFieldType.ARRAY),
+                                            fieldWithPath("[].id").description("")
+                                                                  .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[].depth").description("")
+                                                                     .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[].next").description("")
+                                                                    .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[].prev").description("")
+                                                                    .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[].contents").description("")
+                                                                        .type(JsonFieldType.STRING),
+                                            fieldWithPath("[].like").description("")
+                                                                    .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[].liked").description("")
+                                                                    .type(JsonFieldType.BOOLEAN),
+                                            fieldWithPath("[].dislike").description("")
+                                                                       .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[].disliked").description("")
+                                                                       .type(JsonFieldType.BOOLEAN),
+                                            fieldWithPath("[].createdAt").description("create time of comment")
+                                                                         .type(JsonFieldType.STRING),
+                                            fieldWithPath("[].updatedAt").description("last update time of comment")
+                                                                         .type(JsonFieldType.STRING))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().get("/dramas/{dramaId}/episodes/{episodeId}/comments", 15, 128)
+                   .then().assertThat()
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
 
     @Test
     void like() {
@@ -115,13 +186,22 @@ class DramaEpisodeCommentControllerTest {
                                     responseFields(
                                             fieldWithPath("like").description("count of comment like")
                                                                  .type(JsonFieldType.NUMBER)
-                                                                 .attributes(response.constraint("like")))))
+                                                                 .attributes(response.constraint("like")),
+                                            fieldWithPath("liked").description("count of comment like")
+                                                                 .type(JsonFieldType.BOOLEAN)
+                                                                 .attributes(response.constraint("liked")),
+                                            fieldWithPath("dislike").description("count of comment dislike")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(response.constraint("dislike")),
+                                            fieldWithPath("disliked").description("count of comment like")
+                                                                  .type(JsonFieldType.BOOLEAN)
+                                                                  .attributes(response.constraint("disliked")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like", 15, 1, 80)
+                   .when().patch("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like", 15, 128, 80)
                    .then().assertThat()
-                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_post_like.json"))
+                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_patch_like.json"))
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
@@ -135,13 +215,22 @@ class DramaEpisodeCommentControllerTest {
                                     responseFields(
                                             fieldWithPath("like").description("count of comment like")
                                                                  .type(JsonFieldType.NUMBER)
-                                                                 .attributes(response.constraint("like")))))
+                                                                 .attributes(response.constraint("like")),
+                                            fieldWithPath("liked").description("count of comment like")
+                                                                  .type(JsonFieldType.BOOLEAN)
+                                                                  .attributes(response.constraint("liked")),
+                                            fieldWithPath("dislike").description("count of comment dislike")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(response.constraint("dislike")),
+                                            fieldWithPath("disliked").description("count of comment dislike")
+                                                                    .type(JsonFieldType.BOOLEAN)
+                                                                    .attributes(response.constraint("disliked")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike", 15, 1, 80)
+                   .when().patch("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike", 15, 128, 80)
                    .then().assertThat()
-                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_post_like.json"))
+                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_patch_like.json"))
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }

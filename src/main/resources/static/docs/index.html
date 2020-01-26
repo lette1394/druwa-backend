@@ -573,8 +573,11 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#drama-episode-comment">drama-episode-comment</a>
 <ul class="sectlevel2">
 <li><a href="#create-3">create</a></li>
+<li><a href="#list">list</a></li>
+<li><a href="#edit">edit</a></li>
 <li><a href="#like-2">like</a></li>
 <li><a href="#dislike-2">dislike</a></li>
+<li><a href="#append">append</a></li>
 </ul>
 </li>
 </ul>
@@ -684,7 +687,7 @@ Host: api.druwa.site</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 302 Found
-Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=6gwBsXNJ9mETAOrtxfc7Ile8uAEMciuk3J7M90dSqUM%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
+Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=Zth48rw-U64Q901yvrtOtZvwqUlmFnCUjoh4EFTdh_U%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
 </div>
 </div>
 <hr>
@@ -929,7 +932,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 21
 
 {
-  &quot;dramaId&quot; : 153
+  &quot;dramaId&quot; : 277
 }</code></pre>
 </div>
 </div>
@@ -1031,6 +1034,13 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">createdAt</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1061,7 +1071,7 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 311
+Content-Length: 328
 
 {
   &quot;dramaId&quot; : 15,
@@ -1069,9 +1079,10 @@ Content-Length: 311
   &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
   &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
   &quot;images&quot; : [ ],
-  &quot;like&quot; : 0,
+  &quot;like&quot; : 1,
+  &quot;dislike&quot; : 1,
   &quot;createdAt&quot; : &quot;2020-01-21T01:51:30.182&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-22T02:55:03.248&quot;
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:33:24.436&quot;
 }</code></pre>
 </div>
 </div>
@@ -1236,6 +1247,27 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -1245,10 +1277,13 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 16
+Content-Length: 74
 
 {
-  &quot;like&quot; : 1
+  &quot;like&quot; : 2,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false
 }</code></pre>
 </div>
 </div>
@@ -1311,6 +1346,27 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -1320,10 +1376,13 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 16
+Content-Length: 74
 
 {
-  &quot;like&quot; : 0
+  &quot;like&quot; : 1,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 1,
+  &quot;disliked&quot; : false
 }</code></pre>
 </div>
 </div>
@@ -1338,7 +1397,7 @@ Content-Length: 16
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/images' -i -X POST \
     -H 'Accept: application/json' \
-    -H 'Content-Type: multipart/form-data; boundary=&quot;KGO6wtkEXcFRNHwITqGCvsswQIX0TLfd6gR2E&quot;' \
+    -H 'Content-Type: multipart/form-data; boundary=&quot;rbTM5xXf_C9LDaJSgHjH08iLf1Q6IOsj&quot;' \
     -F 'imageName1=@320x200.jpg;type=image/jpeg'</code></pre>
 </div>
 </div>
@@ -1448,7 +1507,7 @@ Content-Length: 16
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 906
+Content-Length: 905
 
 [ {
   &quot;imageName&quot; : &quot;1234&quot;,
@@ -1468,12 +1527,12 @@ Content-Length: 906
   &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
 }, {
   &quot;imageName&quot; : &quot;imageName1&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579629391001-263912.jpg&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1580063640434-89512.jpg&quot;,
   &quot;widthPixel&quot; : null,
   &quot;heightPixel&quot; : null,
   &quot;imageType&quot; : &quot;JPG&quot;,
-  &quot;createdAt&quot; : &quot;2020-01-22T02:56:31.525&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-22T02:56:31.525&quot;
+  &quot;createdAt&quot; : &quot;2020-01-27T03:34:01.024&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:34:01.024&quot;
 } ]</code></pre>
 </div>
 </div>
@@ -1925,7 +1984,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 28
 
 {
-  &quot;dramaEpisodeId&quot; : 151
+  &quot;dramaEpisodeId&quot; : 276
 }</code></pre>
 </div>
 </div>
@@ -2017,6 +2076,20 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">totalComments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">total count of comments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must be positive or zero</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">durationInMillis</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2032,7 +2105,7 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 375
+Content-Length: 415
 
 {
   &quot;dramaEpisodeId&quot; : 128,
@@ -2040,7 +2113,9 @@ Content-Length: 375
   &quot;summary&quot; : &quot;좋아하는 사람에게 솔직해야 하는 이유\n세상 어느 고민 상담이 저렇게 꿀범벅이죠..?\uD83C\uDF6F\n내 광대 해발고도 백두산보다 높은 순간\uD83E\uDD21&quot;,
   &quot;durationInMillis&quot; : 911000,
   &quot;like&quot; : 0,
-  &quot;episodeNumber&quot; : 15
+  &quot;dislike&quot; : 0,
+  &quot;episodeNumber&quot; : 15,
+  &quot;totalComments&quot; : 0
 }</code></pre>
 </div>
 </div>
@@ -2058,7 +2133,7 @@ Content-Length: 375
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments' -i -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
@@ -2103,7 +2178,8 @@ Content-Length: 375
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">body for comment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 1 and 500 inclusive</p></td>
 </tr>
 </tbody>
 </table>
@@ -2112,7 +2188,7 @@ Content-Length: 375
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/128/comments HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Content-Length: 49
@@ -2159,6 +2235,20 @@ Host: api.druwa.site
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">previous comment&#8217;s id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">next</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">next comment&#8217;s id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -2168,24 +2258,26 @@ Host: api.druwa.site
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 59
+Content-Length: 89
 
 {
-  &quot;id&quot; : 152,
-  &quot;createdAt&quot; : &quot;2020-01-22T02:56:20.401&quot;
+  &quot;id&quot; : 275,
+  &quot;prev&quot; : -1,
+  &quot;next&quot; : -1,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:33:45.134&quot;
 }</code></pre>
 </div>
 </div>
 <hr>
 </div>
 <div class="sect2">
-<h3 id="like-2"><a class="link" href="#like-2">like</a></h3>
+<h3 id="list"><a class="link" href="#list">list</a></h3>
 <div class="paragraph">
 <p><strong>&lt;&gt; CURL</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/80/like' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments' -i -X GET \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
@@ -2201,7 +2293,596 @@ Content-Length: 59
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/80/like HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/15/episodes/128/comments HTTP/1.1
+Accept: application/json
+Content-Type: application/json; charset=UTF-8
+Host: api.druwa.site</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&gt; Response Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].depth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].next</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].prev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].contents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].createdAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create time of comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[].updatedAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">last update time of comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 5584
+
+[ {
+  &quot;id&quot; : 265,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:32:16.638&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:32:16.638&quot;
+}, {
+  &quot;id&quot; : 216,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:45:42.317&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:45:42.317&quot;
+}, {
+  &quot;id&quot; : 182,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:20:01.797&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:20:01.797&quot;
+}, {
+  &quot;id&quot; : 186,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:22:04.803&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:22:04.803&quot;
+}, {
+  &quot;id&quot; : 184,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:21:05.198&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:21:05.198&quot;
+}, {
+  &quot;id&quot; : 245,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:24:34.665&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:24:34.665&quot;
+}, {
+  &quot;id&quot; : 240,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:19:02.403&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:19:02.403&quot;
+}, {
+  &quot;id&quot; : 203,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:36:37.31&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:36:37.31&quot;
+}, {
+  &quot;id&quot; : 221,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:46:16.844&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:46:16.844&quot;
+}, {
+  &quot;id&quot; : 194,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:33:58.087&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:33:58.087&quot;
+}, {
+  &quot;id&quot; : 198,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:35:26.075&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:35:26.075&quot;
+}, {
+  &quot;id&quot; : 189,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:27:42.437&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:27:42.437&quot;
+}, {
+  &quot;id&quot; : 257,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:27:04.625&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:27:04.625&quot;
+}, {
+  &quot;id&quot; : 226,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:49:36.974&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:49:36.974&quot;
+}, {
+  &quot;id&quot; : 242,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:21:10.375&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:21:10.375&quot;
+}, {
+  &quot;id&quot; : 211,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:44:18.283&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:44:18.283&quot;
+}, {
+  &quot;id&quot; : 231,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:52:23.934&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T02:52:23.934&quot;
+}, {
+  &quot;id&quot; : 252,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:25:29.48&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:25:29.48&quot;
+}, {
+  &quot;id&quot; : 238,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:17:12.892&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:17:12.892&quot;
+}, {
+  &quot;id&quot; : 260,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:31:11.842&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:31:11.842&quot;
+}, {
+  &quot;id&quot; : 269,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:33:10.414&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:33:10.414&quot;
+}, {
+  &quot;id&quot; : 274,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:33:44.756&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:33:44.756&quot;
+} ]</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="edit"><a class="link" href="#edit">edit</a></h3>
+<div class="paragraph">
+<p><strong>&lt;&gt; CURL</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/119' -i -X PATCH \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json; charset=UTF-8' \
+    -d '{
+  &quot;contents&quot; : &quot;서강준 갑자기 노래부르고 쓰러질 때 뿜었다진짜&quot;
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Parameters</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body for comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 1 and 500 inclusive</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&lt; Request HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/episodes/128/comments/119 HTTP/1.1
+Accept: application/json
+Content-Type: application/json; charset=UTF-8
+Content-Length: 86
+Host: api.druwa.site
+
+{
+  &quot;contents&quot; : &quot;서강준 갑자기 노래부르고 쓰러질 때 뿜었다진짜&quot;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&gt; Response Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">depth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">next</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a flag that indicate whether requested user marked this comment like before</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a flag that indicate whether requested user marked this comment dislike before</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">createdAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create time of comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">updatedAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">last update time of comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="like-2"><a class="link" href="#like-2">like</a></h3>
+<div class="paragraph">
+<p><strong>&lt;&gt; CURL</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/80/like' -i -X PATCH \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Parameters</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Fields</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/episodes/128/comments/80/like HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
@@ -2235,6 +2916,27 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -2244,10 +2946,13 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 16
+Content-Length: 74
 
 {
-  &quot;like&quot; : 1
+  &quot;like&quot; : 1,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false
 }</code></pre>
 </div>
 </div>
@@ -2260,7 +2965,7 @@ Content-Length: 16
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/1/comments/80/dislike' -i -X POST \
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/80/dislike' -i -X PATCH \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
@@ -2276,7 +2981,7 @@ Content-Length: 16
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/1/comments/80/dislike HTTP/1.1
+<pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/episodes/128/comments/80/dislike HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
@@ -2310,6 +3015,27 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment like</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count of comment dislike</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -2319,13 +3045,161 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 16
+Content-Length: 74
 
 {
-  &quot;like&quot; : 0
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 1,
+  &quot;disliked&quot; : false
 }</code></pre>
 </div>
 </div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="append"><a class="link" href="#append">append</a></h3>
+<div class="paragraph">
+<p><strong>&lt;&gt; CURL</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/119' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json; charset=UTF-8' \
+    -d '{
+  &quot;depth&quot; : 1,
+  &quot;contents&quot; : &quot;append comments&quot;
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Parameters</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt; Request Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">depth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">indent for comment. representing recursive sub-comment. default is 0 (no depth)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">body for comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
+<p class="tableblock">- Size must be between 1 and 500 inclusive</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&lt; Request HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/128/comments/119 HTTP/1.1
+Accept: application/json
+Content-Type: application/json; charset=UTF-8
+Content-Length: 51
+Host: api.druwa.site
+
+{
+  &quot;depth&quot; : 1,
+  &quot;contents&quot; : &quot;append comments&quot;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&gt; Response Fields</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">created comment&#8217;s id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">createdAt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create time of comment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">previous comment&#8217;s id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">next</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">next comment&#8217;s id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&gt; Response HTTP Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
+Content-Type: application/json;charset=UTF-8
+Content-Length: 89
+
+{
+  &quot;id&quot; : 274,
+  &quot;prev&quot; : -1,
+  &quot;next&quot; : -1,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:33:44.756&quot;
+}</code></pre>
+</div>
+</div>
+<hr>
 </div>
 </div>
 </div>
@@ -2333,7 +3207,7 @@ Content-Length: 16
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-01-22 02:55:59 +0900
+Last updated 2020-01-27 03:33:56 +0900
 </div>
 </div>
 </body>

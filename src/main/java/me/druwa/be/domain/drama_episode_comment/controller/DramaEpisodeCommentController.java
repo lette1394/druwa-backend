@@ -5,16 +5,18 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama.service.DramaService;
+import me.druwa.be.domain.drama_episode.model.DramaEpisode;
 import me.druwa.be.domain.drama_episode.service.DramaEpisodeService;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
-import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 import me.druwa.be.domain.drama_episode_comment.service.DramaEpisodeCommentService;
 import me.druwa.be.domain.user.annotation.CurrentUser;
@@ -29,23 +31,23 @@ public class DramaEpisodeCommentController {
     private final DramaEpisodeCommentService dramaEpisodeCommentService;
 
     @GetMapping("/dramas/{dramaId}/episodes/{episodeId}/comments")
-    public ResponseEntity<?> list(@Valid
-                                  @PathVariable final long dramaId,
-                                  @PathVariable final long episodeId) {
+    public ResponseEntity<?> list(@CurrentUser final User user,
+                                  @PathVariable final Long dramaId,
+                                  @PathVariable final Long episodeId) {
         dramaService.ensureExistsBy(dramaId);
         dramaEpisodeService.ensureExistsBy(episodeId);
 
         final DramaEpisodeComments dramaEpisodeComments = dramaEpisodeCommentService.list(episodeId);
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(dramaEpisodeComments.toResponse());
+                             .body(dramaEpisodeComments.toResponse(user));
     }
 
     @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments")
     public ResponseEntity<?> create(@Valid
-                                    @RequestBody DramaEpisodeComment.View.Create.Request body,
-                                    @CurrentUser User user,
-                                    @PathVariable final long dramaId,
-                                    @PathVariable final long episodeId) {
+                                    @RequestBody final DramaEpisodeComment.View.Create.Request body,
+                                    @CurrentUser final User user,
+                                    @PathVariable final Long dramaId,
+                                    @PathVariable final Long episodeId) {
         dramaService.ensureExistsBy(dramaId);
         dramaEpisodeService.ensureExistsBy(episodeId);
 
@@ -54,29 +56,67 @@ public class DramaEpisodeCommentController {
                              .body(dramaEpisodeComment.toCreateResponse());
     }
 
-    @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like")
-    public ResponseEntity<?> like(@CurrentUser User user,
-                                  @PathVariable final long dramaId,
-                                  @PathVariable final long episodeId,
-                                  @PathVariable final long commentId) {
+    @PatchMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}")
+    public ResponseEntity<?> edit(@CurrentUser final User user,
+                                  @Valid
+                                  @RequestBody final DramaEpisodeComment.View.Update.Request body,
+                                  @PathVariable final Long dramaId,
+                                  @PathVariable final Long episodeId,
+                                  @PathVariable final Long commentId) {
         dramaService.ensureExistsBy(dramaId);
         dramaEpisodeService.ensureExistsBy(episodeId);
-        dramaEpisodeCommentService.ensureExistsBy(commentId);
 
-        final Like commentLike = dramaEpisodeCommentService.doLike(user, commentId);
-        return ResponseEntity.ok(commentLike.toResponse());
+        final DramaEpisodeComment comment = dramaEpisodeCommentService.findBy(commentId);
+        final DramaEpisodeComment merged = comment.merge(body.toPartialDramaEpisodeComment());
+
+        dramaEpisodeCommentService.save(merged);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike")
-    public ResponseEntity<?> dislike(@CurrentUser User user,
-                                     @PathVariable final long dramaId,
-                                     @PathVariable final long episodeId,
-                                     @PathVariable final long commentId) {
+    @PatchMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/like")
+    public ResponseEntity<?> like(@CurrentUser final User user,
+                                  @PathVariable final Long dramaId,
+                                  @PathVariable final Long episodeId,
+                                  @PathVariable final Long commentId) {
         dramaService.ensureExistsBy(dramaId);
         dramaEpisodeService.ensureExistsBy(episodeId);
         dramaEpisodeCommentService.ensureExistsBy(commentId);
 
-        final Like commentLike = dramaEpisodeCommentService.doDislike(user, commentId);
-        return ResponseEntity.ok(commentLike.toResponse());
+        final LikeOrDislike commentLikeOrDislike = dramaEpisodeCommentService.doLike(user, commentId);
+        return ResponseEntity.ok(commentLikeOrDislike.toResponse());
+    }
+
+    @PatchMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike")
+    public ResponseEntity<?> dislike(@CurrentUser final User user,
+                                     @PathVariable final Long dramaId,
+                                     @PathVariable final Long episodeId,
+                                     @PathVariable final Long commentId) {
+        dramaService.ensureExistsBy(dramaId);
+        dramaEpisodeService.ensureExistsBy(episodeId);
+        dramaEpisodeCommentService.ensureExistsBy(commentId);
+
+        final LikeOrDislike commentLikeOrDislike = dramaEpisodeCommentService.doDislike(user, commentId);
+        return ResponseEntity.ok(commentLikeOrDislike.toResponse());
+    }
+
+    @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}")
+    public ResponseEntity<?> append(@Valid
+                                    @RequestBody final DramaEpisodeComment.View.Create.Request body,
+                                    @CurrentUser final User user,
+                                    @PathVariable final Long dramaId,
+                                    @PathVariable final Long episodeId,
+                                    @PathVariable final Long commentId) {
+        dramaService.ensureExistsBy(dramaId);
+        final DramaEpisode dramaEpisode = dramaEpisodeService.findBy(episodeId);
+        final DramaEpisodeComment prev = dramaEpisodeCommentService.findBy(commentId);
+        final DramaEpisodeComment partialComment = body.toPartialDramaEpisodeComment()
+                                                       .prev(prev)
+                                                       .dramaEpisode(dramaEpisode)
+                                                       .writtenBy(user)
+                                                       .build();
+
+        final DramaEpisodeComment dramaEpisodeComment = dramaEpisodeCommentService.save(partialComment);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                             .body(dramaEpisodeComment.toCreateResponse());
     }
 }

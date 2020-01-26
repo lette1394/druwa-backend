@@ -24,6 +24,51 @@ include::{snippets}/drama-episode-comment__create/http-response.adoc[]
 
 '''
 
+=== list
+
+**<> CURL**
+include::{snippets}/drama-episode-comment__list/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-episode-comment__list/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-episode-comment__list/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-episode-comment__list/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-episode-comment__list/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-episode-comment__list/http-response.adoc[]
+
+'''
+
+=== edit
+
+**<> CURL**
+include::{snippets}/drama-episode-comment__edit/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-episode-comment__edit/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-episode-comment__edit/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-episode-comment__edit/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-episode-comment__edit/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-episode-comment__edit/http-response.adoc[]
+
+'''
+
+
 === like
 
 **<> CURL**
@@ -65,3 +110,27 @@ include::{snippets}/drama-episode-comment__dislike/response-fields.adoc[]
 
 **> Response HTTP Example**
 include::{snippets}/drama-episode-comment__dislike/http-response.adoc[]
+
+'''
+
+=== append
+
+**<> CURL**
+include::{snippets}/drama-episode-comment__append/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-episode-comment__append/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-episode-comment__append/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-episode-comment__append/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-episode-comment__append/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-episode-comment__append/http-response.adoc[]
+
+'''

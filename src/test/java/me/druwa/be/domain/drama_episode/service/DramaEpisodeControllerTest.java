@@ -102,6 +102,14 @@ class DramaEpisodeControllerTest {
                                                                  .type(JsonFieldType.NUMBER)
                                                                  .attributes(response.constraint(
                                                                          "like")),
+                                            fieldWithPath("dislike").description("")
+                                                                 .type(JsonFieldType.NUMBER)
+                                                                 .attributes(response.constraint(
+                                                                         "dislike")),
+                                            fieldWithPath("totalComments").description("total count of comments")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(response.constraint(
+                                                                            "totalComments")),
                                             fieldWithPath("durationInMillis").description("")
                                                                              .type(JsonFieldType.NUMBER)
                                                                              .attributes(response.constraint(

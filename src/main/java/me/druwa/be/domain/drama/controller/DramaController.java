@@ -20,8 +20,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama.service.DramaService;
-import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_tag.DramaTag;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
@@ -89,10 +89,10 @@ public class DramaController {
                                   @PathVariable final Long dramaId,
                                   @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
-        final Like like = dramaService.doLike(dramaId, user);
+        final LikeOrDislike likeOrDislike = dramaService.doLike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(like.toResponse());
+                             .body(likeOrDislike.toResponse());
     }
 
     @PostMapping("/dramas/{dramaId}/dislike")
@@ -100,10 +100,10 @@ public class DramaController {
                                      @PathVariable final Long dramaId,
                                      @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
-        final Like like = dramaService.doDislike(dramaId, user);
+        final LikeOrDislike likeOrDislike = dramaService.doDislike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(like.toResponse());
+                             .body(likeOrDislike.toResponse());
     }
 
 

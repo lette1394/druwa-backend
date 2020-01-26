@@ -1,6 +1,7 @@
 package me.druwa.be.domain.drama_episode.model;
 
 import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -31,8 +33,8 @@ import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
-import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.user.model.User;
 
 import static me.druwa.be.domain.common.model.PositiveOrZeroLong.positiveOrZeroLong;
@@ -64,7 +66,17 @@ public class DramaEpisode {
     private PositiveOrZeroLong durationInMillis;
 
     @Embedded
-    private Like episodeLike;
+    @AssociationOverrides({
+            @AssociationOverride(name = "likeUsers.users",
+                                 joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA_EPISODE,
+                                                        joinColumns = @JoinColumn(name = "drama_episode_id"),
+                                                        inverseJoinColumns = @JoinColumn(name = "user_id"))),
+            @AssociationOverride(name = "dislikeUsers.users",
+                                 joinTable = @JoinTable(name = JoinTableName.USER__DISLIKES__DRAMA_EPISODE,
+                                                        joinColumns = @JoinColumn(name = "drama_episode_id"),
+                                                        inverseJoinColumns = @JoinColumn(name = "user_id")))
+    })
+    private LikeOrDislike dramaEpisodeLike;
 
     @Column
     @Convert(converter = PositiveOrZeroLongConverter.class)
@@ -92,7 +104,7 @@ public class DramaEpisode {
     @PrePersist
     public void onCreate() {
         timestamp = Timestamp.now();
-        episodeLike = new Like();
+        dramaEpisodeLike = new LikeOrDislike();
     }
 
     @PreUpdate
@@ -106,8 +118,9 @@ public class DramaEpisode {
                                  .title(title)
                                  .summary(summary)
                                  .durationInMillis(durationInMillis)
-                                 .like(episodeLike)
+                                 .likeOrDislike(dramaEpisodeLike)
                                  .episodeNumber(episodeNumber)
+                                 .totalComments(dramaEpisodeComments.count())
                                  .build();
     }
 
@@ -164,9 +177,11 @@ public class DramaEpisode {
                 @JsonUnwrapped
                 public PositiveOrZeroLong durationInMillis;
                 @JsonUnwrapped
-                public Like like;
+                public LikeOrDislike likeOrDislike;
                 @JsonUnwrapped
                 public PositiveOrZeroLong episodeNumber;
+                @PositiveOrZero
+                public Integer totalComments;
             }
         }
     }

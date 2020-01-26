@@ -1,3 +1,6 @@
 {
-  "like": 1
+  "like": 1,
+  "liked": false,
+  "dislike": 1,
+  "disliked": false
 }

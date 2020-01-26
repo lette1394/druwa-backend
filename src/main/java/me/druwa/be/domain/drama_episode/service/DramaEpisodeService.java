@@ -24,7 +24,7 @@ public class DramaEpisodeService {
         throw new NoSuchElementException(format("no episode with id:[%s]", episodeId));
     }
 
-    public DramaEpisode find(final Long episodeId) {
+    public DramaEpisode findBy(final Long episodeId) {
         return repository.findById(episodeId)
                          .orElseThrow(NoSuchElementException::new);
     }

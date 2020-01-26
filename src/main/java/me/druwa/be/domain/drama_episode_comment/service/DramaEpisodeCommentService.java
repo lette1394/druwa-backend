@@ -5,9 +5,9 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
-import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_episode_comment.repository.DramaEpisodeCommentRepository;
 import me.druwa.be.domain.user.model.User;
 
@@ -20,11 +20,15 @@ public class DramaEpisodeCommentService {
 
     public DramaEpisodeComment create(final DramaEpisodeComment.View.Create.Request request, final User user) {
         final DramaEpisodeComment dramaEpisodeComment = DramaEpisodeComment.builder()
-                                                                           .content(request.getContents())
+                                                                           .contents(request.getContents())
                                                                            .depth(request.getDepth())
                                                                            .writtenBy(user)
                                                                            .build();
 
+        return dramaEpisodeCommentRepository.save(dramaEpisodeComment);
+    }
+
+    public DramaEpisodeComment save(final DramaEpisodeComment dramaEpisodeComment) {
         return dramaEpisodeCommentRepository.save(dramaEpisodeComment);
     }
 
@@ -49,12 +53,12 @@ public class DramaEpisodeCommentService {
     }
 
     @Transactional
-    public Like doLike(final User user, final long commentId) {
+    public LikeOrDislike doLike(final User user, final long commentId) {
         return findBy(commentId).doLike(user);
     }
 
     @Transactional
-    public Like doDislike(final User user, final long commentId) {
+    public LikeOrDislike doDislike(final User user, final long commentId) {
         return findBy(commentId).doDislike(user);
     }
 }

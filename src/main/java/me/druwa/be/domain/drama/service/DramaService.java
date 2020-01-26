@@ -10,8 +10,8 @@ import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama.model.DramaImageRepository;
 import me.druwa.be.domain.drama.model.DramaImages;
 import me.druwa.be.domain.drama.model.DramaMultipartImages;
+import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama.repository.DramaRepository;
-import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_tag.DramaTagService;
 import me.druwa.be.domain.drama_tag.DramaTags;
 import me.druwa.be.domain.user.model.User;
@@ -58,12 +58,12 @@ public class DramaService {
     }
 
     @Transactional
-    public Like doLike(final Long dramaId, final User user) {
+    public LikeOrDislike doLike(final Long dramaId, final User user) {
         return findByDramaId(dramaId).like(user);
     }
 
     @Transactional
-    public Like doDislike(final Long dramaId, final User user) {
+    public LikeOrDislike doDislike(final Long dramaId, final User user) {
         return findByDramaId(dramaId).dislike(user);
     }
 

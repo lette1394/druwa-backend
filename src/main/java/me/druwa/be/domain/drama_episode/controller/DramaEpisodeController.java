@@ -40,7 +40,7 @@ public class DramaEpisodeController {
     public ResponseEntity<?> find(@PathVariable Long dramaId,
                                   @PathVariable Long episodeId) {
         dramaService.ensureExistsBy(dramaId);
-        final DramaEpisode dramaEpisode = dramaEpisodeService.find(episodeId);
+        final DramaEpisode dramaEpisode = dramaEpisodeService.findBy(episodeId);
 
         return ResponseEntity.ok(dramaEpisode.toReadResponse());
     }

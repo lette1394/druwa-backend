@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.druwa.be.domain.user.model.User;
 
 @Embeddable
 @AllArgsConstructor
@@ -17,10 +18,14 @@ public class DramaEpisodeComments {
     @OneToMany
     private List<DramaEpisodeComment> dramaEpisodeComments;
 
-    public List<DramaEpisodeComment.View.Read.Response> toResponse() {
+    public List<DramaEpisodeComment.View.Read.Response> toResponse(final User user) {
         return dramaEpisodeComments.stream()
-                                   .map(DramaEpisodeComment::toReadResponse)
+                                   .map(comment -> comment.toReadResponse(user))
                                    .collect(Collectors.toList());
+    }
+
+    public Integer count() {
+        return dramaEpisodeComments.size();
     }
 
     @Data

@@ -103,12 +103,15 @@ class DramaControllerTest {
                                                                   .type(JsonFieldType.STRING)
                                                                   .attributes(request.constraint("title")),
                                             fieldWithPath("images").description("")
-                                                                     .optional()
-                                                                     .type(JsonFieldType.ARRAY)
-                                                                     .attributes(request.constraint("images")),
+                                                                   .optional()
+                                                                   .type(JsonFieldType.ARRAY)
+                                                                   .attributes(request.constraint("images")),
                                             fieldWithPath("like").description("")
                                                                  .type(JsonFieldType.NUMBER)
                                                                  .attributes(request.constraint("like")),
+                                            fieldWithPath("dislike").description("")
+                                                                 .type(JsonFieldType.NUMBER)
+                                                                 .attributes(request.constraint("dislike")),
                                             fieldWithPath("createdAt").description("")
                                                                       .type(JsonFieldType.STRING)
                                                                       .attributes(request.constraint("createdAt")),
@@ -175,7 +178,16 @@ class DramaControllerTest {
                                     responseFields(
                                             fieldWithPath("like").description("")
                                                                  .type(JsonFieldType.NUMBER)
-                                                                 .attributes(request.constraint("like")))))
+                                                                 .attributes(request.constraint("like")),
+                                            fieldWithPath("liked").description("")
+                                                                 .type(JsonFieldType.BOOLEAN)
+                                                                 .attributes(request.constraint("liked")),
+                                            fieldWithPath("dislike").description("")
+                                                                 .type(JsonFieldType.NUMBER)
+                                                                 .attributes(request.constraint("like")),
+                                            fieldWithPath("disliked").description("")
+                                                                 .type(JsonFieldType.BOOLEAN)
+                                                                 .attributes(request.constraint("disliked")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
@@ -196,7 +208,16 @@ class DramaControllerTest {
                                     responseFields(
                                             fieldWithPath("like").description("")
                                                                  .type(JsonFieldType.NUMBER)
-                                                                 .attributes(request.constraint("like")))))
+                                                                 .attributes(request.constraint("like")),
+                                            fieldWithPath("liked").description("")
+                                                                  .type(JsonFieldType.BOOLEAN)
+                                                                  .attributes(request.constraint("liked")),
+                                            fieldWithPath("dislike").description("")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(request.constraint("like")),
+                                            fieldWithPath("disliked").description("")
+                                                                     .type(JsonFieldType.BOOLEAN)
+                                                                     .attributes(request.constraint("disliked")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())

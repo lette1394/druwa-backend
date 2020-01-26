@@ -24,7 +24,7 @@ import me.druwa.be.domain.user.model.User;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "dramaLikeId")
-public class DramaLike {
+public class UserLikesDrama {
     @EmbeddedId
     private DramaLikeKey dramaLikeId;
 

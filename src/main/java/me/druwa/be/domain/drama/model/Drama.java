@@ -3,6 +3,7 @@ package me.druwa.be.domain.drama.model;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -34,11 +35,9 @@ import me.druwa.be.domain.common.model.IgnoreMerge;
 import me.druwa.be.domain.common.model.Mergeable;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
-import me.druwa.be.domain.drama_episode_comment.model.Like;
 import me.druwa.be.domain.drama_review.DramaReviews;
 import me.druwa.be.domain.drama_tag.DramaTags;
 import me.druwa.be.domain.user.model.User;
-import me.druwa.be.domain.user.model.Users;
 
 import static me.druwa.be.domain.drama.model.DramaImages.dramaImages;
 
@@ -81,14 +80,17 @@ public class Drama implements Mergeable<Drama> {
     private DramaImages dramaImages;
 
     @Embedded
-    private Like dramaLike;
-
-    @Embedded
-    @AssociationOverride(name = "users",
-                         joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA,
-                                                joinColumns = @JoinColumn(name = "drama_id"),
-                                                inverseJoinColumns = @JoinColumn(name = "user_id")))
-    private Users likeUsers;
+    @AssociationOverrides({
+                                  @AssociationOverride(name = "likeUsers.users",
+                                                       joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA,
+                                                                              joinColumns = @JoinColumn(name = "drama_id"),
+                                                                              inverseJoinColumns = @JoinColumn(name = "user_id"))),
+                                  @AssociationOverride(name = "dislikeUsers.users",
+                                                       joinTable = @JoinTable(name = JoinTableName.USER__DISLIKES__DRAMA,
+                                                                              joinColumns = @JoinColumn(name = "drama_id"),
+                                                                              inverseJoinColumns = @JoinColumn(name = "user_id")))
+                          })
+    private LikeOrDislike dramaLike;
 
     @NotNull
     @ManyToOne
@@ -112,20 +114,12 @@ public class Drama implements Mergeable<Drama> {
     @Embedded
     private Timestamp timestamp;
 
-    public Like like(final User user) {
-        if (likeUsers.contains(user)) {
-            return dramaLike;
-        }
-        likeUsers.add(user);
-        return dramaLike.doLike();
+    public LikeOrDislike like(final User user) {
+        return dramaLike.doLike(user);
     }
 
-    public Like dislike(final User user) {
-        if (likeUsers.contains(user)) {
-            likeUsers.remove(user);
-            return dramaLike.doDislike();
-        }
-        return dramaLike;
+    public LikeOrDislike dislike(final User user) {
+        return dramaLike.doDislike(user);
     }
 
     public Drama update(final DramaTags dramaTags) {
@@ -151,7 +145,7 @@ public class Drama implements Mergeable<Drama> {
     @PrePersist
     public void onCreate() {
         timestamp = Timestamp.now();
-        dramaLike = new Like();
+        dramaLike = new LikeOrDislike();
     }
 
     @PreUpdate
@@ -176,7 +170,7 @@ public class Drama implements Mergeable<Drama> {
         return View.Read.Response.builder()
                                  .dramaId(dramaId)
                                  .title(title)
-                                 .like(dramaLike)
+                                 .likeOrDislike(dramaLike)
                                  .productionCompany(productionCompany)
                                  .images(dramaImages.toResponse())
                                  .summary(summary)
@@ -249,7 +243,7 @@ public class Drama implements Mergeable<Drama> {
                 private String productionCompany;
                 private Set<Image.View.Read.Response> images;
                 @JsonUnwrapped
-                private Like like;
+                private LikeOrDislike likeOrDislike;
                 @JsonUnwrapped
                 private Timestamp timestamp;
             }

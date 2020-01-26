@@ -3,21 +3,15 @@ package me.druwa.be.domain.common.model;
 import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
-
 @Getter
 @EqualsAndHashCode
 public class PositiveOrZeroLong {
-    public static PositiveOrZeroLong ZERO = new PositiveOrZeroLong(0L);
-    public static PositiveOrZeroLong ONE = new PositiveOrZeroLong(1L);
-
     @PositiveOrZero
-    private final Long value;
+    private Long value;
 
     @JsonCreator
     public static PositiveOrZeroLong parse(final String str) {
@@ -36,14 +30,16 @@ public class PositiveOrZeroLong {
     }
 
     public PositiveOrZeroLong increase() {
-        return new PositiveOrZeroLong(value + 1);
+        value++;
+        return this;
     }
 
     public PositiveOrZeroLong decrease() {
-        if (value == 0) {
-            return ZERO;
+        if (value <= 0) {
+            return this;
         }
-        return new PositiveOrZeroLong(value - 1);
+        value--;
+        return this;
     }
 
     @Override
