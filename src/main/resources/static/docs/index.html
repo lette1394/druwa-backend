@@ -687,7 +687,7 @@ Host: api.druwa.site</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 302 Found
-Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=Zth48rw-U64Q901yvrtOtZvwqUlmFnCUjoh4EFTdh_U%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
+Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=NV2lCJ3Zp0wubTQC0QPrMcoAV4BIQ37xh7HQTVjELMk%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
 </div>
 </div>
 <hr>
@@ -932,7 +932,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 21
 
 {
-  &quot;dramaId&quot; : 277
+  &quot;dramaId&quot; : 282
 }</code></pre>
 </div>
 </div>
@@ -1082,7 +1082,7 @@ Content-Length: 328
   &quot;like&quot; : 1,
   &quot;dislike&quot; : 1,
   &quot;createdAt&quot; : &quot;2020-01-21T01:51:30.182&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-27T03:33:24.436&quot;
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:34:01.209&quot;
 }</code></pre>
 </div>
 </div>
@@ -1277,12 +1277,12 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 74
+Content-Length: 73
 
 {
   &quot;like&quot; : 2,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 0,
+  &quot;liked&quot; : true,
+  &quot;dislike&quot; : 1,
   &quot;disliked&quot; : false
 }</code></pre>
 </div>
@@ -1376,13 +1376,13 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 74
+Content-Length: 73
 
 {
   &quot;like&quot; : 1,
   &quot;liked&quot; : false,
-  &quot;dislike&quot; : 1,
-  &quot;disliked&quot; : false
+  &quot;dislike&quot; : 2,
+  &quot;disliked&quot; : true
 }</code></pre>
 </div>
 </div>
@@ -1397,7 +1397,7 @@ Content-Length: 74
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/images' -i -X POST \
     -H 'Accept: application/json' \
-    -H 'Content-Type: multipart/form-data; boundary=&quot;rbTM5xXf_C9LDaJSgHjH08iLf1Q6IOsj&quot;' \
+    -H 'Content-Type: multipart/form-data; boundary=&quot;E9YsNEtnxrkoxqyNg6gBdmo1g5CP2sDtg71&quot;' \
     -F 'imageName1=@320x200.jpg;type=image/jpeg'</code></pre>
 </div>
 </div>
@@ -1507,7 +1507,7 @@ Content-Length: 74
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 905
+Content-Length: 906
 
 [ {
   &quot;imageName&quot; : &quot;1234&quot;,
@@ -1518,6 +1518,14 @@ Content-Length: 905
   &quot;createdAt&quot; : &quot;2020-01-22T02:09:04.877&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-22T02:09:04.877&quot;
 }, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1580065967277-140341.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-27T04:12:47.699&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T04:12:47.699&quot;
+}, {
   &quot;imageName&quot; : &quot;im1324124&quot;,
   &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
   &quot;widthPixel&quot; : null,
@@ -1525,14 +1533,6 @@ Content-Length: 905
   &quot;imageType&quot; : &quot;JPG&quot;,
   &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
-}, {
-  &quot;imageName&quot; : &quot;imageName1&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1580063640434-89512.jpg&quot;,
-  &quot;widthPixel&quot; : null,
-  &quot;heightPixel&quot; : null,
-  &quot;imageType&quot; : &quot;JPG&quot;,
-  &quot;createdAt&quot; : &quot;2020-01-27T03:34:01.024&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-27T03:34:01.024&quot;
 } ]</code></pre>
 </div>
 </div>
@@ -1655,14 +1655,6 @@ Content-Length: 906
   &quot;createdAt&quot; : &quot;2020-01-22T02:09:04.877&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-22T02:09:04.877&quot;
 }, {
-  &quot;imageName&quot; : &quot;im1324124&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
-  &quot;widthPixel&quot; : null,
-  &quot;heightPixel&quot; : null,
-  &quot;imageType&quot; : &quot;JPG&quot;,
-  &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
-}, {
   &quot;imageName&quot; : &quot;imageName1&quot;,
   &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1579628973542-249603.jpg&quot;,
   &quot;widthPixel&quot; : null,
@@ -1670,6 +1662,14 @@ Content-Length: 906
   &quot;imageType&quot; : &quot;JPG&quot;,
   &quot;createdAt&quot; : &quot;2020-01-22T02:49:34.236&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-22T02:49:34.236&quot;
+}, {
+  &quot;imageName&quot; : &quot;im1324124&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
 } ]</code></pre>
 </div>
 </div>
@@ -1984,7 +1984,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 28
 
 {
-  &quot;dramaEpisodeId&quot; : 276
+  &quot;dramaEpisodeId&quot; : 279
 }</code></pre>
 </div>
 </div>
@@ -2261,10 +2261,10 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 89
 
 {
-  &quot;id&quot; : 275,
+  &quot;id&quot; : 281,
   &quot;prev&quot; : -1,
   &quot;next&quot; : -1,
-  &quot;createdAt&quot; : &quot;2020-01-27T03:33:45.134&quot;
+  &quot;createdAt&quot; : &quot;2020-01-27T04:12:37.875&quot;
 }</code></pre>
 </div>
 </div>
@@ -2413,10 +2413,34 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 5584
+Content-Length: 5836
 
 [ {
-  &quot;id&quot; : 265,
+  &quot;id&quot; : 184,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 2,
+  &quot;disliked&quot; : true,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:21:05.198&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T04:07:13.175&quot;
+}, {
+  &quot;id&quot; : 216,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 2,
+  &quot;liked&quot; : true,
+  &quot;dislike&quot; : 1,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:45:42.317&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T04:07:00.65&quot;
+}, {
+  &quot;id&quot; : 280,
   &quot;depth&quot; : 1,
   &quot;next&quot; : -1,
   &quot;prev&quot; : -1,
@@ -2425,56 +2449,8 @@ Content-Length: 5584
   &quot;liked&quot; : false,
   &quot;dislike&quot; : 0,
   &quot;disliked&quot; : false,
-  &quot;createdAt&quot; : &quot;2020-01-27T03:32:16.638&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-27T03:32:16.638&quot;
-}, {
-  &quot;id&quot; : 216,
-  &quot;depth&quot; : 1,
-  &quot;next&quot; : -1,
-  &quot;prev&quot; : -1,
-  &quot;contents&quot; : &quot;hello world!!&quot;,
-  &quot;like&quot; : 0,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 0,
-  &quot;disliked&quot; : false,
-  &quot;createdAt&quot; : &quot;2020-01-27T02:45:42.317&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-27T02:45:42.317&quot;
-}, {
-  &quot;id&quot; : 182,
-  &quot;depth&quot; : 1,
-  &quot;next&quot; : -1,
-  &quot;prev&quot; : -1,
-  &quot;contents&quot; : &quot;hello world!!&quot;,
-  &quot;like&quot; : 0,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 0,
-  &quot;disliked&quot; : false,
-  &quot;createdAt&quot; : &quot;2020-01-27T02:20:01.797&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-27T02:20:01.797&quot;
-}, {
-  &quot;id&quot; : 186,
-  &quot;depth&quot; : 1,
-  &quot;next&quot; : -1,
-  &quot;prev&quot; : -1,
-  &quot;contents&quot; : &quot;hello world!!&quot;,
-  &quot;like&quot; : 0,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 0,
-  &quot;disliked&quot; : false,
-  &quot;createdAt&quot; : &quot;2020-01-27T02:22:04.803&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-27T02:22:04.803&quot;
-}, {
-  &quot;id&quot; : 184,
-  &quot;depth&quot; : 1,
-  &quot;next&quot; : -1,
-  &quot;prev&quot; : -1,
-  &quot;contents&quot; : &quot;hello world!!&quot;,
-  &quot;like&quot; : 0,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 0,
-  &quot;disliked&quot; : false,
-  &quot;createdAt&quot; : &quot;2020-01-27T02:21:05.198&quot;,
-  &quot;updatedAt&quot; : &quot;2020-01-27T02:21:05.198&quot;
+  &quot;createdAt&quot; : &quot;2020-01-27T04:12:37.788&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T04:12:37.788&quot;
 }, {
   &quot;id&quot; : 245,
   &quot;depth&quot; : 1,
@@ -2679,6 +2655,42 @@ Content-Length: 5584
   &quot;disliked&quot; : false,
   &quot;createdAt&quot; : &quot;2020-01-27T03:33:44.756&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-27T03:33:44.756&quot;
+}, {
+  &quot;id&quot; : 265,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 1,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T03:32:16.638&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:35:54.088&quot;
+}, {
+  &quot;id&quot; : 182,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 1,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:20:01.797&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:45:14.286&quot;
+}, {
+  &quot;id&quot; : 186,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;hello world!!&quot;,
+  &quot;like&quot; : 1,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-27T02:22:04.803&quot;,
+  &quot;updatedAt&quot; : &quot;2020-01-27T03:51:03.359&quot;
 } ]</code></pre>
 </div>
 </div>
@@ -2946,12 +2958,12 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 74
+Content-Length: 73
 
 {
   &quot;like&quot; : 1,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 0,
+  &quot;liked&quot; : true,
+  &quot;dislike&quot; : 1,
   &quot;disliked&quot; : false
 }</code></pre>
 </div>
@@ -3045,13 +3057,13 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 74
+Content-Length: 73
 
 {
   &quot;like&quot; : 0,
   &quot;liked&quot; : false,
-  &quot;dislike&quot; : 1,
-  &quot;disliked&quot; : false
+  &quot;dislike&quot; : 2,
+  &quot;disliked&quot; : true
 }</code></pre>
 </div>
 </div>
@@ -3192,10 +3204,10 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 89
 
 {
-  &quot;id&quot; : 274,
+  &quot;id&quot; : 280,
   &quot;prev&quot; : -1,
   &quot;next&quot; : -1,
-  &quot;createdAt&quot; : &quot;2020-01-27T03:33:44.756&quot;
+  &quot;createdAt&quot; : &quot;2020-01-27T04:12:37.788&quot;
 }</code></pre>
 </div>
 </div>
@@ -3207,7 +3219,7 @@ Content-Length: 89
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-01-27 03:33:56 +0900
+Last updated 2020-01-27 04:12:16 +0900
 </div>
 </div>
 </body>

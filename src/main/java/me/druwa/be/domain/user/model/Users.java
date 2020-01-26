@@ -3,7 +3,7 @@ package me.druwa.be.domain.user.model;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Users {
 
-    @OneToMany
+    @ManyToMany
     private Set<User> users;
 
     public static Users users(final List<User> users) {

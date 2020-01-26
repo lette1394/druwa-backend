@@ -83,7 +83,7 @@ public class DramaEpisodeCommentController {
         dramaEpisodeCommentService.ensureExistsBy(commentId);
 
         final LikeOrDislike commentLikeOrDislike = dramaEpisodeCommentService.doLike(user, commentId);
-        return ResponseEntity.ok(commentLikeOrDislike.toResponse());
+        return ResponseEntity.ok(commentLikeOrDislike.toResponse(user));
     }
 
     @PatchMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}/dislike")
@@ -96,7 +96,7 @@ public class DramaEpisodeCommentController {
         dramaEpisodeCommentService.ensureExistsBy(commentId);
 
         final LikeOrDislike commentLikeOrDislike = dramaEpisodeCommentService.doDislike(user, commentId);
-        return ResponseEntity.ok(commentLikeOrDislike.toResponse());
+        return ResponseEntity.ok(commentLikeOrDislike.toResponse(user));
     }
 
     @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}")

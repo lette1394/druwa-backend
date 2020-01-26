@@ -40,61 +40,62 @@ class LikeOrDislikeTest {
         user0.setUserId(0L);
 
         likeOrDislike.doLike(user0);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(1L, 0L));
+        assertThat(likeOrDislike.likeSum()).isEqualTo(1);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
 
     @Test
     void doLikeTwice() {
         likeOrDislike.doLike(user0);
         likeOrDislike.doLike(user0);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(1L, 0L));
+        assertThat(likeOrDislike.likeSum()).isEqualTo(0);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
 
     @Test
     void doLikeTwiceOtherUser() {
         likeOrDislike.doLike(user0);
         likeOrDislike.doLike(user1);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(2L, 0L));
+        assertThat(likeOrDislike.likeSum()).isEqualTo(2L);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
 
     @Test
     void doDisLike() {
         likeOrDislike.doDislike(user0);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(0L, 1L));
+        assertThat(likeOrDislike.likeSum()).isEqualTo(0);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(1);
     }
 
     @Test
     void doDisLikeTwice() {
         likeOrDislike.doDislike(user0);
         likeOrDislike.doDislike(user0);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(0L, 1L));
+        assertThat(likeOrDislike.likeSum()).isEqualTo(0);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
 
     @Test
     void doDisLikeTwiceOtherUser() {
         likeOrDislike.doDislike(user0);
         likeOrDislike.doDislike(user1);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(0L, 2L));
+        assertThat(likeOrDislike.likeSum()).isEqualTo(0);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(2);
     }
 
     @Test
     void likeToDislike() {
         likeOrDislike.doLike(user0);
         likeOrDislike.doDislike(user0);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(0L, 1L));
+        assertThat(likeOrDislike.likeSum()).isEqualTo(0);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(1);
     }
 
     @Test
     void dislikeToLike() {
         likeOrDislike.doDislike(user0);
         likeOrDislike.doLike(user0);
-        assertThat(likeOrDislike.toResponse()).isEqualTo(response(1L, 0L));
-    }
-
-    private LikeOrDislike.View.Read.Response response(final Long like, final Long dislike) {
-        return LikeOrDislike.View.Read.Response.builder()
-                                               .like(like)
-                                               .dislike(dislike)
-                                               .build();
+        assertThat(likeOrDislike.likeSum()).isEqualTo(1);
+        assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
 }

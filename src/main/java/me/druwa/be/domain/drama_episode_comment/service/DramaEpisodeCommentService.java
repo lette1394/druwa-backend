@@ -32,14 +32,14 @@ public class DramaEpisodeCommentService {
         return dramaEpisodeCommentRepository.save(dramaEpisodeComment);
     }
 
-    public void ensureExistsBy(final long commentId) {
+    public void ensureExistsBy(final Long commentId) {
         if (dramaEpisodeCommentRepository.existsByDramaEpisodeCommentId(commentId)) {
             return;
         }
         throw new NoSuchElementException(format("no episodeComment with id:[%s]", commentId));
     }
 
-    public DramaEpisodeComment findBy(final long commentId) {
+    public DramaEpisodeComment findBy(final Long commentId) {
         return dramaEpisodeCommentRepository.findById(commentId)
                                             .orElseThrow(() -> new NoSuchElementException(
                                                     format("no episodeComment with id:[%s]",
@@ -53,12 +53,12 @@ public class DramaEpisodeCommentService {
     }
 
     @Transactional
-    public LikeOrDislike doLike(final User user, final long commentId) {
+    public LikeOrDislike doLike(final User user, final Long commentId) {
         return findBy(commentId).doLike(user);
     }
 
     @Transactional
-    public LikeOrDislike doDislike(final User user, final long commentId) {
+    public LikeOrDislike doDislike(final User user, final Long commentId) {
         return findBy(commentId).doDislike(user);
     }
 }

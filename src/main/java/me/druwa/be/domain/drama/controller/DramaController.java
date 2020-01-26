@@ -92,7 +92,7 @@ public class DramaController {
         final LikeOrDislike likeOrDislike = dramaService.doLike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(likeOrDislike.toResponse());
+                             .body(likeOrDislike.toResponse(user));
     }
 
     @PostMapping("/dramas/{dramaId}/dislike")
@@ -103,7 +103,7 @@ public class DramaController {
         final LikeOrDislike likeOrDislike = dramaService.doDislike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(likeOrDislike.toResponse());
+                             .body(likeOrDislike.toResponse(user));
     }
 
 

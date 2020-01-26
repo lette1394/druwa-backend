@@ -46,6 +46,8 @@ public class LikeOrDislike {
 
     public LikeOrDislike doLike(final User user) {
         if (likeUsers.contains(user)) {
+            likeUsers.remove(user);
+            likeCount.decrease();
             return this;
         }
 
@@ -61,6 +63,8 @@ public class LikeOrDislike {
 
     public LikeOrDislike doDislike(final User user) {
         if (dislikeUsers.contains(user)) {
+            dislikeUsers.remove(user);
+            dislikeCount.decrease();
             return this;
         }
 
@@ -86,13 +90,6 @@ public class LikeOrDislike {
     @JsonProperty("dislike")
     public Long dislikeSum() {
         return dislikeCount.getValue();
-    }
-
-    public View.Read.Response toResponse() {
-        return View.Read.Response.builder()
-                                 .like(likeCount.getValue())
-                                 .dislike(dislikeCount.getValue())
-                                 .build();
     }
 
     public View.Read.Response toResponse(final User user) {
