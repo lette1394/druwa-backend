@@ -17,8 +17,11 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +30,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import me.druwa.be.domain.auth.service.TokenProvider;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama_review.DramaReviews;
 
@@ -42,7 +46,13 @@ import static java.util.Objects.nonNull;
 @Table(name = "user_", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
+@Builder
 public class User {
+    private static final int MIN_NAME_SIZE = 2;
+    private static final int MAX_NAME_SIZE = 20;
+
+    private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}$";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
@@ -50,6 +60,7 @@ public class User {
 
     @Column
     @NotBlank
+    @Size(min = MIN_NAME_SIZE, max = MAX_NAME_SIZE)
     private String name;
 
     @Column
@@ -58,9 +69,13 @@ public class User {
     private String email;
 
     @Column
+    private String password;
+
+    @Column
     private String imageUrl;
 
     @Column
+    @Builder.Default
     private Boolean emailVerified = false;
 
     @Column
@@ -69,7 +84,6 @@ public class User {
     private OAuth2Provider provider;
 
     @Column
-    @NotBlank
     private String providerId;
 
     @Embedded
@@ -102,7 +116,13 @@ public class User {
         return authorities.toGrantedAuthorities();
     }
 
-    public View.Read.Response toResponse() {
+    public View.Create.Response toCreateResponse(final TokenProvider tokenProvider) {
+        return View.Create.Response.builder()
+                                   .token(tokenProvider.createToken(this))
+                                   .build();
+    }
+
+    public View.Read.Response toReadResponse() {
         return View.Read.Response.builder()
                                  .name(name)
                                  .email(email)
@@ -113,18 +133,75 @@ public class User {
     }
 
     public static class View {
+        public static class Create {
+            @Data
+            public static class Request {
+                @Email
+                @NotBlank
+                private String email;
+
+                @NotBlank
+                @Size(min = MIN_NAME_SIZE, max = MAX_NAME_SIZE)
+                private String name;
+
+                @NotBlank
+                @Pattern(regexp = PASSWORD_REGEX)
+                private String password;
+
+                public User toPartialUser(final PasswordEncoder passwordEncoder) {
+                    return User.builder()
+                               .email(email)
+                               .name(name)
+                               .password(passwordEncoder.encode(password))
+                               .authorities(Authorities.user())
+                               .provider(OAuth2Provider.LOCAL)
+                               .build();
+                }
+            }
+
+            @Data
+            @Builder
+            public static class Response {
+                @NotBlank
+                private String token;
+            }
+        }
+
         public static class Read {
             @Data
             @Builder
             public static class Response {
                 @NotBlank
-                public String name;
+                private String name;
                 @NotBlank
-                public String email;
-                public String imageUrl;
-                public String provider;
+                private String email;
+                private String imageUrl;
+                private String provider;
                 @NotNull
-                public LocalDateTime registeredAt;
+                private LocalDateTime registeredAt;
+            }
+        }
+
+        public static class Find {
+            @Data
+            public static class Request {
+                @NotBlank
+                @Size(min = MIN_NAME_SIZE, max = MAX_NAME_SIZE)
+                private String name;
+
+                @Email
+                private String email;
+            }
+        }
+
+        public static class Login {
+            @Data
+            public static class Request {
+                @Email
+                private String email;
+
+                @Pattern(regexp = PASSWORD_REGEX)
+                private String password;
             }
         }
     }

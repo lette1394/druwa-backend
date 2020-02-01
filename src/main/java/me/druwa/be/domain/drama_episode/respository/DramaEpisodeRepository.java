@@ -8,7 +8,7 @@ import me.druwa.be.domain.common.cache.CacheKey;
 import me.druwa.be.domain.drama_episode.model.DramaEpisode;
 
 @Repository
-public interface DramaEpisodeRepository extends JpaRepository<DramaEpisode, Long> {
+public interface DramaEpisodeRepository extends JpaRepository<DramaEpisode, Long>, DramaEpisodeRepositoryExtended {
 
     @Transactional(readOnly = true)
     @Cacheable(cacheNames = CacheKey.DramaEpisode.EXISTS, key = "#id")

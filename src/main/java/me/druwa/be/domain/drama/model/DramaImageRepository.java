@@ -8,7 +8,7 @@ import static me.druwa.be.domain.drama.model.DramaImages.dramaImages;
 @Repository
 public interface DramaImageRepository extends JpaRepository<DramaImage, Long> {
 
-    default DramaImages saveAll(DramaImages dramaImages) {
+    default DramaImages saveAll(final DramaImages dramaImages) {
         return dramaImages(saveAll(dramaImages.toRaw()));
     }
 }

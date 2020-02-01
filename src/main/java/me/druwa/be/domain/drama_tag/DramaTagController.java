@@ -21,7 +21,7 @@ public class DramaTagController {
     public ResponseEntity<?> find(@RequestParam(name = "q",
                                                 required = false,
                                                 defaultValue = StringUtils.EMPTY)
-                                          DramaTagSearchStrings searchWords) {
+                                  final DramaTagSearchStrings searchWords) {
         final DramaTags dramaTags = dramaTagService.findAll(searchWords);
         return ResponseEntity.status(HttpStatus.OK)
                              .body(dramaTags.toResponse());

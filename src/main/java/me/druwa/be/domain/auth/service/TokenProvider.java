@@ -15,6 +15,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.druwa.be.domain.user.model.User;
 
 @Slf4j
 @Service
@@ -30,6 +31,18 @@ public class TokenProvider {
 
         return Jwts.builder()
                    .setSubject(Long.toString(userPrincipal.getId()))
+                   .setIssuedAt(new Date())
+                   .setExpiration(expiryDate)
+                   .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
+                   .compact();
+    }
+
+    public String createToken(final User user) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMillis());
+
+        return Jwts.builder()
+                   .setSubject(Long.toString(user.getUserId()))
                    .setIssuedAt(new Date())
                    .setExpiration(expiryDate)
                    .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
@@ -62,5 +75,4 @@ public class TokenProvider {
         }
         return false;
     }
-
 }

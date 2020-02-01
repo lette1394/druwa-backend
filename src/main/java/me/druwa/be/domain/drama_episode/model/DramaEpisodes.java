@@ -1,6 +1,8 @@
 package me.druwa.be.domain.drama_episode.model;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
@@ -25,5 +27,11 @@ public class DramaEpisodes {
 
     public void update(final DramaEpisodes other) {
         this.dramaEpisodes = other.dramaEpisodes;
+    }
+
+    public Set<DramaEpisode.View.Read.Response> toReadResponse() {
+        return dramaEpisodes.stream()
+                            .map(DramaEpisode::toReadResponse)
+                            .collect(Collectors.toSet());
     }
 }

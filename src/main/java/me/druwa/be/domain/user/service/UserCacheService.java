@@ -13,6 +13,7 @@ public class UserCacheService {
     public void evictAll(final User user) {
         evictById(user);
         evictByEmail(user);
+        evictByName(user);
     }
 
     @CacheEvict(cacheNames = CacheKey.User.ID, key = "#user.userId")
@@ -23,5 +24,10 @@ public class UserCacheService {
     @CacheEvict(cacheNames = CacheKey.User.EMAIL, key = "#user.email")
     public void evictByEmail(final User user) {
         log.info(String.format("user cache is evicted by email, userEmail: [%s]", user.getEmail()));
+    }
+
+    @CacheEvict(cacheNames = CacheKey.User.NAME, key = "#user.name")
+    public void evictByName(final User user) {
+        log.info(String.format("user cache is evicted by name, userName: [%s]", user.getName()));
     }
 }

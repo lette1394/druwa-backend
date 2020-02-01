@@ -10,7 +10,7 @@ class DramaTagRepositoryExtendedImpl extends QuerydslRepositorySupport implement
     }
 
     @Override
-    public DramaTags findAll(final DramaTags dramaTags) {
+    public DramaTags search(final DramaTags dramaTags) {
         final QDramaTag dramaTag = QDramaTag.dramaTag;
 
         return new DramaTags(
@@ -19,7 +19,7 @@ class DramaTagRepositoryExtendedImpl extends QuerydslRepositorySupport implement
     }
 
     @Override
-    public DramaTags findAll(final DramaTagSearchStrings searchWords) {
+    public DramaTags search(final DramaTagSearchStrings searchWords) {
         final QDramaTag dramaTag = QDramaTag.dramaTag;
         final BooleanExpression allWords = searchWords.stream()
                                                       .map(dramaTag.tagName::containsIgnoreCase)

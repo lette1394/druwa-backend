@@ -20,11 +20,16 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.DramaSearchQuery;
+import me.druwa.be.domain.drama.model.DramaSearchStrings;
+import me.druwa.be.domain.drama.model.Dramas;
 import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama.service.DramaService;
 import me.druwa.be.domain.drama_tag.DramaTag;
+import me.druwa.be.domain.drama_tag.DramaTagSearchStrings;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
+import org.apache.commons.lang3.StringUtils;
 
 import static me.druwa.be.domain.drama.model.DramaMultipartImages.dramaMultipartImages;
 
@@ -119,5 +124,23 @@ public class DramaController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                              .build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> find(
+            @RequestParam(name = "tag",
+                          required = false,
+                          defaultValue = StringUtils.EMPTY) final DramaTagSearchStrings tags,
+            @RequestParam(name = "q") final DramaSearchStrings dramas) {
+
+        final DramaSearchQuery searchQuery = DramaSearchQuery.builder()
+                                                             .dramaSearchStrings(dramas)
+                                                             .dramaTagSearchStrings(tags)
+                                                             .build();
+
+        final Dramas search = dramaService.search(searchQuery);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(search.toSearchResponse());
     }
 }

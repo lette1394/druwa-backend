@@ -59,6 +59,7 @@ public class Drama implements Mergeable<Drama> {
     @Getter
     private Long dramaId;
 
+    @Getter
     @Column
     @NotBlank
     @Size(min = TITLE_MIN_LENGTH, max = TITLE_MAX_LENGTH)
@@ -178,6 +179,15 @@ public class Drama implements Mergeable<Drama> {
                                  .build();
     }
 
+    public View.Search.Response toSearchResponse() {
+        return View.Search.Response.builder()
+                                   .dramaId(dramaId)
+                                   .productionCompany(productionCompany)
+                                   .images(dramaImages.toResponse())
+                                   .title(title)
+                                   .build();
+    }
+
     public Set<Image.View.Read.Response> toImageOnlyResponse() {
         return dramaImages.toResponse();
     }
@@ -246,6 +256,17 @@ public class Drama implements Mergeable<Drama> {
                 private LikeOrDislike likeOrDislike;
                 @JsonUnwrapped
                 private Timestamp timestamp;
+            }
+        }
+
+        public static class Search {
+            @Data
+            @Builder
+            public static class Response {
+                private Long dramaId;
+                private String title;
+                private String productionCompany;
+                private Set<Image.View.Read.Response> images;
             }
         }
 

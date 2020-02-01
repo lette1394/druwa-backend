@@ -1,5 +1,6 @@
 package me.druwa.be.domain.drama_episode.model;
 
+import java.util.Set;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
+import me.druwa.be.domain.common.db.Image;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
@@ -56,6 +58,9 @@ public class DramaEpisode {
 
     @Column
     private String title;
+
+    @Column
+    private String playUri;
 
     @Column
     @Size(max = SUMMARY_MAX_LENGTH)
@@ -116,6 +121,7 @@ public class DramaEpisode {
         return View.Read.Response.builder()
                                  .dramaEpisodeId(dramaEpisodeId)
                                  .title(title)
+                                 .dramaTitle(drama.getTitle())
                                  .summary(summary)
                                  .durationInMillis(durationInMillis)
                                  .likeOrDislike(dramaEpisodeLike)
@@ -138,6 +144,8 @@ public class DramaEpisode {
                 private String title;
                 @NotBlank
                 private String summary;
+                @NotBlank
+                private String playUri;
                 @Positive
                 private Long episodeNumber;
                 @Positive
@@ -149,6 +157,7 @@ public class DramaEpisode {
                                        .drama(drama)
                                        .registeredBy(user)
                                        .title(title)
+                                       .playUri(playUri)
                                        .summary(summary)
                                        .episodeNumber(positiveOrZeroLong(episodeNumber))
                                        .durationInMillis(positiveOrZeroLong(durationInMillis))
@@ -173,6 +182,8 @@ public class DramaEpisode {
                 @NotBlank
                 public String title;
                 @NotBlank
+                public String dramaTitle;
+                @NotBlank
                 public String summary;
                 @JsonUnwrapped
                 public PositiveOrZeroLong durationInMillis;
@@ -182,6 +193,22 @@ public class DramaEpisode {
                 public PositiveOrZeroLong episodeNumber;
                 @PositiveOrZero
                 public Integer totalComments;
+            }
+        }
+
+        public static class Search {
+            @Data
+            public static class Response {
+                @Positive
+                private Long dramaEpisodeId;
+                @NotBlank
+                private String title;
+                @NotBlank
+                private String dramaTitle;
+                @JsonUnwrapped
+                public PositiveOrZeroLong episodeNumber;
+                @NotBlank
+                private String productionCompany;
             }
         }
     }

@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama.service.DramaService;
 import me.druwa.be.domain.drama_episode.model.DramaEpisode;
+import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
 import me.druwa.be.domain.drama_episode.service.DramaEpisodeService;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
@@ -36,11 +37,19 @@ public class DramaEpisodeController {
         return ResponseEntity.ok(dramaEpisode.toCreateResponse());
     }
 
+    @GetMapping("/dramas/{dramaId}/episodes")
+    public ResponseEntity<?> create(@PathVariable Long dramaId,
+                                    @CurrentUser User user) {
+        dramaService.ensureExistsBy(dramaId);
+        final DramaEpisodes episodes = dramaEpisodeService.findByDramaId(dramaId);
+        return ResponseEntity.ok(episodes.toReadResponse());
+    }
+
     @GetMapping("/dramas/{dramaId}/episodes/{episodeId}")
     public ResponseEntity<?> find(@PathVariable Long dramaId,
                                   @PathVariable Long episodeId) {
         dramaService.ensureExistsBy(dramaId);
-        final DramaEpisode dramaEpisode = dramaEpisodeService.findBy(episodeId);
+        final DramaEpisode dramaEpisode = dramaEpisodeService.findByEpisodeId(episodeId);
 
         return ResponseEntity.ok(dramaEpisode.toReadResponse());
     }

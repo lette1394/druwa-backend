@@ -14,6 +14,6 @@ public class DramaRatingConverter implements AttributeConverter<DramaPoint, Doub
 
     @Override
     public DramaPoint convertToEntityAttribute(final Double dbData) {
-        return new DramaPoint(dbData);
+        return DramaPoint.dramaPoint(dbData);
     }
 }

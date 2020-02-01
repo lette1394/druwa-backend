@@ -107,7 +107,7 @@ public class DramaEpisodeCommentController {
                                     @PathVariable final Long episodeId,
                                     @PathVariable final Long commentId) {
         dramaService.ensureExistsBy(dramaId);
-        final DramaEpisode dramaEpisode = dramaEpisodeService.findBy(episodeId);
+        final DramaEpisode dramaEpisode = dramaEpisodeService.findByEpisodeId(episodeId);
         final DramaEpisodeComment prev = dramaEpisodeCommentService.findBy(commentId);
         final DramaEpisodeComment partialComment = body.toPartialDramaEpisodeComment()
                                                        .prev(prev)

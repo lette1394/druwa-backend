@@ -20,7 +20,7 @@ public class Authorities {
     @NotEmpty
     private String authorities;
 
-    public static Authorities user(Authority... authorities) {
+    public static Authorities user() {
         return of(Authority.USER);
     }
 

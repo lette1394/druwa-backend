@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama_episode.model.DramaEpisode;
+import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
 import me.druwa.be.domain.drama_episode.respository.DramaEpisodeRepository;
 import me.druwa.be.domain.user.model.User;
 
@@ -24,9 +25,13 @@ public class DramaEpisodeService {
         throw new NoSuchElementException(format("no episode with id:[%s]", episodeId));
     }
 
-    public DramaEpisode findBy(final Long episodeId) {
+    public DramaEpisode findByEpisodeId(final Long episodeId) {
         return repository.findById(episodeId)
                          .orElseThrow(NoSuchElementException::new);
+    }
+
+    public DramaEpisodes findByDramaId(final Long dramaId) {
+        return repository.findByDramaId(dramaId);
     }
 
     @Transactional

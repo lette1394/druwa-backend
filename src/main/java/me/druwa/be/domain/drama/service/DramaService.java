@@ -10,6 +10,8 @@ import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama.model.DramaImageRepository;
 import me.druwa.be.domain.drama.model.DramaImages;
 import me.druwa.be.domain.drama.model.DramaMultipartImages;
+import me.druwa.be.domain.drama.model.DramaSearchQuery;
+import me.druwa.be.domain.drama.model.Dramas;
 import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama.repository.DramaRepository;
 import me.druwa.be.domain.drama_tag.DramaTagService;
@@ -21,34 +23,35 @@ import static java.lang.String.format;
 @Service
 @RequiredArgsConstructor
 public class DramaService {
-    private final DramaRepository repository;
+    private final DramaRepository dramaRepository;
+    private final DramaImageRepository dramaImageRepository;
+
     private final DramaCacheService dramaCacheService;
     private final DramaTagService dramaTagService;
 
-    private final DramaImageRepository dramaImageRepository;
     private final S3Service s3Service;
 
 //    @Cacheable(cacheNames = CacheKey.Drama.ID, key = "#dramaId")
     public Drama findByDramaId(final Long dramaId) {
-        return repository.findById(dramaId)
-                         .orElseThrow(() -> new NoSuchElementException(format("no drama with id:[%s]", dramaId)));
+        return dramaRepository.findById(dramaId)
+                              .orElseThrow(() -> new NoSuchElementException(format("no drama with id:[%s]", dramaId)));
     }
 
     public void ensureExistsBy(final Long dramaId) {
-        if (repository.existsByDramaId(dramaId)) {
+        if (dramaRepository.existsByDramaId(dramaId)) {
             return;
         }
         throw new NoSuchElementException(format("no drama with id: [%s]", dramaId));
     }
 
     public Drama create(final Drama drama) {
-        return repository.save(drama);
+        return dramaRepository.save(drama);
     }
 
     public Drama create(final User user, final Drama.View.Create.Request body) {
         final Drama drama = body.toPartialDrama()
                                 .populateUser(user);
-        return repository.save(drama);
+        return dramaRepository.save(drama);
     }
 
     @Transactional
@@ -85,5 +88,9 @@ public class DramaService {
         dramaImageRepository.saveAll(s3SavedImages);
 
         return drama.merge(s3SavedImages);
+    }
+
+    public Dramas search(final DramaSearchQuery dramaSearchQuery) {
+        return dramaRepository.search(dramaSearchQuery);
     }
 }

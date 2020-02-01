@@ -13,7 +13,7 @@ public class DramaTagService {
 
     @Transactional
     public DramaTags createIfNotExists(final DramaTags newDramaTags) {
-        final DramaTags existed = dramaTagRepository.findAll(newDramaTags);
+        final DramaTags existed = dramaTagRepository.search(newDramaTags);
         final DramaTags needToSave = existed.filter(newDramaTags);
 
         return dramaTagRepository.saveAll(needToSave);
@@ -25,6 +25,6 @@ public class DramaTagService {
         if (searchWords.isEmpty()) {
             return DramaTags.dramaTags(dramaTagRepository.findAll());
         }
-        return dramaTagRepository.findAll(searchWords);
+        return dramaTagRepository.search(searchWords);
     }
 }

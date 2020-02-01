@@ -14,10 +14,8 @@ import lombok.RequiredArgsConstructor;
 import me.druwa.be.domain.auth.exception.OAuth2AuthenticationProcessingException;
 import me.druwa.be.domain.auth.model.OAuth2UserInfo;
 import me.druwa.be.domain.auth.model.UserPrincipal;
-import me.druwa.be.domain.user.model.Authorities;
 import me.druwa.be.domain.user.model.OAuth2Provider;
 import me.druwa.be.domain.user.model.User;
-import me.druwa.be.domain.user.repository.UserRepository;
 import me.druwa.be.domain.user.service.UserService;
 
 @Service
