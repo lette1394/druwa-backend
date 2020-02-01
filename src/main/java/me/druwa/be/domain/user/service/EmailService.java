@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import me.druwa.be.domain.auth.service.TokenProvider;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +17,7 @@ public class EmailService {
 
     @Builder(builderMethodName = "sendBuilder", buildMethodName = "send")
     @SneakyThrows
-    public void sendBuilder(final String to, final String subject, final String text) {
+    public void send(final String to, final String subject, final String text) {
         final MimeMessage msg = javaMailSender.createMimeMessage();
         final MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 

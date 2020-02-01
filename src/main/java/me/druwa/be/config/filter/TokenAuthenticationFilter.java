@@ -1,9 +1,11 @@
 package me.druwa.be.config.filter;
 
+import me.druwa.be.domain.auth.model.UserPrincipal;
 import me.druwa.be.domain.auth.service.CustomUserDetailsService;
 import me.druwa.be.domain.auth.service.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.druwa.be.domain.user.model.PublicUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,9 +30,22 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        try {
-            final String jwt = getJwtFromRequest(request);
+        final String jwt = getJwtFromRequest(request);
 
+        if (StringUtils.isBlank(jwt)) {
+            final PublicUser user = PublicUser.getInstance();
+            final UserPrincipal userDetails = UserPrincipal.create(user);
+            final UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(userDetails,
+                                                            null,
+                                                            userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+
+        try {
             if (StringUtils.isNotBlank(jwt) && tokenProvider.validateToken(jwt)) {
                 final Long userId = tokenProvider.getUserIdFromToken(jwt);
 

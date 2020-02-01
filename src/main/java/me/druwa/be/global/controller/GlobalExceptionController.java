@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import me.druwa.be.global.exception.ExceptionResponse;
+import me.druwa.be.global.exception.UnauthorizedException;
 import me.druwa.be.log.LoggingUtils;
 
 @RestControllerAdvice
@@ -132,10 +133,19 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    @ExceptionHandler({ NoSuchElementException.class })
+    @ExceptionHandler({ NoSuchElementException.class, UnauthorizedException.class })
     public ResponseEntity<Object> handleOtherException(Exception ex, WebRequest request) throws Exception {
         LoggingUtils.dumpThrowable(ex);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+
+        if (ex instanceof NoSuchElementException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .build();
+        }
+        if (ex instanceof UnauthorizedException) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                                 .build();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                              .build();
     }
 }

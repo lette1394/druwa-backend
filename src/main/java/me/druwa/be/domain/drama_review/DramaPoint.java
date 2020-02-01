@@ -8,7 +8,6 @@ import javax.validation.constraints.PositiveOrZero;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import me.druwa.be.domain.common.converter.DramaRatingConverter;
 
 @Embeddable
@@ -18,7 +17,6 @@ public class DramaPoint {
     private static final double MIN_RATE = 0.0;
 
     @Getter
-    @NonNull
     @Column
     @Convert(converter = DramaRatingConverter.class)
     @PositiveOrZero

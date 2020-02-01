@@ -19,6 +19,7 @@ import me.druwa.be.domain.drama_episode.service.DramaEpisodeService;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComment;
 import me.druwa.be.domain.drama_episode_comment.model.DramaEpisodeComments;
 import me.druwa.be.domain.drama_episode_comment.service.DramaEpisodeCommentService;
+import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 
@@ -30,6 +31,7 @@ public class DramaEpisodeCommentController {
     private final DramaEpisodeService dramaEpisodeService;
     private final DramaEpisodeCommentService dramaEpisodeCommentService;
 
+    @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}/episodes/{episodeId}/comments")
     public ResponseEntity<?> list(@CurrentUser final User user,
                                   @PathVariable final Long dramaId,
