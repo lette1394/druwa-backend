@@ -2,6 +2,7 @@ package me.druwa.be.domain.drama_tag;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Sets;
@@ -28,5 +29,10 @@ public class DramaTagSearchStrings {
 
     public Stream<String> stream() {
         return words.stream();
+    }
+
+    public DramaTags toTags() {
+        return DramaTags.dramaTags(stream().map(DramaTag::dramaTag)
+                                           .collect(Collectors.toSet()));
     }
 }

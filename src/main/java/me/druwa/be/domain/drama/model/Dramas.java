@@ -13,7 +13,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import me.druwa.be.domain.drama_episode.model.DramaEpisode;
 
 @Embeddable
 @ToString
@@ -45,7 +44,6 @@ public class Dramas {
             @Builder
             public static class Response {
                 private Set<Drama.View.Search.Response> dramas;
-                private Set<DramaEpisode.View.Search.Response> dramaEpisodes;
 
                 private Integer total;
             }

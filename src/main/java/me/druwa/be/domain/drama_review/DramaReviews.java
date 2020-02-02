@@ -1,5 +1,6 @@
 package me.druwa.be.domain.drama_review;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.Embeddable;
@@ -19,7 +20,7 @@ import me.druwa.be.domain.user.model.User;
 public class DramaReviews {
 
     @ManyToMany
-    private Set<DramaReview> dramaReviews;
+    private Set<DramaReview> dramaReviews = new HashSet<>();
 
     public Set<DramaReview.View.Read.Response> toReadResponse(final User user) {
         return dramaReviews.stream()

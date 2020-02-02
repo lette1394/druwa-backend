@@ -1,6 +1,5 @@
 package me.druwa.be.domain.drama_episode.model;
 
-import java.util.Set;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -30,7 +29,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
-import me.druwa.be.domain.common.db.Image;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;

@@ -2,8 +2,8 @@ package me.druwa.be.domain.drama.model;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Supplier;
 import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -29,11 +29,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import me.druwa.be.domain.common.db.Image;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.IgnoreMerge;
 import me.druwa.be.domain.common.model.Mergeable;
 import me.druwa.be.domain.common.model.Timestamp;
+import me.druwa.be.domain.drama.repository.UserLikesDramaRepository;
 import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
 import me.druwa.be.domain.drama_review.DramaReviews;
 import me.druwa.be.domain.drama_tag.DramaTags;
@@ -47,6 +49,7 @@ import static me.druwa.be.domain.drama.model.DramaImages.dramaImages;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(of = {"dramaId", "title"})
 public class Drama implements Mergeable<Drama> {
     private static final int TITLE_MIN_LENGTH = 2;
     private static final int TITLE_MAX_LENGTH = 50;
@@ -81,17 +84,7 @@ public class Drama implements Mergeable<Drama> {
     private DramaImages dramaImages;
 
     @Embedded
-    @AssociationOverrides({
-                                  @AssociationOverride(name = "likeUsers.users",
-                                                       joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA,
-                                                                              joinColumns = @JoinColumn(name = "drama_id"),
-                                                                              inverseJoinColumns = @JoinColumn(name = "user_id"))),
-                                  @AssociationOverride(name = "dislikeUsers.users",
-                                                       joinTable = @JoinTable(name = JoinTableName.USER__DISLIKES__DRAMA,
-                                                                              joinColumns = @JoinColumn(name = "drama_id"),
-                                                                              inverseJoinColumns = @JoinColumn(name = "user_id")))
-                          })
-    private LikeOrDislike dramaLike;
+    private DramaLikeOrDislike dramaLike;
 
     @NotNull
     @ManyToOne
@@ -115,12 +108,14 @@ public class Drama implements Mergeable<Drama> {
     @Embedded
     private Timestamp timestamp;
 
-    public LikeOrDislike like(final User user) {
-        return dramaLike.doLike(user);
+    public Drama like(final User user) {
+        dramaLike.doLike(this, user);
+        return this;
     }
 
-    public LikeOrDislike dislike(final User user) {
-        return dramaLike.doDislike(user);
+    public Drama dislike(final User user) {
+        dramaLike.doDislike(this, user);
+        return this;
     }
 
     public Drama update(final DramaTags dramaTags) {
@@ -146,7 +141,7 @@ public class Drama implements Mergeable<Drama> {
     @PrePersist
     public void onCreate() {
         timestamp = Timestamp.now();
-        dramaLike = new LikeOrDislike();
+        dramaLike = new DramaLikeOrDislike();
     }
 
     @PreUpdate
@@ -190,6 +185,10 @@ public class Drama implements Mergeable<Drama> {
 
     public Set<Image.View.Read.Response> toImageOnlyResponse() {
         return dramaImages.toResponse();
+    }
+
+    public DramaLikeOrDislike.View.Read.Response toLikeResponse(final User user) {
+        return dramaLike.toResponse(this, user);
     }
 
     @Data
@@ -253,7 +252,7 @@ public class Drama implements Mergeable<Drama> {
                 private String productionCompany;
                 private Set<Image.View.Read.Response> images;
                 @JsonUnwrapped
-                private LikeOrDislike likeOrDislike;
+                private DramaLikeOrDislike likeOrDislike;
                 @JsonUnwrapped
                 private Timestamp timestamp;
             }

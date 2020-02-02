@@ -50,6 +50,10 @@ public class DramaTag {
         this.tagName = tagName;
     }
 
+    public static DramaTag dramaTag(final String tagName) {
+        return new DramaTag(tagName);
+    }
+
     public static class View {
         public static class Create {
             @Data

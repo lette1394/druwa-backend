@@ -1,6 +1,7 @@
 package me.druwa.be.domain.drama.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -9,9 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import me.druwa.be.domain.common.db.JoinTableName;
@@ -21,10 +24,11 @@ import me.druwa.be.domain.user.model.User;
 
 @Entity
 @Table(name = JoinTableName.USER__LIKES__DRAMA)
-@AllArgsConstructor
+@EqualsAndHashCode(of = { "drama", "user" })
 @NoArgsConstructor
-@EqualsAndHashCode(of = "dramaLikeId")
+@AllArgsConstructor
 public class UserLikesDrama {
+
     @EmbeddedId
     private DramaLikeKey dramaLikeId;
 
@@ -41,8 +45,27 @@ public class UserLikesDrama {
     @Embedded
     private Timestamp timestamp;
 
+    @Builder
+    public UserLikesDrama(final Drama drama, final User user) {
+        this.drama = drama;
+        this.user = user;
+        this.dramaLikeId = new DramaLikeKey();
+        this.timestamp = Timestamp.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        if (Objects.isNull(timestamp)) {
+            return;
+        }
+        timestamp.onUpdate();
+    }
+
     @Embeddable
-    @EqualsAndHashCode
+    @EqualsAndHashCode(of = { "dramaId", "userId" })
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class DramaLikeKey implements Serializable {
         @Column(name = "drama_id")
         private Long dramaId;

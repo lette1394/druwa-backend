@@ -1,9 +1,12 @@
 package me.druwa.be.domain.drama.model;
 
+import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
@@ -19,18 +22,20 @@ import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.model.Users;
 
+import static me.druwa.be.domain.common.db.JoinTableName.USER__DISLIKES__DRAMA;
+
 @Embeddable
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeOrDislike {
+public class DramaLikeOrDislike {
     @Column
     @NotNull
     @Convert(converter = PositiveOrZeroLongConverter.class)
     private PositiveOrZeroLong likeCount = new PositiveOrZeroLong(0L);
 
     @Embedded
-    private Users likeUsers;
+    private UserLikesDramas likeUsers;
 
     @Column
     @NotNull
@@ -38,6 +43,10 @@ public class LikeOrDislike {
     private PositiveOrZeroLong dislikeCount = new PositiveOrZeroLong(0L);
 
     @Embedded
+    @AssociationOverride(name = "users",
+                         joinTable = @JoinTable(name = USER__DISLIKES__DRAMA,
+                                                joinColumns = @JoinColumn(name = "drama_id"),
+                                                inverseJoinColumns = @JoinColumn(name = "user_id")))
     private Users dislikeUsers;
 
     @PrePersist
@@ -46,9 +55,9 @@ public class LikeOrDislike {
         dislikeCount = new PositiveOrZeroLong(0L);
     }
 
-    public LikeOrDislike doLike(final User user) {
-        if (likeUsers.contains(user)) {
-            likeUsers.remove(user);
+    public DramaLikeOrDislike doLike(final Drama drama, final User user) {
+        if (likeUsers.contains(drama, user)) {
+            likeUsers.remove(drama, user);
             likeCount.decrease();
             return this;
         }
@@ -59,20 +68,20 @@ public class LikeOrDislike {
         }
 
         likeCount.increase();
-        likeUsers.add(user);
+        likeUsers.add(drama, user);
         return this;
     }
 
-    public LikeOrDislike doDislike(final User user) {
+    public DramaLikeOrDislike doDislike(final Drama drama, final User user) {
         if (dislikeUsers.contains(user)) {
             dislikeUsers.remove(user);
             dislikeCount.decrease();
             return this;
         }
 
-        if (likeUsers.contains(user)) {
+        if (likeUsers.contains(drama, user)) {
             likeCount.decrease();
-            likeUsers.remove(user);
+            likeUsers.remove(null, null);
         }
 
         dislikeCount.increase();
@@ -94,10 +103,10 @@ public class LikeOrDislike {
         return dislikeCount.getValue();
     }
 
-    public View.Read.Response toResponse(final User user) {
+    public View.Read.Response toResponse(final Drama drama, final User user) {
         return View.Read.Response.builder()
                                  .like(likeCount.getValue())
-                                 .liked(likeUsers.contains(user))
+                                 .liked(likeUsers.contains(drama, user))
                                  .dislike(dislikeCount.getValue())
                                  .disliked(dislikeUsers.contains(user))
                                  .build();

@@ -26,7 +26,9 @@ public class Timestamp {
     }
 
     public static Timestamp now() {
-        return new Timestamp();
+        final Timestamp timestamp = new Timestamp();
+        timestamp.onCreate();
+        return timestamp;
     }
 
     @PrePersist

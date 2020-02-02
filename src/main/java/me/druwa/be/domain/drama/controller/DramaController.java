@@ -1,5 +1,6 @@
 package me.druwa.be.domain.drama.controller;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import javax.validation.Valid;
 
@@ -20,13 +21,14 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.DramaPopularType;
 import me.druwa.be.domain.drama.model.DramaSearchQuery;
 import me.druwa.be.domain.drama.model.DramaSearchStrings;
 import me.druwa.be.domain.drama.model.Dramas;
-import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama.service.DramaService;
 import me.druwa.be.domain.drama_tag.DramaTag;
 import me.druwa.be.domain.drama_tag.DramaTagSearchStrings;
+import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +51,29 @@ public class DramaController {
                              .body(drama.toCreateResponse());
     }
 
+    @AllowPublicAccess
+    @GetMapping("/dramas/populars")
+    public ResponseEntity<?> populars(
+            @RequestParam(name = "from") final LocalDateTime from,
+            @RequestParam(name = "to") final LocalDateTime to,
+            @RequestParam(name = "p_type") final DramaPopularType dramaPopularType,
+            @RequestParam(name = "tag",
+                          required = false,
+                          defaultValue = StringUtils.EMPTY) final DramaTagSearchStrings tags,
+            @RequestParam(name = "count") final Long limit) {
+        final Dramas dramas = dramaService.findPopularsBuilder()
+                                          .from(from)
+                                          .to(to)
+                                          .tags(tags.toTags())
+                                          .dramaPopularType(dramaPopularType)
+                                          .limit(limit)
+                                          .execute();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(dramas.toSearchResponse());
+    }
+
+    @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}")
     public ResponseEntity<?> find(@Valid
                                   @PathVariable Long dramaId) {
@@ -70,6 +95,7 @@ public class DramaController {
                              .body(drama.toCreateResponse());
     }
 
+    @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}/images")
     public ResponseEntity<?> listImages(@PathVariable final Long dramaId) {
         final Drama drama = dramaService.findByDramaId(dramaId);
@@ -89,26 +115,26 @@ public class DramaController {
                              .body(drama.toImageOnlyResponse());
     }
 
-    @PostMapping("/dramas/{dramaId}/like")
+    @PatchMapping("/dramas/{dramaId}/like")
     public ResponseEntity<?> like(@Valid
                                   @PathVariable final Long dramaId,
                                   @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
-        final LikeOrDislike likeOrDislike = dramaService.doLike(dramaId, user);
+        final Drama drama = dramaService.doLike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(likeOrDislike.toResponse(user));
+                             .body(drama.toLikeResponse(user));
     }
 
-    @PostMapping("/dramas/{dramaId}/dislike")
+    @PatchMapping("/dramas/{dramaId}/dislike")
     public ResponseEntity<?> dislike(@Valid
                                      @PathVariable final Long dramaId,
                                      @CurrentUser User user) {
         dramaService.ensureExistsBy(dramaId);
-        final LikeOrDislike likeOrDislike = dramaService.doDislike(dramaId, user);
+        final Drama drama = dramaService.doDislike(dramaId, user);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(likeOrDislike.toResponse(user));
+                             .body(drama.toLikeResponse(user));
     }
 
 
@@ -126,6 +152,7 @@ public class DramaController {
                              .build();
     }
 
+    @AllowPublicAccess
     @GetMapping("/search")
     public ResponseEntity<?> find(
             @RequestParam(name = "tag",
@@ -143,4 +170,6 @@ public class DramaController {
         return ResponseEntity.status(HttpStatus.OK)
                              .body(search.toSearchResponse());
     }
+
+
 }

@@ -12,7 +12,6 @@ import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.PublicUser;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.global.exception.UnauthorizedException;
-import me.druwa.be.global.exception.UnexpectedException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

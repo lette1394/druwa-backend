@@ -1,6 +1,11 @@
 package me.druwa.be.config;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -29,6 +34,18 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addConverter(new MultipartFilesConverter());
         registry.addConverter(new StringToDramaTagSearchStringsConverter());
         registry.addConverter(new StringToDramaSearchStringsConverter());
+
+        registry.addFormatter(new Formatter<LocalDateTime>() {
+            @Override
+            public LocalDateTime parse(final String text, final Locale locale) {
+                return LocalDateTime.parse(text, DateTimeFormatter.ISO_DATE_TIME);
+            }
+
+            @Override
+            public String print(final LocalDateTime object, final Locale locale) {
+                return DateTimeFormatter.ISO_DATE.format(object);
+            }
+        });
     }
 
     @Override
