@@ -5,7 +5,7 @@
 
 [source]
 ----
-eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTc4NDAzNTUwLCJleHAiOjE1NzkyNjc1NTB9.mbscQ7B8bcGdVoPGY8y88rp1gGQFUdGGw7fKW-8pES515iI7XxbTTD0yIMKGiKMlftgbYLT0VwyU8rx29nwsKQ
+Authorization: Bearer DRUWA_TEST_TOKEN
 ----
 
 === kakao
