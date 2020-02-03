@@ -30,6 +30,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                                   final HttpHeaders headers,
                                                                   final HttpStatus status,
                                                                   final WebRequest request) {
+        LoggingUtils.dumpThrowable(ex);
         final List<String> errors = ex.getBindingResult()
                                       .getFieldErrors()
                                       .stream()
@@ -54,6 +55,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                          final HttpHeaders headers,
                                                          final HttpStatus status,
                                                          final WebRequest request) {
+        LoggingUtils.dumpThrowable(ex);
         final List<String> errors = ex.getBindingResult()
                                       .getFieldErrors()
                                       .stream()
@@ -78,6 +80,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                                   final HttpHeaders headers,
                                                                   final HttpStatus status,
                                                                   final WebRequest request) {
+        LoggingUtils.dumpThrowable(ex);
         return super.handleConversionNotSupported(ex, headers, status, request);
     }
 
@@ -86,6 +89,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                         final HttpHeaders headers,
                                                         final HttpStatus status,
                                                         final WebRequest request) {
+        LoggingUtils.dumpThrowable(ex);
         return super.handleTypeMismatch(ex, headers, status, request);
     }
 
@@ -94,6 +98,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                                   final HttpHeaders headers,
                                                                   final HttpStatus status,
                                                                   final WebRequest request) {
+        LoggingUtils.dumpThrowable(ex);
         if (ex.getCause() instanceof InvalidFormatException) {
             final InvalidFormatException ex1 = (InvalidFormatException) ex.getCause();
 

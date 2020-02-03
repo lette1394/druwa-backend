@@ -12,7 +12,7 @@ public class PublicUser extends User {
 
     private PublicUser() {
         super();
-        setUserId(-999L);
+        setUserId(-99999L);
         setAuthorities(Authorities.of(Authority.PUBLIC));
         setEmail("public@user.email");
     }

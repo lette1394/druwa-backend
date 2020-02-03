@@ -1,5 +1,7 @@
 package me.druwa.be.domain.drama_episode.model;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -29,6 +31,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
+import me.druwa.be.domain.common.db.Image;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
@@ -41,7 +44,7 @@ import static me.druwa.be.domain.common.model.PositiveOrZeroLong.positiveOrZeroL
 
 @Entity
 @Table(name = "drama_episode_")
-@ToString
+@ToString(of = {"dramaEpisodeId", "title"})
 @EqualsAndHashCode(of = "dramaEpisodeId")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,7 +61,7 @@ public class DramaEpisode {
     private String title;
 
     @Column
-    private String playUri;
+    private String playUrl;
 
     @Column
     @Size(max = SUMMARY_MAX_LENGTH)
@@ -69,16 +72,19 @@ public class DramaEpisode {
     private PositiveOrZeroLong durationInMillis;
 
     @Embedded
+    private DramaEpisodeImages dramaEpisodeImages;
+
+    @Embedded
     @AssociationOverrides({
-            @AssociationOverride(name = "likeUsers.users",
-                                 joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA_EPISODE,
-                                                        joinColumns = @JoinColumn(name = "drama_episode_id"),
-                                                        inverseJoinColumns = @JoinColumn(name = "user_id"))),
-            @AssociationOverride(name = "dislikeUsers.users",
-                                 joinTable = @JoinTable(name = JoinTableName.USER__DISLIKES__DRAMA_EPISODE,
-                                                        joinColumns = @JoinColumn(name = "drama_episode_id"),
-                                                        inverseJoinColumns = @JoinColumn(name = "user_id")))
-    })
+                                  @AssociationOverride(name = "likeUsers.users",
+                                                       joinTable = @JoinTable(name = JoinTableName.USER__LIKES__DRAMA_EPISODE,
+                                                                              joinColumns = @JoinColumn(name = "drama_episode_id"),
+                                                                              inverseJoinColumns = @JoinColumn(name = "user_id"))),
+                                  @AssociationOverride(name = "dislikeUsers.users",
+                                                       joinTable = @JoinTable(name = JoinTableName.USER__DISLIKES__DRAMA_EPISODE,
+                                                                              joinColumns = @JoinColumn(name = "drama_episode_id"),
+                                                                              inverseJoinColumns = @JoinColumn(name = "user_id")))
+                          })
     private LikeOrDislike dramaEpisodeLike;
 
     @Column
@@ -104,6 +110,11 @@ public class DramaEpisode {
     private DramaEpisodeComments dramaEpisodeComments;
 
 
+    public DramaEpisode merge(final DramaEpisodeImages dramaEpisodeImages) {
+        this.dramaEpisodeImages.merge(dramaEpisodeImages);
+        return this;
+    }
+
     @PrePersist
     public void onCreate() {
         timestamp = Timestamp.now();
@@ -124,6 +135,7 @@ public class DramaEpisode {
                                  .durationInMillis(durationInMillis)
                                  .likeOrDislike(dramaEpisodeLike)
                                  .episodeNumber(episodeNumber)
+                                 .playUrl(playUrl)
                                  .totalComments(dramaEpisodeComments.count())
                                  .build();
     }
@@ -132,6 +144,12 @@ public class DramaEpisode {
         return View.Create.Response.builder()
                                    .dramaEpisodeId(dramaEpisodeId)
                                    .build();
+    }
+
+    public Set<Image.View.Read.Response> toImageOnlyResponse() {
+        return this.dramaEpisodeImages.toRaw().stream()
+                                      .map(Image::toResponse)
+                                      .collect(Collectors.toSet());
     }
 
     public static class View {
@@ -143,7 +161,7 @@ public class DramaEpisode {
                 @NotBlank
                 private String summary;
                 @NotBlank
-                private String playUri;
+                private String playUrl;
                 @Positive
                 private Long episodeNumber;
                 @Positive
@@ -155,7 +173,7 @@ public class DramaEpisode {
                                        .drama(drama)
                                        .registeredBy(user)
                                        .title(title)
-                                       .playUri(playUri)
+                                       .playUrl(playUrl)
                                        .summary(summary)
                                        .episodeNumber(positiveOrZeroLong(episodeNumber))
                                        .durationInMillis(positiveOrZeroLong(durationInMillis))
@@ -183,6 +201,8 @@ public class DramaEpisode {
                 public String dramaTitle;
                 @NotBlank
                 public String summary;
+                @NotBlank
+                public String playUrl;
                 @JsonUnwrapped
                 public PositiveOrZeroLong durationInMillis;
                 @JsonUnwrapped

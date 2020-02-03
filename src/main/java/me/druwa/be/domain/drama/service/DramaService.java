@@ -10,9 +10,10 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import me.druwa.be.domain.common.service.S3Service;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.DramaImage;
 import me.druwa.be.domain.drama.model.DramaImageRepository;
 import me.druwa.be.domain.drama.model.DramaImages;
-import me.druwa.be.domain.drama.model.DramaMultipartImages;
+import me.druwa.be.domain.common.model.MultipartImages;
 import me.druwa.be.domain.drama.model.DramaPopularType;
 import me.druwa.be.domain.drama.model.DramaSearchQuery;
 import me.druwa.be.domain.drama.model.Dramas;
@@ -43,6 +44,19 @@ public class DramaService {
     public Drama findByDramaId(final Long dramaId) {
         return dramaRepository.findById(dramaId)
                               .orElseThrow(() -> new NoSuchElementException(format("no drama with id:[%s]", dramaId)));
+    }
+
+    public Dramas findRelatedDramaById(final Long dramaId, final Long limit) {
+        return dramaRepository.findRandom(limit);
+    }
+
+    @Transactional
+    public DramaImage findImage(final Long dramaId, final String imageName) {
+        return findByDramaId(dramaId).image(imageName)
+                              .orElseThrow(() -> new NoSuchElementException(String.format(
+                                      "no image name. drama:%s, iamgeName:%s",
+                                      dramaId,
+                                      imageName)));
     }
 
     public void ensureExistsBy(final Long dramaId) {
@@ -90,7 +104,7 @@ public class DramaService {
     }
 
     @Transactional
-    public Drama createDramaImage(final long dramaId, final DramaMultipartImages images) {
+    public Drama createDramaImage(final long dramaId, final MultipartImages images) {
         final Drama drama = findByDramaId(dramaId);
         final DramaImages s3SavedImages = s3Service.put(images)
                                                    .toDramaImages(drama);

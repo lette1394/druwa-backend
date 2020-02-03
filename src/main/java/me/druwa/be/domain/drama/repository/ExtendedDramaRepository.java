@@ -14,4 +14,6 @@ public interface ExtendedDramaRepository {
                         final LocalDateTime to,
                         final DramaPopularType dramaPopularType,
                         final DramaTags tags, final Long limit);
+
+    Dramas findRandom(final Long limit);
 }

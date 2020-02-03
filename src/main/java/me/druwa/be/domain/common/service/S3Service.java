@@ -17,11 +17,10 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.Permission;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import me.druwa.be.domain.drama.model.DramaImages;
-import me.druwa.be.domain.drama.model.DramaMultipartImage;
-import me.druwa.be.domain.drama.model.DramaMultipartImages;
+import me.druwa.be.domain.common.model.MultipartImage;
+import me.druwa.be.domain.common.model.MultipartImages;
 
-import static me.druwa.be.domain.drama.model.DramaMultipartImages.dramaMultipartImages;
+import static me.druwa.be.domain.common.model.MultipartImages.dramaMultipartImages;
 
 @Service
 public class S3Service {
@@ -46,7 +45,7 @@ public class S3Service {
                      .build();
     }
 
-    public DramaMultipartImage put(final DramaMultipartImage image) {
+    public MultipartImage put(final MultipartImage image) {
         final AccessControlList accessControlList = new AccessControlList();
         accessControlList.grantPermission(GroupGrantee.AllUsers, Permission.Read);
 
@@ -61,7 +60,7 @@ public class S3Service {
         return image;
     }
 
-    public DramaMultipartImages put(final DramaMultipartImages images) {
+    public MultipartImages put(final MultipartImages images) {
         return dramaMultipartImages(images.stream()
                                           .map(this::put)
                                           .collect(Collectors.toSet()));

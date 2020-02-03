@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama.service.DramaService;
+import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 
@@ -40,8 +41,9 @@ public class DramaReviewController {
                              .build();
     }
 
+    @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}/reviews")
-    public ResponseEntity<?> find(@CurrentUser final User user,
+    public ResponseEntity<?> list(@CurrentUser final User user,
                                   @PathVariable final Long dramaId,
                                   final Pageable pageable) {
 

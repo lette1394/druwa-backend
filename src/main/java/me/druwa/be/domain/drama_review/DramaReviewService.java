@@ -14,6 +14,6 @@ public class DramaReviewService {
     }
 
     public DramaReviews findAll(final Long dramaId, final Pageable pageable) {
-        return null;
+        return dramaReviewRepository.findAll(dramaId);
     }
 }

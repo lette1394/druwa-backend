@@ -38,6 +38,12 @@ public class Dramas {
                                    .build();
     }
 
+    public Set<Drama.View.Read.Response> toReadResponse() {
+        return dramas.stream()
+                     .map(Drama::toReadResponse)
+                     .collect(Collectors.toSet());
+    }
+
     public static class View {
         public static class Search {
             @Data

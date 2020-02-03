@@ -1,14 +1,13 @@
 package me.druwa.be.domain.drama_review;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.druwa.be.domain.common.converter.DramaRatingConverter;
 
 @Embeddable
 @NoArgsConstructor
@@ -16,13 +15,14 @@ public class DramaPoint {
     private static final double MAX_RATE = 5.0;
     private static final double MIN_RATE = 0.0;
 
+    @JsonProperty
     @Getter
     @Column
-    @Convert(converter = DramaRatingConverter.class)
     @PositiveOrZero
     private double point;
 
-    public DramaPoint(final double point) {
+    @JsonCreator
+    public DramaPoint(@JsonProperty final double point) {
         this.point = point;
         validate(point);
     }
@@ -31,9 +31,7 @@ public class DramaPoint {
         return new DramaPoint(point);
     }
 
-    @JsonCreator
-    public static DramaPoint parse(final String str) {
-        final double value = Double.parseDouble(str);
+    public static DramaPoint parse(final Double value) {
         validate(value);
         return new DramaPoint(value);
     }
@@ -44,7 +42,7 @@ public class DramaPoint {
         }
 
         final double fractionPart = point % 1;
-        if (0.499999999 > fractionPart || fractionPart > 0.500000001) {
+        if (false == (fractionPart < 0.000000001 || (0.499999999 > fractionPart || fractionPart > 0.500000001))) {
             throw new IllegalArgumentException(String.format("invalid fraction part : [%s]", fractionPart));
         }
     }

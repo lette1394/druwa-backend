@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import me.druwa.be.domain.auth.service.TokenProvider;
+import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.service.UserService;
@@ -34,6 +35,7 @@ public class UserController {
         return ResponseEntity.ok(user.toReadResponse());
     }
 
+    @AllowPublicAccess
     @PostMapping("/users/signup")
     public ResponseEntity<?> create(@Valid final User.View.Create.Request body) {
         final User user = userService.save(body.toPartialUser(passwordEncoder));
@@ -42,6 +44,7 @@ public class UserController {
                              .body(user.toCreateResponse(tokenProvider));
     }
 
+    @AllowPublicAccess
     @GetMapping("/users/signup/validate")
     public ResponseEntity<?> check(@RequestParam("name") final String name) {
         final Optional<User> userOptional = userService.findByName(name);
@@ -54,6 +57,7 @@ public class UserController {
                              .build();
     }
 
+    @AllowPublicAccess
     @PostMapping("/users/login")
     public ResponseEntity<?> login(@Valid final User.View.Login.Request body) {
         final Authentication authentication = authenticationManager.authenticate(
@@ -68,6 +72,7 @@ public class UserController {
                              .body(Maps.of("token", token));
     }
 
+    @AllowPublicAccess
     @PostMapping("/users/find")
     public ResponseEntity<?> find(@Valid final User.View.Find.Request body) {
         final Optional<User> userOptional = userService.findByName(body.getName());
@@ -86,6 +91,7 @@ public class UserController {
                              .build();
     }
 
+    @AllowPublicAccess
     @GetMapping("/users/validation")
     public ResponseEntity<?> find(@RequestParam("token") final String token) {
         if (false == tokenProvider.validateToken(token)) {

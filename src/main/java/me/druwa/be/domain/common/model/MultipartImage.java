@@ -1,4 +1,4 @@
-package me.druwa.be.domain.drama.model;
+package me.druwa.be.domain.common.model;
 
 import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
@@ -7,12 +7,16 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import me.druwa.be.domain.common.db.ImageType;
+import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.DramaImage;
+import me.druwa.be.domain.drama_episode.model.DramaEpisode;
+import me.druwa.be.domain.drama_episode.model.DramaEpisodeImage;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
 
 @RequiredArgsConstructor
-public class DramaMultipartImage {
+public class MultipartImage {
     private final MultipartFile multipartFile;
 
     private String imageKey;
@@ -33,6 +37,15 @@ public class DramaMultipartImage {
                          .imageName(multipartFile.getName())
                          .imageType(ImageType.parse(extractExt(multipartFile)))
                          .build();
+    }
+
+    public DramaEpisodeImage toDramaEpisodeImage(final DramaEpisode dramaEpisode) {
+        return DramaEpisodeImage.builder()
+                                .dramaEpisode(dramaEpisode)
+                                .imageKey(key())
+                                .imageName(multipartFile.getName())
+                                .imageType(ImageType.parse(extractExt(multipartFile)))
+                                .build();
     }
 
     public String key() {

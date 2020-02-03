@@ -5,19 +5,19 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.web.multipart.MultipartFile;
-import me.druwa.be.domain.drama.model.DramaMultipartImage;
-import me.druwa.be.domain.drama.model.DramaMultipartImages;
+import me.druwa.be.domain.common.model.MultipartImage;
+import me.druwa.be.domain.common.model.MultipartImages;
 
-public class MultipartFilesConverter implements Converter<Map<String, MultipartFile>, DramaMultipartImages> {
+public class MultipartFilesConverter implements Converter<Map<String, MultipartFile>, MultipartImages> {
     @Override
-    public DramaMultipartImages convert(final Map<String, MultipartFile> source) {
+    public MultipartImages convert(final Map<String, MultipartFile> source) {
         if (source.isEmpty()) {
-            return new DramaMultipartImages();
+            return new MultipartImages();
         }
-        return new DramaMultipartImages(source.values()
-                                              .stream()
-                                              .map(DramaMultipartImage::new)
-                                              .collect(Collectors.toSet()));
+        return new MultipartImages(source.values()
+                                         .stream()
+                                         .map(MultipartImage::new)
+                                         .collect(Collectors.toSet()));
 
     }
 }

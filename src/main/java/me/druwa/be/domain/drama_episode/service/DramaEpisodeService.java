@@ -5,8 +5,11 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.druwa.be.domain.common.service.S3Service;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.common.model.MultipartImages;
 import me.druwa.be.domain.drama_episode.model.DramaEpisode;
+import me.druwa.be.domain.drama_episode.model.DramaEpisodeImages;
 import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
 import me.druwa.be.domain.drama_episode.respository.DramaEpisodeRepository;
 import me.druwa.be.domain.user.model.User;
@@ -16,6 +19,8 @@ import static java.lang.String.format;
 @Service
 @RequiredArgsConstructor
 public class DramaEpisodeService {
+    private final S3Service s3Service;
+
     private final DramaEpisodeRepository repository;
 
     public void ensureExistsBy(final Long episodeId) {
@@ -43,5 +48,14 @@ public class DramaEpisodeService {
                                               .user(user)
                                               .build();
         return repository.save(dramaEpisode);
+    }
+
+    @Transactional
+    public DramaEpisode createDramaImage(final Long episodeId, final MultipartImages images) {
+        final DramaEpisode dramaEpisode = findByEpisodeId(episodeId);
+        final DramaEpisodeImages dramaEpisodeImages = s3Service.put(images)
+                                                               .toDramaEpisodeImages(dramaEpisode);
+
+        return dramaEpisode.merge(dramaEpisodeImages);
     }
 }

@@ -1,8 +1,8 @@
 package me.druwa.be.domain.drama.model;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 import javax.persistence.AssociationOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -34,8 +34,8 @@ import me.druwa.be.domain.common.db.Image;
 import me.druwa.be.domain.common.db.JoinTableName;
 import me.druwa.be.domain.common.model.IgnoreMerge;
 import me.druwa.be.domain.common.model.Mergeable;
+import me.druwa.be.domain.common.model.MultipartImages;
 import me.druwa.be.domain.common.model.Timestamp;
-import me.druwa.be.domain.drama.repository.UserLikesDramaRepository;
 import me.druwa.be.domain.drama_episode.model.DramaEpisodes;
 import me.druwa.be.domain.drama_review.DramaReviews;
 import me.druwa.be.domain.drama_tag.DramaTags;
@@ -49,7 +49,7 @@ import static me.druwa.be.domain.drama.model.DramaImages.dramaImages;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(of = {"dramaId", "title"})
+@ToString(of = { "dramaId", "title" })
 public class Drama implements Mergeable<Drama> {
     private static final int TITLE_MIN_LENGTH = 2;
     private static final int TITLE_MAX_LENGTH = 50;
@@ -138,6 +138,12 @@ public class Drama implements Mergeable<Drama> {
         return this;
     }
 
+    public Optional<DramaImage> image(final String imageName) {
+        return dramaImages.stream()
+                          .filter(image -> image.equalsName(imageName))
+                          .findFirst();
+    }
+
     @PrePersist
     public void onCreate() {
         timestamp = Timestamp.now();
@@ -200,7 +206,7 @@ public class Drama implements Mergeable<Drama> {
             public static class MultipartRequest extends Request {
                 @NotNull
                 @Valid
-                private DramaMultipartImages images;
+                private MultipartImages images;
 
                 public Drama toPartialDrama() {
                     return Drama.builder()

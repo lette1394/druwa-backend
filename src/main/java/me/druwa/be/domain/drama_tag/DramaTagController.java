@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.druwa.be.domain.common.service.S3Service;
 import me.druwa.be.domain.drama.service.DramaService;
+import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
@@ -21,6 +21,7 @@ public class DramaTagController {
 
     private final ApplicationContext context;
 
+    @AllowPublicAccess
     @GetMapping("/tags")
     public ResponseEntity<?> find(@RequestParam(name = "q",
                                                 required = false,

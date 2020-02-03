@@ -110,8 +110,8 @@ class DramaControllerTest {
                                                                  .type(JsonFieldType.NUMBER)
                                                                  .attributes(request.constraint("like")),
                                             fieldWithPath("dislike").description("")
-                                                                 .type(JsonFieldType.NUMBER)
-                                                                 .attributes(request.constraint("dislike")),
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(request.constraint("dislike")),
                                             fieldWithPath("createdAt").description("")
                                                                       .type(JsonFieldType.STRING)
                                                                       .attributes(request.constraint("createdAt")),
@@ -125,6 +125,58 @@ class DramaControllerTest {
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
                    .when().get("/dramas/{dramaId}", 15)
+                   .then()
+                   .assertThat()
+                   .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_get.json"))
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
+
+    @Test
+    void related() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document("drama__related",
+                                    responseFields(
+                                            fieldWithPath("[]").description("")
+                                                               .type(JsonFieldType.ARRAY),
+                                            fieldWithPath("[].dramaId").description("")
+                                                                       .type(JsonFieldType.NUMBER)
+                                                                       .attributes(request.constraint("dramaId")),
+                                            fieldWithPath("[].title").description("")
+                                                                     .type(JsonFieldType.STRING)
+                                                                     .attributes(request.constraint("title")),
+                                            fieldWithPath("[].productionCompany").description("")
+                                                                                 .type(JsonFieldType.STRING)
+                                                                                 .attributes(request.constraint(
+                                                                                         "productionCompany")),
+                                            fieldWithPath("[].title").description("")
+                                                                     .type(JsonFieldType.STRING)
+                                                                     .attributes(request.constraint("title")),
+                                            fieldWithPath("[].images").description("")
+                                                                      .optional()
+                                                                      .type(JsonFieldType.ARRAY)
+                                                                      .attributes(request.constraint("images")),
+                                            fieldWithPath("[].like").description("")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(request.constraint("like")),
+                                            fieldWithPath("[].dislike").description("")
+                                                                       .type(JsonFieldType.NUMBER)
+                                                                       .attributes(request.constraint("dislike")),
+                                            fieldWithPath("[].createdAt").description("")
+                                                                         .type(JsonFieldType.STRING)
+                                                                         .attributes(request.constraint("createdAt")),
+                                            fieldWithPath("[].updatedAt").description("")
+                                                                         .type(JsonFieldType.STRING)
+                                                                         .attributes(request.constraint("updatedAt")),
+                                            fieldWithPath("[].summary").description("")
+                                                                       .type(JsonFieldType.STRING)
+                                                                       .attributes(request.constraint("summary")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().get("/dramas/{dramaId}/related", 15)
                    .then()
                    .assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_get.json"))
@@ -180,18 +232,18 @@ class DramaControllerTest {
                                                                  .type(JsonFieldType.NUMBER)
                                                                  .attributes(request.constraint("like")),
                                             fieldWithPath("liked").description("")
-                                                                 .type(JsonFieldType.BOOLEAN)
-                                                                 .attributes(request.constraint("liked")),
+                                                                  .type(JsonFieldType.BOOLEAN)
+                                                                  .attributes(request.constraint("liked")),
                                             fieldWithPath("dislike").description("")
-                                                                 .type(JsonFieldType.NUMBER)
-                                                                 .attributes(request.constraint("like")),
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(request.constraint("like")),
                                             fieldWithPath("disliked").description("")
-                                                                 .type(JsonFieldType.BOOLEAN)
-                                                                 .attributes(request.constraint("disliked")))))
+                                                                     .type(JsonFieldType.BOOLEAN)
+                                                                     .attributes(request.constraint("disliked")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/like", 15)
+                   .when().patch("/dramas/{dramaId}/like", 15)
                    .then()
                    .assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_like.json"))
@@ -221,7 +273,7 @@ class DramaControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().post("/dramas/{dramaId}/dislike", 15)
+                   .when().patch("/dramas/{dramaId}/dislike", 15)
                    .then()
                    .assertThat()
                    .body(matchesJsonSchemaInClasspath("json/schema/dramas_id_like.json"))

@@ -39,23 +39,23 @@ class LikeOrDislikeTest {
         User user0 = new User();
         user0.setUserId(0L);
 
-        likeOrDislike.doLike(this, user0);
+        likeOrDislike.doLike(user0);
         assertThat(likeOrDislike.likeSum()).isEqualTo(1);
         assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
 
     @Test
     void doLikeTwice() {
-        likeOrDislike.doLike(this, user0);
-        likeOrDislike.doLike(this, user0);
+        likeOrDislike.doLike(user0);
+        likeOrDislike.doLike(user0);
         assertThat(likeOrDislike.likeSum()).isEqualTo(0);
         assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
 
     @Test
     void doLikeTwiceOtherUser() {
-        likeOrDislike.doLike(this, user0);
-        likeOrDislike.doLike(this, user1);
+        likeOrDislike.doLike(user0);
+        likeOrDislike.doLike(user1);
         assertThat(likeOrDislike.likeSum()).isEqualTo(2L);
         assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }
@@ -85,7 +85,7 @@ class LikeOrDislikeTest {
 
     @Test
     void likeToDislike() {
-        likeOrDislike.doLike(this, user0);
+        likeOrDislike.doLike(user0);
         likeOrDislike.doDislike(user0);
         assertThat(likeOrDislike.likeSum()).isEqualTo(0);
         assertThat(likeOrDislike.dislikeSum()).isEqualTo(1);
@@ -94,7 +94,7 @@ class LikeOrDislikeTest {
     @Test
     void dislikeToLike() {
         likeOrDislike.doDislike(user0);
-        likeOrDislike.doLike(this, user0);
+        likeOrDislike.doLike(user0);
         assertThat(likeOrDislike.likeSum()).isEqualTo(1);
         assertThat(likeOrDislike.dislikeSum()).isEqualTo(0);
     }

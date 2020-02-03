@@ -21,6 +21,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.DramaImage;
 import me.druwa.be.domain.drama.model.DramaPopularType;
 import me.druwa.be.domain.drama.model.DramaSearchQuery;
 import me.druwa.be.domain.drama.model.DramaSearchStrings;
@@ -33,7 +34,7 @@ import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 import org.apache.commons.lang3.StringUtils;
 
-import static me.druwa.be.domain.drama.model.DramaMultipartImages.dramaMultipartImages;
+import static me.druwa.be.domain.common.model.MultipartImages.dramaMultipartImages;
 
 @Slf4j
 @RestController
@@ -84,6 +85,17 @@ public class DramaController {
                              .body(drama.toReadResponse());
     }
 
+    @AllowPublicAccess
+    @GetMapping("/dramas/{dramaId}/related")
+    public ResponseEntity<?> related(@Valid
+                                     @PathVariable Long dramaId) {
+        dramaService.ensureExistsBy(dramaId);
+        final Dramas dramas = dramaService.findRelatedDramaById(dramaId, 10L);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(dramas.toReadResponse());
+    }
+
     @PatchMapping("/dramas/{dramaId}")
     public ResponseEntity<?> update(@PathVariable final Long dramaId,
                                     @Valid
@@ -104,7 +116,16 @@ public class DramaController {
                              .body(drama.toImageOnlyResponse());
     }
 
-    // TODO: image/{imageId} GET 요청 받을 수 있게 해야함
+    @AllowPublicAccess
+    @GetMapping("/dramas/{dramaId}/images/{imageName}")
+    public ResponseEntity<?> getImage(@PathVariable final Long dramaId,
+                                      @PathVariable final String imageName) {
+        final DramaImage dramaImage = dramaService.findImage(dramaId, imageName);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(dramaImage.toResponse());
+    }
+
     @PostMapping(value = "/dramas/{dramaId}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createImages(@PathVariable final Long dramaId,
                                           @Valid @NonNull @RequestParam Map<String, MultipartFile> images) {

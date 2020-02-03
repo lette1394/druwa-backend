@@ -48,6 +48,9 @@ class DramaEpisodeControllerTest {
                                             fieldWithPath("summary").description("")
                                                                     .type(JsonFieldType.STRING)
                                                                     .attributes(request.constraint("summary")),
+                                            fieldWithPath("playUrl").description("")
+                                                                    .type(JsonFieldType.STRING)
+                                                                    .attributes(request.constraint("playUrl")),
                                             fieldWithPath("episodeNumber").description("")
                                                                           .type(JsonFieldType.NUMBER)
                                                                           .attributes(request.constraint("episodeNumber")),
@@ -68,6 +71,7 @@ class DramaEpisodeControllerTest {
                                  "\t\"title\": \"좋아하는 사람에게 솔직해야 하는 이유\",\n" +
                                  "\t\"summary\": \"좋아하는 사람에게 솔직해야 하는 이유\\n세상 어느 고민 상담이 저렇게 꿀범벅이죠..?\uD83C\uDF6F\\n내 광대 해발고도 백두산보다 높은 순간\uD83E\uDD21\",\n" +
                                  "\t\"episodeNumber\": 15,\n" +
+                                 "\t\"playUrl\": \"https://www.youtube.com/watch?v=_P9TUByn3Ww\",\n" +
                                  "\t\"durationInMillis\": 911000\n" +
                                  "}")
                    .when().post("/dramas/{dramaId}/episodes", 1)
@@ -91,9 +95,15 @@ class DramaEpisodeControllerTest {
                                             fieldWithPath("title").description("")
                                                                   .type(JsonFieldType.STRING)
                                                                   .attributes(response.constraint("title")),
+                                            fieldWithPath("dramaTitle").description("")
+                                                                       .type(JsonFieldType.STRING)
+                                                                       .attributes(response.constraint("dramaTitle")),
                                             fieldWithPath("summary").description("")
                                                                     .type(JsonFieldType.STRING)
                                                                     .attributes(response.constraint("summary")),
+                                            fieldWithPath("playUrl").description("youtube")
+                                                                    .type(JsonFieldType.STRING)
+                                                                    .attributes(response.constraint("playUrl")),
                                             fieldWithPath("episodeNumber").description("")
                                                                           .type(JsonFieldType.NUMBER)
                                                                           .attributes(response.constraint(
@@ -103,13 +113,13 @@ class DramaEpisodeControllerTest {
                                                                  .attributes(response.constraint(
                                                                          "like")),
                                             fieldWithPath("dislike").description("")
-                                                                 .type(JsonFieldType.NUMBER)
-                                                                 .attributes(response.constraint(
-                                                                         "dislike")),
-                                            fieldWithPath("totalComments").description("total count of comments")
                                                                     .type(JsonFieldType.NUMBER)
                                                                     .attributes(response.constraint(
-                                                                            "totalComments")),
+                                                                            "dislike")),
+                                            fieldWithPath("totalComments").description("total count of comments")
+                                                                          .type(JsonFieldType.NUMBER)
+                                                                          .attributes(response.constraint(
+                                                                                  "totalComments")),
                                             fieldWithPath("durationInMillis").description("")
                                                                              .type(JsonFieldType.NUMBER)
                                                                              .attributes(response.constraint(

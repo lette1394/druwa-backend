@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
@@ -61,6 +62,10 @@ public class Image {
 
     @Embedded
     private Timestamp timestamp;
+
+    public boolean equalsName(final String name) {
+        return this.imageName.equals(name);
+    }
 
     @PrePersist
     public void onCreate() {

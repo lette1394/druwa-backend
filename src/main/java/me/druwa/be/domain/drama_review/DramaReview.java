@@ -65,7 +65,8 @@ public class DramaReview {
 
     @Embedded
     @NonNull
-    private Timestamp timestamp;
+    @Builder.Default
+    private Timestamp timestamp = Timestamp.now();
 
     @ManyToOne
     @NotNull
@@ -87,9 +88,10 @@ public class DramaReview {
 
     public View.Read.Response toReadResponse(final User user) {
         return View.Read.Response.builder()
-                                 .contents(contents)
                                  .dramaReviewId(dramaReviewId)
                                  .point(point)
+                                 .title(title)
+                                 .contents(contents)
                                  .timestamp(timestamp)
                                  .writtenByMe(writtenBy.equals(user))
                                  .build();
@@ -98,10 +100,12 @@ public class DramaReview {
     public static class View {
         public static class Create {
             @Data
+            @NoArgsConstructor
+            @AllArgsConstructor
             public static class Request {
                 @NonNull
                 @Valid
-                private DramaPoint point;
+                private Double point;
 
                 @NotBlank
                 @Size(min = MIN_TITLE_SIZE, max = MAX_TITLE_SIZE)
@@ -116,7 +120,7 @@ public class DramaReview {
                     return DramaReview.builder()
                                       .title(title)
                                       .contents(contents)
-                                      .point(point)
+                                      .point(DramaPoint.parse(point))
                                       .writtenBy(writtenBy)
                                       .drama(drama)
                                       .build();
@@ -133,6 +137,7 @@ public class DramaReview {
 
                 @NonNull
                 @Valid
+                @JsonUnwrapped
                 private DramaPoint point;
 
                 @NotBlank

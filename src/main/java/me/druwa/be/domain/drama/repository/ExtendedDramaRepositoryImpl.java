@@ -1,10 +1,12 @@
 package me.druwa.be.domain.drama.repository;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberExpression;
 import me.druwa.be.domain.drama.model.Drama;
 import me.druwa.be.domain.drama.model.DramaSearchQuery;
 import me.druwa.be.domain.drama.model.Dramas;
@@ -47,6 +49,15 @@ class ExtendedDramaRepositoryImpl extends QuerydslRepositorySupport implements E
                                         .limit(limit)
                                         .groupBy(drama)
                                         .orderBy(dramaPopularType.order())
+                                        .fetch());
+    }
+
+    @Override
+    public Dramas findRandom(final Long limit) {
+        final QDrama drama = QDrama.drama;
+
+        return Dramas.dramas(from(drama).limit(limit)
+                                        .orderBy(NumberExpression.random().asc())
                                         .fetch());
     }
 
