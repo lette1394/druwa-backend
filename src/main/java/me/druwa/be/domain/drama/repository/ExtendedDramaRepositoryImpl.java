@@ -1,16 +1,16 @@
 package me.druwa.be.domain.drama.repository;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
 import me.druwa.be.domain.drama.model.Drama;
+import me.druwa.be.domain.drama.model.DramaPopularType;
 import me.druwa.be.domain.drama.model.DramaSearchQuery;
 import me.druwa.be.domain.drama.model.Dramas;
-import me.druwa.be.domain.drama.model.DramaPopularType;
 import me.druwa.be.domain.drama.model.QDrama;
 import me.druwa.be.domain.drama.model.QUserLikesDrama;
 import me.druwa.be.domain.drama_tag.DramaTags;
@@ -24,10 +24,12 @@ class ExtendedDramaRepositoryImpl extends QuerydslRepositorySupport implements E
     public Dramas search(final DramaSearchQuery dramaSearchQuery) {
         final QDrama drama = QDrama.drama;
 
-        final BooleanExpression matchTitle = dramaSearchQuery.titles()
-                                                             .map(drama.title::likeIgnoreCase)
-                                                             .reduce(BooleanExpression::or)
-                                                             .orElse(Expressions.TRUE);
+        final BooleanExpression matchTitle =
+                dramaSearchQuery.titles()
+                                .flatMap(searchWord -> Stream.of(drama.title.containsIgnoreCase(searchWord),
+                                                                 drama.extraSearchWords.containsIgnoreCase(searchWord)))
+                                .reduce(BooleanExpression::or)
+                                .orElse(Expressions.TRUE.isFalse());
 
         return Dramas.dramas(from(drama).where(matchTitle.or(matchTags(dramaSearchQuery.tags())))
                                         .fetch());
@@ -65,8 +67,8 @@ class ExtendedDramaRepositoryImpl extends QuerydslRepositorySupport implements E
         final QDrama drama = QDrama.drama;
 
         return tags.rawNames().stream()
-                   .map(drama.dramaTags.dramaTags.any().tagName::likeIgnoreCase)
+                   .map(drama.dramaTags.dramaTags.any().tagName::containsIgnoreCase)
                    .reduce(BooleanExpression::or)
-                   .orElse(Expressions.TRUE.isTrue());
+                   .orElse(Expressions.TRUE.isFalse());
     }
 }

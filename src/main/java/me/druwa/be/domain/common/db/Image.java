@@ -22,6 +22,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import me.druwa.be.domain.common.converter.PositiveOrZeroLongConverter;
+import me.druwa.be.domain.common.model.IgnoreMerge;
+import me.druwa.be.domain.common.model.Mergeable;
 import me.druwa.be.domain.common.model.PositiveOrZeroLong;
 import me.druwa.be.domain.common.model.Timestamp;
 
@@ -32,10 +34,11 @@ import static java.util.Objects.nonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "imageName" })
-public class Image {
+public class Image implements Mergeable<Image> {
     private static final String S3_URL_BASE_ENDPOINT = "https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com";
 
     @Id
+    @IgnoreMerge
     @Column(name = "image_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long imageId;

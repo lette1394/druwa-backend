@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
@@ -23,7 +24,7 @@ import me.druwa.be.domain.common.model.Mergeable;
 @NoArgsConstructor
 public class DramaImages implements Mergeable<DramaImages> {
 
-    @OneToMany(mappedBy = "drama")
+    @OneToMany(mappedBy = "drama", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
     private Set<DramaImage> dramaImages;
 
     public static DramaImages dramaImages() {
@@ -50,9 +51,8 @@ public class DramaImages implements Mergeable<DramaImages> {
 
     @Override
     public DramaImages merge(final DramaImages other) {
-        other.dramaImages.addAll(this.dramaImages);
-        this.dramaImages = other.dramaImages;
-
+        this.dramaImages.removeAll(other.dramaImages);
+        this.dramaImages.addAll(other.dramaImages);
         return this;
     }
 

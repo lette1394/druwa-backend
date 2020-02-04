@@ -2,17 +2,27 @@ package me.druwa.be.domain.drama.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Embeddable;
 
 import com.google.common.collect.Sets;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import me.druwa.be.domain.common.converter.CommaBasedSetStringLowercaseConverter;
 
-@RequiredArgsConstructor
+@Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
 public class DramaSearchStrings {
-    private final Set<String> words;
+    @Column
+    @Convert(converter = CommaBasedSetStringLowercaseConverter.class)
+    private Set<String> words = Sets.newHashSet();
 
     private static final DramaSearchStrings EMTPY = new DramaSearchStrings(new HashSet<>());
-    private static final String DELIMITER = " ";
+    private static final String DELIMITER = ",";
 
     public static DramaSearchStrings empty() {
         return EMTPY;
@@ -27,6 +37,12 @@ public class DramaSearchStrings {
     }
 
     public Stream<String> stream() {
-        return words.stream();
+        return words.stream()
+                    .map(String::toLowerCase);
+    }
+
+    @Override
+    public String toString() {
+        return stream().collect(Collectors.joining(","));
     }
 }

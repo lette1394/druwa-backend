@@ -21,7 +21,7 @@ import me.druwa.be.domain.common.model.Mergeable;
 @NoArgsConstructor
 public class DramaEpisodeImages implements Mergeable<DramaEpisodeImages> {
 
-    @OneToMany(mappedBy = "dramaEpisode", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "dramaEpisode", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
     private Set<DramaEpisodeImage> dramaEpisodeImages;
 
     public static DramaEpisodeImages dramaEpisodeImages() {
@@ -40,10 +40,8 @@ public class DramaEpisodeImages implements Mergeable<DramaEpisodeImages> {
 
     @Override
     public DramaEpisodeImages merge(final DramaEpisodeImages other) {
-        Set<DramaEpisodeImage> images = Sets.newHashSet();
-        images.addAll(other.dramaEpisodeImages);
-        images.addAll(this.dramaEpisodeImages);
-        this.dramaEpisodeImages = images;
+        this.dramaEpisodeImages.removeAll(other.dramaEpisodeImages);
+        this.dramaEpisodeImages.addAll(other.dramaEpisodeImages);
         return this;
     }
 

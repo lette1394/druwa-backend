@@ -108,8 +108,6 @@ public class DramaService {
         final Drama drama = findByDramaId(dramaId);
         final DramaImages s3SavedImages = s3Service.put(images)
                                                    .toDramaImages(drama);
-        dramaImageRepository.saveAll(s3SavedImages);
-
         return drama.merge(s3SavedImages);
     }
 

@@ -24,7 +24,7 @@ class DramaTagRepositoryExtendedImpl extends QuerydslRepositorySupport implement
         final BooleanExpression allWords = searchWords.stream()
                                                       .map(dramaTag.tagName::containsIgnoreCase)
                                                       .reduce(BooleanExpression::or)
-                                                      .orElse(Expressions.TRUE);
+                                                      .orElse(Expressions.TRUE.isTrue());
 
         return new DramaTags(from(dramaTag).where(allWords)
                                            .fetch());

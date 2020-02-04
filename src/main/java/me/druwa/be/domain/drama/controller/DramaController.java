@@ -191,6 +191,4 @@ public class DramaController {
         return ResponseEntity.status(HttpStatus.OK)
                              .body(search.toSearchResponse());
     }
-
-
 }

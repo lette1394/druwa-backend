@@ -73,6 +73,9 @@ public class Drama implements Mergeable<Drama> {
     private String summary;
 
     @Column
+    private String extraSearchWords;
+
+    @Column
     @NotBlank
     @Size(max = PRODUCT_COMPANY_MAX_LENGTH)
     private String productionCompany;
@@ -207,14 +210,6 @@ public class Drama implements Mergeable<Drama> {
                 @NotNull
                 @Valid
                 private MultipartImages images;
-
-                public Drama toPartialDrama() {
-                    return Drama.builder()
-                                .title(title)
-                                .productionCompany(productionCompany)
-                                .summary(summary)
-                                .build();
-                }
             }
 
             @Data
@@ -231,11 +226,14 @@ public class Drama implements Mergeable<Drama> {
                 @Size(max = SUMMARY_MAX_LENGTH)
                 protected String summary;
 
+                protected DramaSearchStrings extraSearchWords;
+
                 public Drama toPartialDrama() {
                     return Drama.builder()
                                 .title(title)
                                 .productionCompany(productionCompany)
                                 .summary(summary)
+                                .extraSearchWords(extraSearchWords.toString())
                                 .build();
                 }
             }
@@ -288,11 +286,14 @@ public class Drama implements Mergeable<Drama> {
                 @Size(max = SUMMARY_MAX_LENGTH)
                 private String summary;
 
+                private DramaSearchStrings extraSearchWords;
+
                 public Drama toPartialDrama() {
                     return Drama.builder()
                                 .title(title)
                                 .productionCompany(productionCompany)
                                 .summary(summary)
+                                .extraSearchWords(extraSearchWords.toString())
                                 .build();
                 }
             }
