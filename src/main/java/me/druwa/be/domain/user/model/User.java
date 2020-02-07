@@ -134,6 +134,10 @@ public class User {
                                  .build();
     }
 
+    public boolean isMatchEmailAndPassword(final User user) {
+        return this.email.equals(user.email) && this.password.equals(user.password);
+    }
+
     public static class View {
         public static class Create {
             @Data
@@ -212,10 +216,10 @@ public class User {
                 @Pattern(regexp = PASSWORD_REGEX)
                 private String password;
 
-                public User toPartialUser() {
+                public User toPartialUser(final PasswordEncoder passwordEncoder) {
                     return User.builder()
                                .email(email)
-                               .password(password)
+                               .password(passwordEncoder.encode(password))
                                .build();
                 }
             }

@@ -2,6 +2,7 @@ package me.druwa.be.domain.user.controller;
 
 import java.util.Optional;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,8 +52,8 @@ public class UserController {
 
     @AllowPublicAccess
     @GetMapping("/users/signup/validate")
-    public ResponseEntity<?> check(@RequestParam("name") final String name) {
-        final Optional<User> userOptional = userService.findByName(name);
+    public ResponseEntity<?> check(@RequestParam("email") @Email final String email) {
+        final Optional<User> userOptional = userService.findByEmail(email);
 
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -69,6 +70,9 @@ public class UserController {
                                      .orElseThrow(() -> DruwaException.badRequest(String.format(
                                              "No Found user email: %s",
                                              body.getEmail())));
+        if (passwordEncoder.matches(body.getPassword(), user.getPassword()) == false) {
+            throw DruwaException.badRequest("Invalid password");
+        }
 
         final String token = tokenProvider.createToken(user);
         return ResponseEntity.status(HttpStatus.OK)
@@ -89,6 +93,7 @@ public class UserController {
                                  .build();
         }
 
+        // TODO: 재설정 process 변경 필요
         userService.sendVerifiedEmail(userOptional.get());
         return ResponseEntity.status(HttpStatus.OK)
                              .build();

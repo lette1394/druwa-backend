@@ -46,6 +46,29 @@ include::{snippets}/drama__find/http-response.adoc[]
 
 '''
 
+=== find related
+
+**<> CURL**
+include::{snippets}/drama__related/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama__related/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama__related/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama__related/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama__related/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama__related/http-response.adoc[]
+
+
+'''
+
 === update
 
 **<> CURL**

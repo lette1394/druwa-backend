@@ -22,3 +22,72 @@ include::{snippets}/user__me/response-fields.adoc[]
 include::{snippets}/user__me/http-response.adoc[]
 
 '''
+
+=== signup
+
+**<> CURL**
+include::{snippets}/user__signup/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/user__signup/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/user__signup/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/user__signup/http-request.adoc[]
+
+**> Response Field**
+include::{snippets}/user__signup/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/user__signup/http-response.adoc[]
+
+'''
+
+=== validate (email 중복 검사)
+
+**<> CURL**
+include::{snippets}/user__validate__success/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/user__validate__success/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/user__validate__success/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/user__validate__success/http-request.adoc[]
+
+**> Response Field**
+include::{snippets}/user__validate__success/response-fields.adoc[]
+
+**> Response HTTP Example** (중복 없음)
+include::{snippets}/user__validate__success/http-response.adoc[]
+
+**> Response HTTP Example (중복 발생)**
+include::{snippets}/user__validate__fail/http-response.adoc[]
+
+'''
+
+=== login (token 얻기)
+
+**<> CURL**
+include::{snippets}/user__login/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/user__login/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/user__login/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/user__login/http-request.adoc[]
+
+**> Response Field**
+include::{snippets}/user__login/response-fields.adoc[]
+
+**> Response HTTP Example** (중복 없음)
+include::{snippets}/user__login/http-response.adoc[]
+
+'''
