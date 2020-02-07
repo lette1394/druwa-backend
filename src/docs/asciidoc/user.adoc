@@ -24,6 +24,8 @@ include::{snippets}/user__me/http-response.adoc[]
 '''
 
 === signup
+- user가 정상적으로 등록되면, 가입한 주소로 확인 email이 날라갑니다.
+- oauth는 해당사항 없고, 자체 login만 해당합니다.
 
 **<> CURL**
 include::{snippets}/user__signup/curl-request.adoc[]
