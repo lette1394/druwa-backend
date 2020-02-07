@@ -1,7 +1,7 @@
 package me.druwa.be.domain.user.model;
 
 import me.druwa.be.domain.auth.service.TokenProvider;
-import me.druwa.be.global.exception.UnauthorizedException;
+import me.druwa.be.global.exception.DruwaException;
 
 public class PublicUser extends User {
     private static final PublicUser instance = new PublicUser();
@@ -19,21 +19,21 @@ public class PublicUser extends User {
 
     @Override
     public void onCreate() {
-        throw new UnauthorizedException();
+        throw DruwaException.unauthorized();
     }
 
     @Override
     public void onUpdate() {
-        throw new UnauthorizedException();
+        throw DruwaException.unauthorized();
     }
 
     @Override
     public View.Create.Response toCreateResponse(final TokenProvider tokenProvider) {
-        throw new UnauthorizedException();
+        throw DruwaException.unauthorized();
     }
 
     @Override
     public View.Read.Response toReadResponse() {
-        throw new UnauthorizedException();
+        throw DruwaException.unauthorized();
     }
 }

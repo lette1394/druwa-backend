@@ -1,4 +1,4 @@
-package me.druwa.be.global.controller;
+package me.druwa.be.global.exception;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import me.druwa.be.global.exception.ExceptionResponse;
-import me.druwa.be.global.exception.UnauthorizedException;
 import me.druwa.be.log.LoggingUtils;
 
 @RestControllerAdvice
@@ -40,10 +38,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                               e.getRejectedValue()))
                                       .collect(Collectors.toList());
 
-        final ExceptionResponse body = ExceptionResponse.builder()
-                                                        .errors(errors)
-                                                        .message("bind error")
-                                                        .build();
+        final DruwaExceptionResponse body = DruwaExceptionResponse.builder()
+                                                                  .errors(errors)
+                                                                  .message("bind error")
+                                                                  .build();
 
 
         return ResponseEntity.badRequest()
@@ -65,10 +63,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                               e.getRejectedValue()))
                                       .collect(Collectors.toList());
 
-        final ExceptionResponse body = ExceptionResponse.builder()
-                                                        .errors(errors)
-                                                        .message("bind error")
-                                                        .build();
+        final DruwaExceptionResponse body = DruwaExceptionResponse.builder()
+                                                                  .errors(errors)
+                                                                  .message("bind error")
+                                                                  .build();
 
 
         return ResponseEntity.badRequest()
@@ -110,10 +108,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                               ex1.getTargetType())).collect(Collectors.joining());
 
             return ResponseEntity.badRequest()
-                                 .body(ExceptionResponse.builder()
-                                                        .errors(Collections.singletonList(body))
-                                                        .message("conversion error")
-                                                        .build());
+                                 .body(DruwaExceptionResponse.builder()
+                                                             .errors(Collections.singletonList(body))
+                                                             .message("conversion error")
+                                                             .build());
         }
 
         return ResponseEntity.badRequest().build();
@@ -127,6 +125,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                                                              final HttpStatus status,
                                                              final WebRequest request) {
         LoggingUtils.dumpThrowable(ex);
+
         if (ex instanceof NoSuchElementException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                  .build();
@@ -138,18 +137,21 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    @ExceptionHandler({ NoSuchElementException.class, UnauthorizedException.class })
-    public ResponseEntity<Object> handleOtherException(Exception ex, WebRequest request) throws Exception {
+    @ExceptionHandler({
+                              NoSuchElementException.class,
+                              DruwaException.class
+                      })
+    public ResponseEntity<?> handleOtherException(Exception ex, WebRequest request) throws Exception {
         LoggingUtils.dumpThrowable(ex);
 
         if (ex instanceof NoSuchElementException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                  .build();
         }
-        if (ex instanceof UnauthorizedException) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                                 .build();
+        if (ex instanceof DruwaException) {
+            return ((DruwaException) ex).toResponseEntity();
         }
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                              .build();
     }

@@ -11,7 +11,7 @@ import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.PublicUser;
 import me.druwa.be.domain.user.model.User;
-import me.druwa.be.global.exception.UnauthorizedException;
+import me.druwa.be.global.exception.DruwaException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,10 +22,12 @@ import org.aspectj.lang.reflect.MethodSignature;
 @Component
 public class AllowPublicAccessAspect {
     @Pointcut("execution(@(@org.springframework.web.bind.annotation.RequestMapping *) * *(..))")
-    public void requestMappingAnnotations() { }
+    public void requestMappingAnnotations() {
+    }
 
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
-    public void restControllers() {}
+    public void restControllers() {
+    }
 
     @Around("requestMappingAnnotations()")
     public Object allowPublicAccess(ProceedingJoinPoint pjp) throws Throwable {
@@ -33,10 +35,10 @@ public class AllowPublicAccessAspect {
         final Method method = signature.getMethod();
 
         final Optional<?> currentUserOptional = Arrays.stream(method.getParameterAnnotations())
-                                      .flatMap(Arrays::stream)
-                                      .map(Annotation::annotationType)
-                                      .filter(CurrentUser.class::isAssignableFrom)
-                                      .findAny();
+                                                      .flatMap(Arrays::stream)
+                                                      .map(Annotation::annotationType)
+                                                      .filter(CurrentUser.class::isAssignableFrom)
+                                                      .findAny();
         if (false == currentUserOptional.isPresent()) {
             return pjp.proceed();
         }
@@ -53,14 +55,14 @@ public class AllowPublicAccessAspect {
         User user = userOptional.get();
 
         if (Objects.isNull(annotation) && user instanceof PublicUser) {
-            throw new UnauthorizedException();
+            throw DruwaException.unauthorized();
         }
         if (user instanceof PublicUser) {
             if (annotation.value()) {
                 return pjp.proceed();
             }
             if (annotation.value() == false) {
-                throw new UnauthorizedException();
+                throw DruwaException.unauthorized();
             }
         }
         return pjp.proceed();

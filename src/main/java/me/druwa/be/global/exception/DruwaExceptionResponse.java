@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ExceptionResponse {
+public class DruwaExceptionResponse {
     private final String message;
     private final List<String> errors;
 }

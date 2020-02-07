@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import me.druwa.be.domain.auth.model.AppProperties;
 import me.druwa.be.domain.auth.service.TokenProvider;
-import me.druwa.be.global.exception.BadRequestException;
+import me.druwa.be.global.exception.DruwaException;
 import me.druwa.be.global.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -45,11 +45,12 @@ class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessH
     protected String determineTargetUrl(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) {
-        Optional<String> redirectUri = CookieUtils.getCookie(request, HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
+        Optional<String> redirectUri = CookieUtils.getCookie(request,
+                                                             HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
                                                   .map(Cookie::getValue);
 
         if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-            throw new BadRequestException(
+            throw DruwaException.badRequest(
                     "Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
         }
 
@@ -75,7 +76,7 @@ class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessH
                                 URI authorizedURI = URI.create(authorizedRedirectUri);
                                 return authorizedURI.getHost()
                                                     .equalsIgnoreCase(clientRedirectUri.getHost())
-                                        && authorizedURI.getPort() == clientRedirectUri.getPort();
+                                               && authorizedURI.getPort() == clientRedirectUri.getPort();
                             });
     }
 }

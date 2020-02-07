@@ -9,6 +9,7 @@ import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 @RestController
 @RequestMapping("/manage")
 public class ManageController {
+
     @AllowPublicAccess
     @GetMapping("/health")
     public ResponseEntity<?> health() {

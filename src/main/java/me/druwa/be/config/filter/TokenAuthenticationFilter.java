@@ -68,7 +68,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 final Long userId = tokenProvider.getUserIdFromToken(jwt);
 
                 final UserDetails userDetails = customUserDetailsService.loadUserById(userId);
-                final UsernamePasswordAuthenticationToken authentication =
+                final
+                UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails,
                                                                 null,
                                                                 userDetails.getAuthorities());

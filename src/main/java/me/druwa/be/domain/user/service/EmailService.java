@@ -24,7 +24,7 @@ public class EmailService {
         helper.setFrom("no_reply@d-studio.com");
         helper.setTo(to);
         helper.setSubject(subject);
-        helper.setText(text, false);
+        helper.setText(text, true);
 
         javaMailSender.send(msg);
     }

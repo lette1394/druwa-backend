@@ -11,7 +11,6 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import me.druwa.be.docs.ConstraintAttribute;
 import me.druwa.be.docs.DocsUtils;
@@ -99,9 +98,6 @@ class DramaControllerTest {
                                                                               .type(JsonFieldType.STRING)
                                                                               .attributes(request.constraint(
                                                                                       "productionCompany")),
-                                            fieldWithPath("title").description("")
-                                                                  .type(JsonFieldType.STRING)
-                                                                  .attributes(request.constraint("title")),
                                             fieldWithPath("images").description("")
                                                                    .optional()
                                                                    .type(JsonFieldType.ARRAY)
@@ -141,38 +137,51 @@ class DramaControllerTest {
                                     responseFields(
                                             fieldWithPath("[]").description("")
                                                                .type(JsonFieldType.ARRAY),
-                                            fieldWithPath("[].dramaId").description("")
-                                                                       .type(JsonFieldType.NUMBER)
-                                                                       .attributes(request.constraint("dramaId")),
-                                            fieldWithPath("[].title").description("")
-                                                                     .type(JsonFieldType.STRING)
-                                                                     .attributes(request.constraint("title")),
-                                            fieldWithPath("[].productionCompany").description("")
-                                                                                 .type(JsonFieldType.STRING)
-                                                                                 .attributes(request.constraint(
-                                                                                         "productionCompany")),
-                                            fieldWithPath("[].title").description("")
-                                                                     .type(JsonFieldType.STRING)
-                                                                     .attributes(request.constraint("title")),
-                                            fieldWithPath("[].images").description("")
-                                                                      .optional()
-                                                                      .type(JsonFieldType.ARRAY)
-                                                                      .attributes(request.constraint("images")),
-                                            fieldWithPath("[].like").description("")
-                                                                    .type(JsonFieldType.NUMBER)
-                                                                    .attributes(request.constraint("like")),
-                                            fieldWithPath("[].dislike").description("")
-                                                                       .type(JsonFieldType.NUMBER)
-                                                                       .attributes(request.constraint("dislike")),
-                                            fieldWithPath("[].createdAt").description("")
-                                                                         .type(JsonFieldType.STRING)
-                                                                         .attributes(request.constraint("createdAt")),
-                                            fieldWithPath("[].updatedAt").description("")
-                                                                         .type(JsonFieldType.STRING)
-                                                                         .attributes(request.constraint("updatedAt")),
-                                            fieldWithPath("[].summary").description("")
-                                                                       .type(JsonFieldType.STRING)
-                                                                       .attributes(request.constraint("summary")))))
+                                            fieldWithPath("[]dramaId").description("")
+                                                                      .type(JsonFieldType.NUMBER)
+                                                                      .attributes(request.constraint("dramaId")),
+                                            fieldWithPath("[]title").description("")
+                                                                    .type(JsonFieldType.STRING)
+                                                                    .attributes(request.constraint("title")),
+                                            fieldWithPath("[]productionCompany").description("")
+                                                                                .type(JsonFieldType.STRING)
+                                                                                .attributes(request.constraint(
+                                                                                        "productionCompany")),
+                                            fieldWithPath("[]images").description("")
+                                                                     .optional()
+                                                                     .type(JsonFieldType.ARRAY)
+                                                                     .attributes(request.constraint("images")),
+                                            fieldWithPath("[]images.[]imageName").description("")
+                                                                                 .type(JsonFieldType.STRING),
+                                            fieldWithPath("[]images.[]imageUrl").description("")
+                                                                                .type(JsonFieldType.STRING),
+                                            fieldWithPath("[]images.[]widthPixel").description("")
+                                                                                  .optional()
+                                                                                  .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[]images.[]heightPixel").description("")
+                                                                                   .optional()
+                                                                                   .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[]images.[]imageType").description("")
+                                                                                 .type(JsonFieldType.STRING),
+                                            fieldWithPath("[]images.[]createdAt").description("")
+                                                                                 .type(JsonFieldType.STRING),
+                                            fieldWithPath("[]images.[]updatedAt").description("")
+                                                                                 .type(JsonFieldType.STRING),
+                                            fieldWithPath("[]like").description("")
+                                                                   .type(JsonFieldType.NUMBER)
+                                                                   .attributes(request.constraint("like")),
+                                            fieldWithPath("[]dislike").description("")
+                                                                      .type(JsonFieldType.NUMBER)
+                                                                      .attributes(request.constraint("dislike")),
+                                            fieldWithPath("[]createdAt").description("")
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(request.constraint("createdAt")),
+                                            fieldWithPath("[]updatedAt").description("")
+                                                                        .type(JsonFieldType.STRING)
+                                                                        .attributes(request.constraint("updatedAt")),
+                                            fieldWithPath("[]summary").description("")
+                                                                      .type(JsonFieldType.STRING)
+                                                                      .attributes(request.constraint("summary")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())

@@ -6,11 +6,10 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,7 @@ import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.service.UserService;
+import me.druwa.be.global.exception.DruwaException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.groovy.util.Maps;
 
@@ -37,9 +37,14 @@ public class UserController {
 
     @AllowPublicAccess
     @PostMapping("/users/signup")
-    public ResponseEntity<?> create(@Valid final User.View.Create.Request body) {
-        final User user = userService.save(body.toPartialUser(passwordEncoder));
+    public ResponseEntity<?> create(@Valid @RequestBody final User.View.Create.Request body) {
+        if (userService.isExistedByEmail(body.toPartialUser(passwordEncoder))) {
+            throw DruwaException.badRequest(String.format("duplicate user email: %s", body.getEmail()))
+                                .appendExplain(body.getEmail());
+        }
 
+        final User user = userService.save(body.toPartialUser(passwordEncoder));
+        userService.sendVerifiedEmail(user);
         return ResponseEntity.status(HttpStatus.CREATED)
                              .body(user.toCreateResponse(tokenProvider));
     }
@@ -59,30 +64,28 @@ public class UserController {
 
     @AllowPublicAccess
     @PostMapping("/users/login")
-    public ResponseEntity<?> login(@Valid final User.View.Login.Request body) {
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        body.getEmail(),
-                        body.getPassword()
-                )
-        );
+    public ResponseEntity<?> login(@Valid @RequestBody final User.View.Login.Request body) {
+        final User user = userService.findByEmail(body.getEmail())
+                                     .orElseThrow(() -> DruwaException.badRequest(String.format(
+                                             "No Found user email: %s",
+                                             body.getEmail())));
 
-        final String token = tokenProvider.createToken(authentication);
+        final String token = tokenProvider.createToken(user);
         return ResponseEntity.status(HttpStatus.OK)
                              .body(Maps.of("token", token));
     }
 
     @AllowPublicAccess
     @PostMapping("/users/find")
-    public ResponseEntity<?> find(@Valid final User.View.Find.Request body) {
+    public ResponseEntity<?> find(@Valid @RequestBody final User.View.Find.Request body) {
         final Optional<User> userOptional = userService.findByName(body.getName());
-        if (false == userOptional.isPresent()) {
+        if (userOptional.isPresent() == false) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                  .build();
         }
 
-        if (false == StringUtils.equals(body.getEmail(), userOptional.get().getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        if (StringUtils.equals(body.getEmail(), userOptional.get().getEmail()) == false) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                                  .build();
         }
 

@@ -1,6 +1,7 @@
 package me.druwa.be.domain.user.service;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -60,7 +61,8 @@ public class UserService {
     public void sendVerifiedEmail(final User user) {
         final String validationUrl = String.format("https://api.druwa.site/users/validation?token=%s",
                                                    tokenProvider.createToken(user));
-        final String text = String.format("D.Studio 계정 확인 email 입니다. 아래 링크를 눌러주세요.\n%s", validationUrl);
+        final String text = String.format("D.Studio 계정 확인 email 입니다. 아래 링크를 눌러주세요.\n <br/><a href=\"%s\">LINK</a>",
+                                          validationUrl);
         final String subject = "D.Studio email validation";
 
         emailService.sendBuilder()
@@ -79,5 +81,17 @@ public class UserService {
 
         log.info("user email verified. user:{}", user);
         return user;
+    }
+
+    public void ensureExist(final User user) {
+        if (Objects.nonNull(user.getUserId()) && userRepository.existsById(user.getUserId()) == false) {
+            throw new NoSuchElementException(String.format("No such user: %s", user));
+        } else if (Objects.nonNull(user.getEmail()) && userRepository.existsByEmail(user.getEmail()) == false) {
+            throw new NoSuchElementException(String.format("No such user: %s", user));
+        }
+    }
+
+    public boolean isExistedByEmail(final User user) {
+        return userRepository.existsByEmail(user.getEmail());
     }
 }

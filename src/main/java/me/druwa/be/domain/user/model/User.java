@@ -27,6 +27,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -41,7 +42,7 @@ import static java.util.Objects.nonNull;
 @Setter
 @RequiredArgsConstructor
 @EqualsAndHashCode(of = "userId")
-@ToString
+@ToString(of = { "userId", "email", "name", "provider" })
 @AllArgsConstructor
 @Table(name = "user_", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
@@ -129,12 +130,15 @@ public class User {
                                  .imageUrl(imageUrl)
                                  .provider(provider.name())
                                  .registeredAt(timestamp.getCreatedAt())
+                                 .isEmailVerified(emailVerified)
                                  .build();
     }
 
     public static class View {
         public static class Create {
             @Data
+            @NoArgsConstructor
+            @AllArgsConstructor
             public static class Request {
                 @Email
                 @NotBlank
@@ -179,6 +183,8 @@ public class User {
                 private String provider;
                 @NotNull
                 private LocalDateTime registeredAt;
+                @NotNull
+                private Boolean isEmailVerified;
             }
         }
 
@@ -190,6 +196,7 @@ public class User {
                 private String name;
 
                 @Email
+                @NotBlank
                 private String email;
             }
         }
@@ -198,10 +205,19 @@ public class User {
             @Data
             public static class Request {
                 @Email
+                @NotBlank
                 private String email;
 
+                @NotBlank
                 @Pattern(regexp = PASSWORD_REGEX)
                 private String password;
+
+                public User toPartialUser() {
+                    return User.builder()
+                               .email(email)
+                               .password(password)
+                               .build();
+                }
             }
         }
     }

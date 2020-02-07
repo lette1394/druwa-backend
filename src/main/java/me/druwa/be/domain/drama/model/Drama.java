@@ -226,7 +226,7 @@ public class Drama implements Mergeable<Drama> {
                 @Size(max = SUMMARY_MAX_LENGTH)
                 protected String summary;
 
-                protected DramaSearchStrings extraSearchWords;
+                protected DramaSearchStrings extraSearchWords = DramaSearchStrings.empty();
 
                 public Drama toPartialDrama() {
                     return Drama.builder()
@@ -286,7 +286,7 @@ public class Drama implements Mergeable<Drama> {
                 @Size(max = SUMMARY_MAX_LENGTH)
                 private String summary;
 
-                private DramaSearchStrings extraSearchWords;
+                private DramaSearchStrings extraSearchWords = DramaSearchStrings.empty();
 
                 public Drama toPartialDrama() {
                     return Drama.builder()
