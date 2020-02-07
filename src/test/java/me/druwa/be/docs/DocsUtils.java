@@ -54,8 +54,7 @@ public class DocsUtils {
                                       .withRequestDefaults(
                                               noUrlEncoded,
                                               prettyPrint(),
-                                              removeHeaders("Authorization",
-                                                            "Host"),
+                                              removeHeaders("Host"),
                                               modifyUris()
                                                       .host("api.druwa.site")
                                                       .scheme("https")
