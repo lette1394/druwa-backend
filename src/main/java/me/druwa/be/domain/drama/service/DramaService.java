@@ -47,7 +47,7 @@ public class DramaService {
     }
 
     public Dramas findRelatedDramaById(final Long dramaId, final Long limit) {
-        return dramaRepository.findRandom(limit);
+        return dramaRepository.findRandom(dramaId, limit);
     }
 
     @Transactional

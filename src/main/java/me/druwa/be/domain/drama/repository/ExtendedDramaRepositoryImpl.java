@@ -55,10 +55,11 @@ class ExtendedDramaRepositoryImpl extends QuerydslRepositorySupport implements E
     }
 
     @Override
-    public Dramas findRandom(final Long limit) {
+    public Dramas findRandom(final Long dramaId, final Long limit) {
         final QDrama drama = QDrama.drama;
 
         return Dramas.dramas(from(drama).limit(limit)
+                                        .where(drama.dramaId.ne(dramaId))
                                         .orderBy(NumberExpression.random().asc())
                                         .fetch());
     }

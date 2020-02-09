@@ -173,6 +173,7 @@ public class DramaController {
                              .build();
     }
 
+    // TODO: 문서화
     @AllowPublicAccess
     @GetMapping("/search")
     public ResponseEntity<?> find(

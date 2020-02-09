@@ -46,6 +46,7 @@ public class DramaEpisodeController {
         return ResponseEntity.ok(dramaEpisode.toCreateResponse());
     }
 
+    // TODO: 문서화
     @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}/episodes")
     public ResponseEntity<?> list(@PathVariable final Long dramaId,
