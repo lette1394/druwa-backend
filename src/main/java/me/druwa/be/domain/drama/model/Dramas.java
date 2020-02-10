@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import me.druwa.be.domain.user.model.User;
 
 @Embeddable
 @ToString
@@ -38,9 +39,9 @@ public class Dramas {
                                    .build();
     }
 
-    public Set<Drama.View.Read.Response> toReadResponse() {
+    public Set<Drama.View.Read.Response> toReadResponse(final User user) {
         return dramas.stream()
-                     .map(Drama::toReadResponse)
+                     .map(drama -> drama.toReadResponse(user))
                      .collect(Collectors.toSet());
     }
 

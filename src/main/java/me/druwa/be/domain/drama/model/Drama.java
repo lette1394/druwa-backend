@@ -171,11 +171,12 @@ public class Drama implements Mergeable<Drama> {
                                    .build();
     }
 
-    public View.Read.Response toReadResponse() {
+    public View.Read.Response toReadResponse(final User user) {
         return View.Read.Response.builder()
                                  .dramaId(dramaId)
+
                                  .title(title)
-                                 .likeOrDislike(dramaLike)
+                                 .likeOrDislike(dramaLike.toResponse(this, user))
                                  .productionCompany(productionCompany)
                                  .images(dramaImages.toResponse())
                                  .summary(summary)
@@ -256,7 +257,7 @@ public class Drama implements Mergeable<Drama> {
                 private String productionCompany;
                 private Set<Image.View.Read.Response> images;
                 @JsonUnwrapped
-                private DramaLikeOrDislike likeOrDislike;
+                private DramaLikeOrDislike.View.Read.Response likeOrDislike;
                 @JsonUnwrapped
                 private Timestamp timestamp;
             }

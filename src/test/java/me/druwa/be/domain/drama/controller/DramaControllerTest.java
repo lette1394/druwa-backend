@@ -105,9 +105,15 @@ class DramaControllerTest {
                                             fieldWithPath("like").description("")
                                                                  .type(JsonFieldType.NUMBER)
                                                                  .attributes(request.constraint("like")),
+                                            fieldWithPath("liked").description("")
+                                                                 .type(JsonFieldType.BOOLEAN)
+                                                                 .attributes(request.constraint("liked")),
                                             fieldWithPath("dislike").description("")
                                                                     .type(JsonFieldType.NUMBER)
                                                                     .attributes(request.constraint("dislike")),
+                                            fieldWithPath("disliked").description("")
+                                                                    .type(JsonFieldType.BOOLEAN)
+                                                                    .attributes(request.constraint("disliked")),
                                             fieldWithPath("createdAt").description("")
                                                                       .type(JsonFieldType.STRING)
                                                                       .attributes(request.constraint("createdAt")),
@@ -170,9 +176,15 @@ class DramaControllerTest {
                                             fieldWithPath("[]like").description("")
                                                                    .type(JsonFieldType.NUMBER)
                                                                    .attributes(request.constraint("like")),
+                                            fieldWithPath("[]liked").description("")
+                                                                   .type(JsonFieldType.BOOLEAN)
+                                                                   .attributes(request.constraint("liked")),
                                             fieldWithPath("[]dislike").description("")
                                                                       .type(JsonFieldType.NUMBER)
                                                                       .attributes(request.constraint("dislike")),
+                                            fieldWithPath("[]disliked").description("")
+                                                                      .type(JsonFieldType.BOOLEAN)
+                                                                      .attributes(request.constraint("disliked")),
                                             fieldWithPath("[]createdAt").description("")
                                                                         .type(JsonFieldType.STRING)
                                                                         .attributes(request.constraint("createdAt")),

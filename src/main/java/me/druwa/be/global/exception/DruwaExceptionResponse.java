@@ -9,5 +9,7 @@ import lombok.Data;
 @Builder
 public class DruwaExceptionResponse {
     private final String message;
+    private final long code;
+    private final String error;
     private final List<String> errors;
 }

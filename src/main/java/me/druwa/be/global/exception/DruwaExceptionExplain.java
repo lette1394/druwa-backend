@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @RequiredArgsConstructor(staticName = "create")
 public class DruwaExceptionExplain {
     private final String message;
-
     private final List<Tuple> explains = new ArrayList<>();
+    @Setter
+    private ErrorCode errorCode = ErrorCode.NO_ERROR_CODE;
 
     @Override
     public String toString() {
@@ -27,6 +29,8 @@ public class DruwaExceptionExplain {
     DruwaExceptionResponse toResponse() {
         return DruwaExceptionResponse.builder()
                                      .message(message)
+                                     .code(errorCode.getCode())
+                                     .error(errorCode.toString())
                                      .errors(explains.stream()
                                                      .map(Tuple::toString)
                                                      .collect(Collectors.toList()))

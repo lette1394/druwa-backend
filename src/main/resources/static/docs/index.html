@@ -691,7 +691,7 @@ Host: api.druwa.site</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 302 Found
-Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=qKSCQ8G8kkgnEojUYAn2Ra6fUNWLlI6K69ItehTa9AQ%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
+Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_id=95f0eb793def23c37ba4d15069f2999b&amp;state=aE5b7y8sctepldoAJF0EwqB0TJ2E80klntAhzX9H59w%3D&amp;redirect_uri=http://localhost:8080/oauth2/callback/code/kakao</code></pre>
 </div>
 </div>
 <hr>
@@ -710,6 +710,7 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/users/me' -i -X GET \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -726,6 +727,7 @@ Location: https://kauth.kakao.com/oauth/authorize?response_type=code&amp;client_
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /users/me HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -818,6 +820,16 @@ Content-Length: 173
 </div>
 <div class="sect2">
 <h3 id="signup"><a class="link" href="#signup">signup</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>user가 정상적으로 등록되면, 가입한 주소로 확인 email이 날라갑니다.</p>
+</li>
+<li>
+<p>oauth는 해당사항 없고, 자체 login만 해당합니다.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p><strong>&lt;&gt; CURL</strong></p>
 </div>
@@ -827,7 +839,7 @@ Content-Length: 173
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
-  &quot;name&quot; : &quot;name_druwa&quot;,
+  &quot;name&quot; : &quot;namedruwa&quot;,
   &quot;email&quot; : &quot;druwa77@daum.net&quot;,
   &quot;password&quot; : &quot;123456aA&quot;
 }'</code></pre>
@@ -862,8 +874,8 @@ Content-Length: 173
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">can be duplicated</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- Must not be blank</p>
-<p class="tableblock">- Size must be between 2 and 20 inclusive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- Must match the regular expression <code>^[a-zA-Z가-힣]{2,10}$</code></p>
+<p class="tableblock">- Must not be blank</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">email</p></td>
@@ -891,11 +903,11 @@ Content-Length: 173
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /users/signup HTTP/1.1
 Accept: application/json
 Content-Type: application/json; charset=UTF-8
-Content-Length: 86
+Content-Length: 85
 Host: api.druwa.site
 
 {
-  &quot;name&quot; : &quot;name_druwa&quot;,
+  &quot;name&quot; : &quot;namedruwa&quot;,
   &quot;email&quot; : &quot;druwa77@daum.net&quot;,
   &quot;password&quot; : &quot;123456aA&quot;
 }</code></pre>
@@ -941,7 +953,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 186
 
 {
-  &quot;token&quot; : &quot;eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwIiwiaWF0IjoxNTgxMTAxNTExLCJleHAiOjE1ODE5NjU1MTF9.vttbAA1s3ipci1yFd7j0fl04mJgybVUvhgdRgY4Yj30U_IchxHTTyFsve8nl7kqPR1DTqV_nPfOu9XCGdz68TQ&quot;
+  &quot;token&quot; : &quot;eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwIiwiaWF0IjoxNTgxMzUxNTU0LCJleHAiOjE1ODIyMTU1NTR9.-ysuuOSG1-RvOL4xJ5F8Q2mwHKc4RBYnCjzKNvCpTKrC07ZO1qFEMijgATe2rgd24ZvMo_tzwPP7rMsIF1rTAQ&quot;
 }</code></pre>
 </div>
 </div>
@@ -1128,7 +1140,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 189
 
 {
-  &quot;token&quot; : &quot;eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0MzYiLCJpYXQiOjE1ODExMDE1MTEsImV4cCI6MTU4MTk2NTUxMX0.dRbjKuUipQpN9BY8n6_l37IpPfjj6qxgboA2znjy3TGMjNn0d8jopIdx0ebuIowUz8Bo_QnAEhAsTQwWMZ4rGA&quot;
+  &quot;token&quot; : &quot;eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0MjkiLCJpYXQiOjE1ODEzNTE1NTUsImV4cCI6MTU4MjIxNTU1NX0.wJfSXJ7qdy9savPSmopVknh7TMlC4Oms2Pqhib8hU54m-2HwRga5ybKZLIS02LIXsyVZfFu6f74fEWknlA8l8g&quot;
 }</code></pre>
 </div>
 </div>
@@ -1148,6 +1160,7 @@ Content-Length: 189
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas' -i -X POST \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
@@ -1213,6 +1226,7 @@ Content-Length: 189
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Content-Length: 175
 Host: api.druwa.site
@@ -1264,7 +1278,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 21
 
 {
-  &quot;dramaId&quot; : 477
+  &quot;dramaId&quot; : 505
 }</code></pre>
 </div>
 </div>
@@ -1279,6 +1293,7 @@ Content-Length: 21
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15' -i -X GET \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -1295,6 +1310,7 @@ Content-Length: 21
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/15 HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -1358,8 +1374,22 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dislike</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1395,7 +1425,7 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 328
+Content-Length: 369
 
 {
   &quot;dramaId&quot; : 15,
@@ -1404,9 +1434,11 @@ Content-Length: 328
   &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
   &quot;images&quot; : [ ],
   &quot;like&quot; : 0,
-  &quot;dislike&quot; : 3,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 2,
+  &quot;disliked&quot; : false,
   &quot;createdAt&quot; : &quot;2020-01-21T01:51:30.182&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:43:13.921&quot;
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:18:12.013&quot;
 }</code></pre>
 </div>
 </div>
@@ -1421,6 +1453,7 @@ Content-Length: 328
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/related' -i -X GET \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -1437,6 +1470,7 @@ Content-Length: 328
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/15/related HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -1556,8 +1590,22 @@ Host: api.druwa.site</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]liked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">[]dislike</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]disliked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1593,38 +1641,44 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 3310
+Content-Length: 4913
 
 [ {
-  &quot;dramaId&quot; : 421,
-  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
-  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
-  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
-  &quot;images&quot; : [ ],
-  &quot;like&quot; : 0,
-  &quot;dislike&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:10:13.16&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:10:13.16&quot;
-}, {
-  &quot;dramaId&quot; : 447,
-  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
-  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
-  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
-  &quot;images&quot; : [ ],
-  &quot;like&quot; : 0,
-  &quot;dislike&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:37:39.209&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:37:39.209&quot;
-}, {
   &quot;dramaId&quot; : 441,
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
   &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
   &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
   &quot;images&quot; : [ ],
   &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
   &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
   &quot;createdAt&quot; : &quot;2020-02-08T03:29:59.669&quot;,
   &quot;updatedAt&quot; : &quot;2020-02-08T03:29:59.669&quot;
+}, {
+  &quot;dramaId&quot; : 477,
+  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;images&quot; : [ ],
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-08T03:52:03.081&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-08T03:52:03.081&quot;
+}, {
+  &quot;dramaId&quot; : 495,
+  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;images&quot; : [ ],
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-11T01:18:09.987&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:18:09.987&quot;
 }, {
   &quot;dramaId&quot; : 434,
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
@@ -1632,49 +1686,11 @@ Content-Length: 3310
   &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
   &quot;images&quot; : [ ],
   &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
   &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
   &quot;createdAt&quot; : &quot;2020-02-08T03:27:34.889&quot;,
   &quot;updatedAt&quot; : &quot;2020-02-08T03:27:34.889&quot;
-}, {
-  &quot;dramaId&quot; : 427,
-  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
-  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
-  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
-  &quot;images&quot; : [ ],
-  &quot;like&quot; : 0,
-  &quot;dislike&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:13:05.175&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:13:05.175&quot;
-}, {
-  &quot;dramaId&quot; : 396,
-  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
-  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
-  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
-  &quot;images&quot; : [ ],
-  &quot;like&quot; : 0,
-  &quot;dislike&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-02-08T00:24:05.805&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T00:24:05.805&quot;
-}, {
-  &quot;dramaId&quot; : 453,
-  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
-  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
-  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
-  &quot;images&quot; : [ ],
-  &quot;like&quot; : 0,
-  &quot;dislike&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:38:45.227&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:38:45.227&quot;
-}, {
-  &quot;dramaId&quot; : 384,
-  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
-  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
-  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
-  &quot;images&quot; : [ ],
-  &quot;like&quot; : 0,
-  &quot;dislike&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-02-08T00:22:12.813&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T00:22:12.813&quot;
 }, {
   &quot;dramaId&quot; : 378,
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
@@ -1682,19 +1698,103 @@ Content-Length: 3310
   &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
   &quot;images&quot; : [ ],
   &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
   &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
   &quot;createdAt&quot; : &quot;2020-02-08T00:18:44.948&quot;,
   &quot;updatedAt&quot; : &quot;2020-02-08T00:18:44.948&quot;
 }, {
-  &quot;dramaId&quot; : 465,
+  &quot;dramaId&quot; : 1,
+  &quot;title&quot; : &quot;title1&quot;,
+  &quot;summary&quot; : &quot;ㄱㅣ대해&quot;,
+  &quot;productionCompany&quot; : &quot;testcompnay&quot;,
+  &quot;images&quot; : [ {
+    &quot;imageName&quot; : &quot;1234&quot;,
+    &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/1234-1579626544607-446289.jpg&quot;,
+    &quot;widthPixel&quot; : null,
+    &quot;heightPixel&quot; : null,
+    &quot;imageType&quot; : &quot;JPG&quot;,
+    &quot;createdAt&quot; : &quot;2020-01-22T02:09:04.877&quot;,
+    &quot;updatedAt&quot; : &quot;2020-01-22T02:09:04.877&quot;
+  }, {
+    &quot;imageName&quot; : &quot;im1324124&quot;,
+    &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
+    &quot;widthPixel&quot; : null,
+    &quot;heightPixel&quot; : null,
+    &quot;imageType&quot; : &quot;JPG&quot;,
+    &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
+    &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
+  }, {
+    &quot;imageName&quot; : &quot;imageName1&quot;,
+    &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1581351491484-289906.jpg&quot;,
+    &quot;widthPixel&quot; : null,
+    &quot;heightPixel&quot; : null,
+    &quot;imageType&quot; : &quot;JPG&quot;,
+    &quot;createdAt&quot; : &quot;2020-02-11T01:18:11.889&quot;,
+    &quot;updatedAt&quot; : &quot;2020-02-11T01:18:11.889&quot;
+  }, {
+    &quot;imageName&quot; : &quot;ios_small_123&quot;,
+    &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/ios_small_123-1580750872815-204724.jpg&quot;,
+    &quot;widthPixel&quot; : null,
+    &quot;heightPixel&quot; : null,
+    &quot;imageType&quot; : &quot;JPG&quot;,
+    &quot;createdAt&quot; : &quot;2020-02-04T02:27:52.938&quot;,
+    &quot;updatedAt&quot; : &quot;2020-02-04T02:27:52.938&quot;
+  } ],
+  &quot;like&quot; : 994,
+  &quot;liked&quot; : true,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-01-16T23:37:47&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T00:38:15.14&quot;
+}, {
+  &quot;dramaId&quot; : 453,
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
   &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
   &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
   &quot;images&quot; : [ ],
   &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
   &quot;dislike&quot; : 0,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:41:55.335&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:41:55.335&quot;
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-08T03:38:45.227&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-08T03:38:45.227&quot;
+}, {
+  &quot;dramaId&quot; : 427,
+  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;images&quot; : [ ],
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-08T03:13:05.175&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-08T03:13:05.175&quot;
+}, {
+  &quot;dramaId&quot; : 394,
+  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;images&quot; : [ ],
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-08T00:23:15.676&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-08T00:23:15.676&quot;
+}, {
+  &quot;dramaId&quot; : 493,
+  &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
+  &quot;summary&quot; : &quot;새학기 시작을 풋풋한 대학 청춘 멜로와 함께&quot;,
+  &quot;productionCompany&quot; : &quot;플레이리스트&quot;,
+  &quot;images&quot; : [ ],
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-11T01:16:11.439&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:16:11.439&quot;
 } ]</code></pre>
 </div>
 </div>
@@ -1709,6 +1809,7 @@ Content-Length: 3310
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15' -i -X PATCH \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
   &quot;title&quot; : &quot;연애플레이리스트 시즌 1&quot;,
@@ -1773,6 +1874,7 @@ Content-Length: 3310
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15 HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Content-Length: 97
 Host: api.druwa.site
@@ -1811,6 +1913,7 @@ Content-Length: 20
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/like' -i -X PATCH \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -1827,6 +1930,7 @@ Content-Length: 20
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/like HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -1892,10 +1996,10 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 73
 
 {
-  &quot;like&quot; : 0,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 3,
-  &quot;disliked&quot; : true
+  &quot;like&quot; : 1,
+  &quot;liked&quot; : true,
+  &quot;dislike&quot; : 2,
+  &quot;disliked&quot; : false
 }</code></pre>
 </div>
 </div>
@@ -1910,6 +2014,7 @@ Content-Length: 73
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/dislike' -i -X PATCH \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -1926,6 +2031,7 @@ Content-Length: 73
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/dislike HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -1988,13 +2094,13 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 74
+Content-Length: 72
 
 {
   &quot;like&quot; : 0,
-  &quot;liked&quot; : false,
-  &quot;dislike&quot; : 2,
-  &quot;disliked&quot; : false
+  &quot;liked&quot; : true,
+  &quot;dislike&quot; : 3,
+  &quot;disliked&quot; : true
 }</code></pre>
 </div>
 </div>
@@ -2009,7 +2115,8 @@ Content-Length: 74
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/images' -i -X POST \
     -H 'Accept: application/json' \
-    -H 'Content-Type: multipart/form-data; boundary=&quot;Li0bOJYiNp8EkMa4wBUhtbtDVM4sYCK&quot;' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
+    -H 'Content-Type: multipart/form-data; boundary=&quot;iWfBEoXomas4Lnw4ktmnHDwnXDAGhgvNym2o&quot;' \
     -F 'imageName1=@320x200.jpg;type=image/jpeg'</code></pre>
 </div>
 </div>
@@ -2122,22 +2229,6 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 1217
 
 [ {
-  &quot;imageName&quot; : &quot;ios_small_123&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/ios_small_123-1580750872815-204724.jpg&quot;,
-  &quot;widthPixel&quot; : null,
-  &quot;heightPixel&quot; : null,
-  &quot;imageType&quot; : &quot;JPG&quot;,
-  &quot;createdAt&quot; : &quot;2020-02-04T02:27:52.938&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-04T02:27:52.938&quot;
-}, {
-  &quot;imageName&quot; : &quot;imageName1&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1581101523948-81425.jpg&quot;,
-  &quot;widthPixel&quot; : null,
-  &quot;heightPixel&quot; : null,
-  &quot;imageType&quot; : &quot;JPG&quot;,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:52:04.439&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:52:04.439&quot;
-}, {
   &quot;imageName&quot; : &quot;1234&quot;,
   &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/1234-1579626544607-446289.jpg&quot;,
   &quot;widthPixel&quot; : null,
@@ -2146,6 +2237,14 @@ Content-Length: 1217
   &quot;createdAt&quot; : &quot;2020-01-22T02:09:04.877&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-22T02:09:04.877&quot;
 }, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1581351567411-97122.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-02-11T01:19:27.769&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:19:27.769&quot;
+}, {
   &quot;imageName&quot; : &quot;im1324124&quot;,
   &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
   &quot;widthPixel&quot; : null,
@@ -2153,6 +2252,14 @@ Content-Length: 1217
   &quot;imageType&quot; : &quot;JPG&quot;,
   &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
+}, {
+  &quot;imageName&quot; : &quot;ios_small_123&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/ios_small_123-1580750872815-204724.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-02-04T02:27:52.938&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-04T02:27:52.938&quot;
 } ]</code></pre>
 </div>
 </div>
@@ -2166,7 +2273,8 @@ Content-Length: 1217
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/images' -i -X GET \
-    -H 'Accept: application/json'</code></pre>
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2182,6 +2290,7 @@ Content-Length: 1217
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/1/images HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Host: api.druwa.site</code></pre>
 </div>
 </div>
@@ -2267,14 +2376,6 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 1218
 
 [ {
-  &quot;imageName&quot; : &quot;ios_small_123&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/ios_small_123-1580750872815-204724.jpg&quot;,
-  &quot;widthPixel&quot; : null,
-  &quot;heightPixel&quot; : null,
-  &quot;imageType&quot; : &quot;JPG&quot;,
-  &quot;createdAt&quot; : &quot;2020-02-04T02:27:52.938&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-04T02:27:52.938&quot;
-}, {
   &quot;imageName&quot; : &quot;1234&quot;,
   &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/1234-1579626544607-446289.jpg&quot;,
   &quot;widthPixel&quot; : null,
@@ -2283,14 +2384,6 @@ Content-Length: 1218
   &quot;createdAt&quot; : &quot;2020-01-22T02:09:04.877&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-22T02:09:04.877&quot;
 }, {
-  &quot;imageName&quot; : &quot;imageName1&quot;,
-  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1581100993263-616119.jpg&quot;,
-  &quot;widthPixel&quot; : null,
-  &quot;heightPixel&quot; : null,
-  &quot;imageType&quot; : &quot;JPG&quot;,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:43:13.764&quot;,
-  &quot;updatedAt&quot; : &quot;2020-02-08T03:43:13.764&quot;
-}, {
   &quot;imageName&quot; : &quot;im1324124&quot;,
   &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/im1324124-1579190709936-643676.jpg&quot;,
   &quot;widthPixel&quot; : null,
@@ -2298,6 +2391,22 @@ Content-Length: 1218
   &quot;imageType&quot; : &quot;JPG&quot;,
   &quot;createdAt&quot; : &quot;2020-01-17T01:05:14.417&quot;,
   &quot;updatedAt&quot; : &quot;2020-01-17T01:05:14.417&quot;
+}, {
+  &quot;imageName&quot; : &quot;imageName1&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/imageName1-1581351491484-289906.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-02-11T01:18:11.889&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:18:11.889&quot;
+}, {
+  &quot;imageName&quot; : &quot;ios_small_123&quot;,
+  &quot;imageUrl&quot; : &quot;https://druwa-repository-test.s3.ap-northeast-2.amazonaws.com/ios_small_123-1580750872815-204724.jpg&quot;,
+  &quot;widthPixel&quot; : null,
+  &quot;heightPixel&quot; : null,
+  &quot;imageType&quot; : &quot;JPG&quot;,
+  &quot;createdAt&quot; : &quot;2020-02-04T02:27:52.938&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-04T02:27:52.938&quot;
 } ]</code></pre>
 </div>
 </div>
@@ -2317,6 +2426,7 @@ Content-Length: 1218
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/tags?q=%EC%98%A4%ED%94%BC%EC%8A%A4%2C%ED%9E%90%EB%A7%81' -i -X GET \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -2351,6 +2461,7 @@ Content-Length: 1218
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /tags?q=%EC%98%A4%ED%94%BC%EC%8A%A4%2C%ED%9E%90%EB%A7%81 HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -2410,6 +2521,7 @@ Content-Length: 62
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/tags' -i -X GET \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -2426,6 +2538,7 @@ Content-Length: 62
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /tags HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -2490,6 +2603,7 @@ Content-Length: 88
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/episodes' -i -X POST \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
   &quot;title&quot; : &quot;좋아하는 사람에게 솔직해야 하는 이유&quot;,
@@ -2568,6 +2682,7 @@ Content-Length: 88
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/1/episodes HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Content-Length: 395
 Host: api.druwa.site
@@ -2621,7 +2736,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 28
 
 {
-  &quot;dramaEpisodeId&quot; : 473
+  &quot;dramaEpisodeId&quot; : 501
 }</code></pre>
 </div>
 </div>
@@ -2636,6 +2751,7 @@ Content-Length: 28
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/1/episodes/128' -i -X GET \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -2652,6 +2768,7 @@ Content-Length: 28
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/1/episodes/128 HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -2788,6 +2905,7 @@ Content-Length: 503
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments' -i -X POST \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
   &quot;depth&quot; : 1,
@@ -2843,6 +2961,7 @@ Content-Length: 503
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/128/comments HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Content-Length: 49
 Host: api.druwa.site
@@ -2914,10 +3033,10 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 89
 
 {
-  &quot;id&quot; : 476,
+  &quot;id&quot; : 504,
   &quot;prev&quot; : -1,
   &quot;next&quot; : -1,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:51:52.459&quot;
+  &quot;createdAt&quot; : &quot;2020-02-11T01:19:16.658&quot;
 }</code></pre>
 </div>
 </div>
@@ -2932,6 +3051,7 @@ Content-Length: 89
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments' -i -X GET \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -2948,6 +3068,7 @@ Content-Length: 89
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /dramas/15/episodes/128/comments HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -3066,7 +3187,7 @@ Host: api.druwa.site</code></pre>
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 11183
+Content-Length: 12201
 
 [ {
   &quot;id&quot; : 184,
@@ -3381,6 +3502,18 @@ Content-Length: 11183
   &quot;createdAt&quot; : &quot;2020-02-04T01:00:32.408&quot;,
   &quot;updatedAt&quot; : &quot;2020-02-04T01:00:32.408&quot;
 }, {
+  &quot;id&quot; : 499,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-11T01:18:13.195&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:18:13.195&quot;
+}, {
   &quot;id&quot; : 451,
   &quot;depth&quot; : 1,
   &quot;next&quot; : -1,
@@ -3440,6 +3573,18 @@ Content-Length: 11183
   &quot;disliked&quot; : false,
   &quot;createdAt&quot; : &quot;2020-02-04T01:27:58.12&quot;,
   &quot;updatedAt&quot; : &quot;2020-02-04T01:27:58.12&quot;
+}, {
+  &quot;id&quot; : 503,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-11T01:19:16.577&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:19:16.577&quot;
 }, {
   &quot;id&quot; : 463,
   &quot;depth&quot; : 1,
@@ -3549,6 +3694,18 @@ Content-Length: 11183
   &quot;createdAt&quot; : &quot;2020-02-08T00:27:36.775&quot;,
   &quot;updatedAt&quot; : &quot;2020-02-08T00:27:36.775&quot;
 }, {
+  &quot;id&quot; : 481,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-11T00:40:15.64&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T00:40:15.64&quot;
+}, {
   &quot;id&quot; : 419,
   &quot;depth&quot; : 1,
   &quot;next&quot; : -1,
@@ -3572,6 +3729,18 @@ Content-Length: 11183
   &quot;disliked&quot; : false,
   &quot;createdAt&quot; : &quot;2020-02-08T03:12:53.884&quot;,
   &quot;updatedAt&quot; : &quot;2020-02-08T03:12:53.884&quot;
+}, {
+  &quot;id&quot; : 491,
+  &quot;depth&quot; : 1,
+  &quot;next&quot; : -1,
+  &quot;prev&quot; : -1,
+  &quot;contents&quot; : &quot;append comments&quot;,
+  &quot;like&quot; : 0,
+  &quot;liked&quot; : false,
+  &quot;dislike&quot; : 0,
+  &quot;disliked&quot; : false,
+  &quot;createdAt&quot; : &quot;2020-02-11T01:15:58.032&quot;,
+  &quot;updatedAt&quot; : &quot;2020-02-11T01:15:58.032&quot;
 }, {
   &quot;id&quot; : 432,
   &quot;depth&quot; : 1,
@@ -3610,6 +3779,7 @@ Content-Length: 11183
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/119' -i -X PATCH \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
   &quot;contents&quot; : &quot;서강준 갑자기 노래부르고 쓰러질 때 뿜었다진짜&quot;
@@ -3657,6 +3827,7 @@ Content-Length: 11183
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/episodes/128/comments/119 HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Content-Length: 86
 Host: api.druwa.site
@@ -3688,6 +3859,7 @@ Host: api.druwa.site
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/80/like' -i -X PATCH \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -3704,6 +3876,7 @@ Host: api.druwa.site
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/episodes/128/comments/80/like HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -3787,6 +3960,7 @@ Content-Length: 73
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/80/dislike' -i -X PATCH \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8'</code></pre>
 </div>
 </div>
@@ -3803,6 +3977,7 @@ Content-Length: 73
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">PATCH /dramas/15/episodes/128/comments/80/dislike HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Host: api.druwa.site</code></pre>
 </div>
@@ -3886,6 +4061,7 @@ Content-Length: 73
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ curl 'https://api.druwa.site/dramas/15/episodes/128/comments/119' -i -X POST \
     -H 'Accept: application/json' \
+    -H 'Authorization: Bearer DRUWA_TEST_TOKEN' \
     -H 'Content-Type: application/json; charset=UTF-8' \
     -d '{
   &quot;depth&quot; : 1,
@@ -3941,6 +4117,7 @@ Content-Length: 73
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">POST /dramas/15/episodes/128/comments/119 HTTP/1.1
 Accept: application/json
+Authorization: Bearer DRUWA_TEST_TOKEN
 Content-Type: application/json; charset=UTF-8
 Content-Length: 51
 Host: api.druwa.site
@@ -4012,10 +4189,10 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 89
 
 {
-  &quot;id&quot; : 475,
+  &quot;id&quot; : 503,
   &quot;prev&quot; : -1,
   &quot;next&quot; : -1,
-  &quot;createdAt&quot; : &quot;2020-02-08T03:51:52.379&quot;
+  &quot;createdAt&quot; : &quot;2020-02-11T01:19:16.577&quot;
 }</code></pre>
 </div>
 </div>
@@ -4027,7 +4204,7 @@ Content-Length: 89
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2020-02-08 03:51:27 +0900
+Last updated 2020-02-11 01:20:11 +0900
 </div>
 </div>
 </body>

@@ -76,24 +76,24 @@ public class DramaController {
 
     @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}")
-    public ResponseEntity<?> find(@Valid
-                                  @PathVariable Long dramaId) {
+    public ResponseEntity<?> find(@CurrentUser User user,
+                                  @Valid @PathVariable Long dramaId) {
         dramaService.ensureExistsBy(dramaId);
         final Drama drama = dramaService.findByDramaId(dramaId);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(drama.toReadResponse());
+                             .body(drama.toReadResponse(user));
     }
 
     @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}/related")
-    public ResponseEntity<?> related(@Valid
-                                     @PathVariable Long dramaId) {
+    public ResponseEntity<?> related(@CurrentUser User user,
+                                     @Valid @PathVariable Long dramaId) {
         dramaService.ensureExistsBy(dramaId);
         final Dramas dramas = dramaService.findRelatedDramaById(dramaId, 10L);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(dramas.toReadResponse());
+                             .body(dramas.toReadResponse(user));
     }
 
     @PatchMapping("/dramas/{dramaId}")

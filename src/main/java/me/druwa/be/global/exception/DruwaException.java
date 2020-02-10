@@ -2,7 +2,6 @@ package me.druwa.be.global.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import lombok.RequiredArgsConstructor;
 
 
@@ -30,6 +29,11 @@ public class DruwaException extends RuntimeException {
 
     public DruwaException appendExplain(final Object actual) {
         druwaExceptionExplain.append("???", actual.toString());
+        return this;
+    }
+
+    public DruwaException errorCode(final ErrorCode errorCode) {
+        druwaExceptionExplain.setErrorCode(errorCode);
         return this;
     }
 

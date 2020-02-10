@@ -102,7 +102,7 @@ class UserControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .body("{\n" +
-                                 "  \"name\": \"name_druwa\",\n" +
+                                 "  \"name\": \"namedruwa\",\n" +
                                  "  \"email\": \"druwa77@daum.net\",\n" +
                                  "  \"password\": \"123456aA\"\n" +
                                  "}")

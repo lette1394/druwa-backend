@@ -34,6 +34,7 @@ import lombok.ToString;
 import me.druwa.be.domain.auth.service.TokenProvider;
 import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama_review.DramaReviews;
+import me.druwa.be.global.exception.ValidationException;
 
 import static java.util.Objects.nonNull;
 
@@ -50,9 +51,10 @@ import static java.util.Objects.nonNull;
 @Builder
 public class User {
     private static final int MIN_NAME_SIZE = 2;
-    private static final int MAX_NAME_SIZE = 20;
+    private static final int MAX_NAME_SIZE = 10;
 
     private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}$";
+    private static final String NAME_REGEX = "^[a-zA-Z가-힣]{" + MIN_NAME_SIZE + "," + MAX_NAME_SIZE + "}$";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -144,16 +146,16 @@ public class User {
             @NoArgsConstructor
             @AllArgsConstructor
             public static class Request {
-                @Email
+                @Email(groups = ValidationException.User.Email.class)
                 @NotBlank
                 private String email;
 
                 @NotBlank
-                @Size(min = MIN_NAME_SIZE, max = MAX_NAME_SIZE)
+                @Pattern(regexp = NAME_REGEX, groups = ValidationException.User.Name.class)
                 private String name;
 
                 @NotBlank
-                @Pattern(regexp = PASSWORD_REGEX)
+                @Pattern(regexp = PASSWORD_REGEX, groups = ValidationException.User.Password.class)
                 private String password;
 
                 public User toPartialUser(final PasswordEncoder passwordEncoder) {

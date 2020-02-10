@@ -20,6 +20,9 @@ import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
 import me.druwa.be.domain.user.service.UserService;
 import me.druwa.be.global.exception.DruwaException;
+import me.druwa.be.global.exception.ErrorCode;
+import me.druwa.be.global.exception.ValidationException;
+import me.druwa.be.global.service.ValidatingService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.groovy.util.Maps;
 
@@ -30,6 +33,7 @@ public class UserController {
     private final TokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final ValidatingService validatingService;
 
     @GetMapping("/users/me")
     public ResponseEntity<?> getCurrentUser(@CurrentUser User user) {
@@ -38,10 +42,28 @@ public class UserController {
 
     @AllowPublicAccess
     @PostMapping("/users/signup")
-    public ResponseEntity<?> create(@Valid @RequestBody final User.View.Create.Request body) {
+    public ResponseEntity<?> create(@RequestBody final User.View.Create.Request body) {
         if (userService.isExistedByEmail(body.toPartialUser(passwordEncoder))) {
             throw DruwaException.badRequest(String.format("duplicate user email: %s", body.getEmail()))
+                                .errorCode(ErrorCode.DUPLICATE_EMAIL)
                                 .appendExplain(body.getEmail());
+        }
+
+
+        if (validatingService.isInvalid(body, ValidationException.User.Email.class)) {
+            throw DruwaException.badRequest(String.format("invalid user email: %s", body.getEmail()))
+                                .errorCode(ErrorCode.INVALID_EMAIL)
+                                .appendExplain(body.getEmail());
+        }
+        if (validatingService.isInvalid(body, ValidationException.User.Name.class)) {
+            throw DruwaException.badRequest(String.format("invalid user name: %s", body.getName()))
+                                .errorCode(ErrorCode.INVALID_NAME)
+                                .appendExplain(body.getName());
+        }
+        if (validatingService.isInvalid(body, ValidationException.User.Password.class)) {
+            throw DruwaException.badRequest("invalid user password")
+                                .errorCode(ErrorCode.INVALID_PASSWORD)
+                                .appendExplain("");
         }
 
         final User user = userService.save(body.toPartialUser(passwordEncoder));
