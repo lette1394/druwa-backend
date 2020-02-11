@@ -81,7 +81,7 @@ public class DramaLikeOrDislike {
 
         if (likeUsers.contains(drama, user)) {
             likeCount.decrease();
-            likeUsers.remove(null, null);
+            likeUsers.remove(drama, user);
         }
 
         dislikeCount.increase();

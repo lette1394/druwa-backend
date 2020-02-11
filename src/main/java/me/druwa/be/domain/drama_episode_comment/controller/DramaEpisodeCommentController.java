@@ -51,9 +51,13 @@ public class DramaEpisodeCommentController {
                                     @PathVariable final Long dramaId,
                                     @PathVariable final Long episodeId) {
         dramaService.ensureExistsBy(dramaId);
-        dramaEpisodeService.ensureExistsBy(episodeId);
+        final DramaEpisode episode = dramaEpisodeService.findByEpisodeId(episodeId);
+        final DramaEpisodeComment comment = body.toPartialDramaEpisodeComment()
+                                                .dramaEpisode(episode)
+                                                .writtenBy(user)
+                                                .build();
 
-        final DramaEpisodeComment dramaEpisodeComment = dramaEpisodeCommentService.create(body, user);
+        final DramaEpisodeComment dramaEpisodeComment = dramaEpisodeCommentService.save(comment);
         return ResponseEntity.status(HttpStatus.CREATED)
                              .body(dramaEpisodeComment.toCreateResponse());
     }

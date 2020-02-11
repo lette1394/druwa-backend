@@ -24,7 +24,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.Nulls;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -151,6 +153,7 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
             @Data
             @Builder
             public static class Request {
+                @Builder.Default
                 private PositiveOrZeroLong depth;
                 @NotBlank
                 @Size(min = MIN_COMMENT_CONTENTS_LENGTH, max = MAX_COMMENT_CONTENTS_LENGTH)
@@ -167,7 +170,7 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                                               .prev(prev)
                                               .writtenBy(writtenBy)
                                               .contents(contents)
-                                              .depth(depth)
+                                              .depth(depth == null ? PositiveOrZeroLong.positiveOrZeroLong(0L) : depth)
                                               .build();
                 }
             }

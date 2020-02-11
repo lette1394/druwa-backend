@@ -174,7 +174,6 @@ public class Drama implements Mergeable<Drama> {
     public View.Read.Response toReadResponse(final User user) {
         return View.Read.Response.builder()
                                  .dramaId(dramaId)
-
                                  .title(title)
                                  .likeOrDislike(dramaLike.toResponse(this, user))
                                  .productionCompany(productionCompany)

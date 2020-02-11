@@ -18,16 +18,6 @@ import static java.lang.String.format;
 public class DramaEpisodeCommentService {
     private final DramaEpisodeCommentRepository dramaEpisodeCommentRepository;
 
-    public DramaEpisodeComment create(final DramaEpisodeComment.View.Create.Request request, final User user) {
-        final DramaEpisodeComment dramaEpisodeComment = DramaEpisodeComment.builder()
-                                                                           .contents(request.getContents())
-                                                                           .depth(request.getDepth())
-                                                                           .writtenBy(user)
-                                                                           .build();
-
-        return dramaEpisodeCommentRepository.save(dramaEpisodeComment);
-    }
-
     public DramaEpisodeComment save(final DramaEpisodeComment dramaEpisodeComment) {
         return dramaEpisodeCommentRepository.save(dramaEpisodeComment);
     }
