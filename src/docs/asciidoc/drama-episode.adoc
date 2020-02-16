@@ -45,3 +45,25 @@ include::{snippets}/drama-episode__find/response-fields.adoc[]
 include::{snippets}/drama-episode__find/http-response.adoc[]
 
 '''
+
+=== list
+
+**<> CURL**
+include::{snippets}/drama-episode__find/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-episode__find/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-episode__find/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-episode__find/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-episode__find/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-episode__find/http-response.adoc[]
+
+'''

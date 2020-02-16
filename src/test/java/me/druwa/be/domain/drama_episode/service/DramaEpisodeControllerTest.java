@@ -133,4 +133,58 @@ class DramaEpisodeControllerTest {
                    .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_id_get.json"))
                    .statusCode(is(HttpStatus.OK.value()));
     }
+
+    @Test
+    void list() {
+        final ConstraintAttribute response = ConstraintAttribute.createAttribute(DramaEpisode.View.Read.Response.class);
+
+        given(spec).that()
+                   .filter(document("drama-episode__list",
+                                    responseFields(
+                                            fieldWithPath("[].dramaEpisodeId").type(JsonFieldType.NUMBER)
+                                                                              .attributes(response.constraint(
+                                                                                      "dramaEpisodeId"))
+                                                                              .description(
+                                                                                      "created id of drama episode entity"),
+                                            fieldWithPath("[].title").description("")
+                                                                     .type(JsonFieldType.STRING)
+                                                                     .attributes(response.constraint("title")),
+                                            fieldWithPath("[].dramaTitle").description("")
+                                                                          .type(JsonFieldType.STRING)
+                                                                          .attributes(response.constraint("dramaTitle")),
+                                            fieldWithPath("[].summary").description("")
+                                                                       .type(JsonFieldType.STRING)
+                                                                       .attributes(response.constraint("summary")),
+                                            fieldWithPath("[].playUrl").description("youtube")
+                                                                       .type(JsonFieldType.STRING)
+                                                                       .attributes(response.constraint("playUrl")),
+                                            fieldWithPath("[].episodeNumber").description("")
+                                                                             .type(JsonFieldType.NUMBER)
+                                                                             .attributes(response.constraint(
+                                                                                     "episodeNumber")),
+                                            fieldWithPath("[].like").description("")
+                                                                    .type(JsonFieldType.NUMBER)
+                                                                    .attributes(response.constraint(
+                                                                            "like")),
+                                            fieldWithPath("[].dislike").description("")
+                                                                       .type(JsonFieldType.NUMBER)
+                                                                       .attributes(response.constraint(
+                                                                               "dislike")),
+                                            fieldWithPath("[].totalComments").description("total count of comments")
+                                                                             .type(JsonFieldType.NUMBER)
+                                                                             .attributes(response.constraint(
+                                                                                     "totalComments")),
+                                            fieldWithPath("[].durationInMillis").description("")
+                                                                                .type(JsonFieldType.NUMBER)
+                                                                                .attributes(response.constraint(
+                                                                                        "durationInMillis")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().get("/dramas/{dramaId}/episodes", 1)
+                   .then()
+                   .assertThat()
+                   .body(matchesJsonSchemaInClasspath("json/schema/drama_episode_id_get.json"))
+                   .statusCode(is(HttpStatus.OK.value()));
+    }
 }

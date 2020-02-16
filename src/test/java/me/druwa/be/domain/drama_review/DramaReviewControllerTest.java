@@ -112,4 +112,44 @@ class DramaReviewControllerTest {
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);
     }
+
+    @Test
+    void find() {
+        final ConstraintAttribute request = ConstraintAttribute.createAttribute(Drama.View.Create.Request.class);
+
+        given(spec).that()
+                   .filter(document("drama-review__find",
+                                    responseFields(
+                                            fieldWithPath("dramaReviewId").description("")
+                                                                          .type(JsonFieldType.NUMBER)
+                                                                          .attributes(request.constraint(
+                                                                                  "dramaReviewId")),
+                                            fieldWithPath("point").description("")
+                                                                  .type(JsonFieldType.NUMBER)
+                                                                  .attributes(request.constraint("point")),
+                                            fieldWithPath("title").description("")
+                                                                  .type(JsonFieldType.STRING)
+                                                                  .attributes(request.constraint("title")),
+                                            fieldWithPath("contents").description("")
+                                                                     .type(JsonFieldType.STRING)
+                                                                     .attributes(request.constraint("contents")),
+                                            fieldWithPath("createdAt").description("")
+                                                                      .type(JsonFieldType.STRING)
+                                                                      .attributes(request.constraint("createdAt")),
+                                            fieldWithPath("updatedAt").description("")
+                                                                      .type(JsonFieldType.STRING)
+                                                                      .attributes(request.constraint("updatedAt")),
+                                            fieldWithPath("writtenByMe").description("")
+                                                                        .type(JsonFieldType.BOOLEAN)
+                                                                        .attributes(request.constraint("writtenByMe")))))
+                   .accept(MediaType.APPLICATION_JSON_VALUE)
+                   .contentType(MediaType.APPLICATION_JSON_VALUE)
+                   .header(DocsUtils.testAuthorization())
+                   .when().get("/dramas/{dramaId}/reviews/{reviewId}", 15, 292)
+                   .then()
+                   .assertThat()
+                   .body(matchesJsonSchemaInClasspath("json/schema/drama_review_list.json"))
+                   .statusCode(is(HttpStatus.OK.value()))
+                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+    }
 }

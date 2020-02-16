@@ -85,22 +85,13 @@ class DramaEpisodeCommentControllerTest {
                    .filter(document("drama-episode-comment__append",
                                     requestFields(
                                             fieldWithPath("depth").description(
-                                                    "indent for comment. representing recursive sub-comment. default is 0 (no depth)")
+                                                    "indent for comment. representing recursive sub-comment. default is 1 (one depth)")
                                                                   .type(JsonFieldType.NUMBER)
                                                                   .optional()
                                                                   .attributes(request.constraint("depth")),
                                             fieldWithPath("contents").description("body for comment")
                                                                      .type(JsonFieldType.STRING)
-                                                                     .attributes(request.constraint("contents"))),
-                                    responseFields(
-                                            fieldWithPath("id").description("created comment's id")
-                                                               .type(JsonFieldType.NUMBER),
-                                            fieldWithPath("createdAt").description("create time of comment")
-                                                                      .type(JsonFieldType.STRING),
-                                            fieldWithPath("prev").description("previous comment's id")
-                                                                 .type(JsonFieldType.NUMBER),
-                                            fieldWithPath("next").description("next comment's id")
-                                                                 .type(JsonFieldType.NUMBER))))
+                                                                     .attributes(request.constraint("contents")))))
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
@@ -112,8 +103,7 @@ class DramaEpisodeCommentControllerTest {
                    .when().post("/dramas/{dramaId}/episodes/{episodeId}/comments/{commentId}", 15, 128, 119)
                    .then()
                    .assertThat()
-                   .statusCode(is(HttpStatus.CREATED.value()))
-                   .contentType(MediaType.APPLICATION_JSON_VALUE);
+                   .statusCode(is(HttpStatus.CREATED.value()));
     }
 
     @Test
@@ -150,8 +140,8 @@ class DramaEpisodeCommentControllerTest {
                                                                   .type(JsonFieldType.NUMBER),
                                             fieldWithPath("[].depth").description("")
                                                                      .type(JsonFieldType.NUMBER),
-                                            fieldWithPath("[].next").description("")
-                                                                    .type(JsonFieldType.NUMBER),
+                                            fieldWithPath("[].isRoot").description("")
+                                                                    .type(JsonFieldType.BOOLEAN),
                                             fieldWithPath("[].prev").description("")
                                                                     .type(JsonFieldType.NUMBER),
                                             fieldWithPath("[].contents").description("")
@@ -171,7 +161,7 @@ class DramaEpisodeCommentControllerTest {
                    .accept(MediaType.APPLICATION_JSON_VALUE)
                    .contentType(MediaType.APPLICATION_JSON_VALUE)
                    .header(DocsUtils.testAuthorization())
-                   .when().get("/dramas/{dramaId}/episodes/{episodeId}/comments", 15, 128)
+                   .when().get("/dramas/{dramaId}/episodes/{episodeId}/comments", 1, 455)
                    .then().assertThat()
                    .statusCode(is(HttpStatus.OK.value()))
                    .contentType(MediaType.APPLICATION_JSON_VALUE);

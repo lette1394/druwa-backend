@@ -1,0 +1,67 @@
+[[drama-review]]
+== drama-review
+
+=== create
+
+**<> CURL**
+include::{snippets}/drama-review__create/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-review__create/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-review__create/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-review__create/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-review__create/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-review__create/http-response.adoc[]
+
+'''
+
+=== list
+
+**<> CURL**
+include::{snippets}/drama-review__list/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-review__list/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-review__list/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-review__list/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-review__list/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-review__list/http-response.adoc[]
+
+'''
+
+=== find
+
+**<> CURL**
+include::{snippets}/drama-review__find/curl-request.adoc[]
+
+**< Request Parameters**
+include::{snippets}/drama-review__find/request-parameters.adoc[]
+
+**< Request Fields**
+include::{snippets}/drama-review__find/request-fields.adoc[]
+
+**< Request HTTP Example**
+include::{snippets}/drama-review__find/http-request.adoc[]
+
+**> Response Fields**
+include::{snippets}/drama-review__find/response-fields.adoc[]
+
+**> Response HTTP Example**
+include::{snippets}/drama-review__find/http-response.adoc[]
+
