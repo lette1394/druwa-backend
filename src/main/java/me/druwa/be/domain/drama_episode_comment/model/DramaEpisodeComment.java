@@ -123,10 +123,9 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                                  .id(dramaEpisodeCommentId)
                                  .contents(contents)
                                  .depth(depth)
+                                 .prev(getId(prev))
                                  .timestamp(timestamp)
                                  .like(dramaEpisodeCommentLike.toResponse(user))
-                                 .prev(getId(prev))
-                                 .next(getId(next))
                                  .isRoot(getId(prev) == -1)
                                  .build();
 
@@ -161,33 +160,23 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                 private String contents;
 
                 @Builder(builderMethodName = "toPartialDramaEpisodeComment")
-                public DramaEpisodeComment toPartialDramaEpisodeCommentBuilder(final DramaEpisodeComment next,
-                                                                               final DramaEpisodeComment prev,
+                public DramaEpisodeComment toPartialDramaEpisodeCommentBuilder(final DramaEpisodeComment prev,
                                                                                final User writtenBy,
-                                                                               final DramaEpisode dramaEpisode) {
-
-                    PositiveOrZeroLong appendedDepth = (depth == null || depth.value() <= 0)
-                                                               ? PositiveOrZeroLong.positiveOrZeroLong(1L) : depth;
-                    final DramaEpisodeComment newComment = DramaEpisodeComment.builder()
-                                                                              .dramaEpisode(dramaEpisode)
-                                                                              .next(next)
-                                                                              .prev(prev)
-                                                                              .writtenBy(writtenBy)
-                                                                              .contents(contents)
-                                                                              .depth(appendedDepth)
-                                                                              .build();
-                    newComment.prev = prev;
-                    if (Objects.nonNull(prev)) {
-                        if (Objects.nonNull(prev.next)) {
-                            throw DruwaException.badRequest("cannot append");
-                        }
-                        prev.next = newComment;
+                                                                               final DramaEpisode dramaEpisode,
+                                                                               final Long depth) {
+                    Long newDepth = null;
+                    if (Objects.nonNull(depth)) {
+                        newDepth = depth;
+                    } else {
+                        newDepth = this.depth != null ? this.depth.value() : 0;
                     }
-                    if (Objects.nonNull(next)) {
-                        next.prev = newComment;
-                    }
-
-                    return newComment;
+                    return DramaEpisodeComment.builder()
+                                              .dramaEpisode(dramaEpisode)
+                                              .prev(prev)
+                                              .writtenBy(writtenBy)
+                                              .contents(contents)
+                                              .depth(PositiveOrZeroLong.positiveOrZeroLong(newDepth))
+                                              .build();
                 }
             }
 
@@ -230,14 +219,10 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
         public static class Read {
             @Data
             @Builder
-            public static class Response {
+            public static class Response implements Comparable<Response> {
                 private Long id;
                 @JsonUnwrapped
                 private PositiveOrZeroLong depth;
-                @JsonInclude
-                private Long next;
-                @JsonInclude
-                private Long prev;
                 @NotBlank
                 @Size(min = MIN_COMMENT_CONTENTS_LENGTH, max = MAX_COMMENT_CONTENTS_LENGTH)
                 private String contents;
@@ -246,8 +231,15 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                 @JsonUnwrapped
                 private Timestamp timestamp;
 
+                private Long prev;
+
                 @Builder.Default
                 private Boolean isRoot = false;
+
+                @Override
+                public int compareTo(final Response o) {
+                    return Long.compare(this.id, o.id);
+                }
             }
         }
     }

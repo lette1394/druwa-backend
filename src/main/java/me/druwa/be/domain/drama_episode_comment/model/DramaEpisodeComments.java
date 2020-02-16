@@ -1,5 +1,6 @@
 package me.druwa.be.domain.drama_episode_comment.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.Embeddable;
@@ -19,9 +20,33 @@ public class DramaEpisodeComments {
     private List<DramaEpisodeComment> dramaEpisodeComments;
 
     public List<DramaEpisodeComment.View.Read.Response> toResponse(final User user) {
-        return dramaEpisodeComments.stream()
-                                   .map(comment -> comment.toReadResponse(user))
-                                   .collect(Collectors.toList());
+        final List<DramaEpisodeComment.View.Read.Response> list = dramaEpisodeComments.stream()
+                                                                                      .map(comment -> comment.toReadResponse(
+                                                                                              user))
+                                                                                      .sorted()
+                                                                                      .collect(Collectors.toList());
+
+        List<DramaEpisodeComment.View.Read.Response> temp = new ArrayList<>();
+
+        for (final DramaEpisodeComment.View.Read.Response e : list) {
+            if (e.getIsRoot()) {
+                temp.add(e);
+
+                List<DramaEpisodeComment.View.Read.Response> children = new ArrayList<>();
+
+                for (final DramaEpisodeComment.View.Read.Response child : list) {
+                    if (child.getIsRoot()) continue;
+
+                    if (child.getPrev().equals(e.getId())) {
+                        children.add(child);
+                    }
+                }
+                temp.addAll(children);
+            }
+        }
+
+
+        return temp;
     }
 
     public Integer count() {

@@ -119,10 +119,11 @@ public class DramaEpisodeCommentController {
                                                        .prev(prev)
                                                        .dramaEpisode(dramaEpisode)
                                                        .writtenBy(user)
+                                                       .depth(1L)
                                                        .build();
 
-        final DramaEpisodeComment dramaEpisodeComment = dramaEpisodeCommentService.save(partialComment);
+        dramaEpisodeCommentService.save(partialComment);
         return ResponseEntity.status(HttpStatus.CREATED)
-                             .body(dramaEpisodeComment.toCreateResponse());
+                             .build();
     }
 }
