@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
@@ -24,9 +25,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.fasterxml.jackson.annotation.Nulls;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +40,7 @@ import me.druwa.be.domain.common.model.Timestamp;
 import me.druwa.be.domain.drama.model.LikeOrDislike;
 import me.druwa.be.domain.drama_episode.model.DramaEpisode;
 import me.druwa.be.domain.user.model.User;
+import me.druwa.be.global.exception.DruwaException;
 
 @Entity
 @EqualsAndHashCode(of = "dramaEpisodeCommentId")
@@ -68,10 +68,10 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
     @Size(min = MIN_COMMENT_CONTENTS_LENGTH, max = MAX_COMMENT_CONTENTS_LENGTH)
     private String contents;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private DramaEpisodeComment next;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private DramaEpisodeComment prev;
 
     @Embedded
@@ -127,6 +127,7 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                                  .like(dramaEpisodeCommentLike.toResponse(user))
                                  .prev(getId(prev))
                                  .next(getId(next))
+                                 .isRoot(getId(prev) == -1)
                                  .build();
 
     }
@@ -142,7 +143,7 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
     }
 
     private Long getId(DramaEpisodeComment comment) {
-        return Objects.isNull(next) ? -1 : comment.dramaEpisodeCommentId;
+        return Objects.isNull(comment) ? -1 : comment.dramaEpisodeCommentId;
     }
 
     @Data
@@ -164,14 +165,29 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                                                                                final DramaEpisodeComment prev,
                                                                                final User writtenBy,
                                                                                final DramaEpisode dramaEpisode) {
-                    return DramaEpisodeComment.builder()
-                                              .dramaEpisode(dramaEpisode)
-                                              .next(next)
-                                              .prev(prev)
-                                              .writtenBy(writtenBy)
-                                              .contents(contents)
-                                              .depth(depth == null ? PositiveOrZeroLong.positiveOrZeroLong(0L) : depth)
-                                              .build();
+
+                    PositiveOrZeroLong appendedDepth = (depth == null || depth.value() <= 0)
+                                                               ? PositiveOrZeroLong.positiveOrZeroLong(1L) : depth;
+                    final DramaEpisodeComment newComment = DramaEpisodeComment.builder()
+                                                                              .dramaEpisode(dramaEpisode)
+                                                                              .next(next)
+                                                                              .prev(prev)
+                                                                              .writtenBy(writtenBy)
+                                                                              .contents(contents)
+                                                                              .depth(appendedDepth)
+                                                                              .build();
+                    newComment.prev = prev;
+                    if (Objects.nonNull(prev)) {
+                        if (Objects.nonNull(prev.next)) {
+                            throw DruwaException.badRequest("cannot append");
+                        }
+                        prev.next = newComment;
+                    }
+                    if (Objects.nonNull(next)) {
+                        next.prev = newComment;
+                    }
+
+                    return newComment;
                 }
             }
 
@@ -229,6 +245,9 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                 private LikeOrDislike.View.Read.Response like;
                 @JsonUnwrapped
                 private Timestamp timestamp;
+
+                @Builder.Default
+                private Boolean isRoot = false;
             }
         }
     }

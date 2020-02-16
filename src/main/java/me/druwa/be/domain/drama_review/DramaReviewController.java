@@ -52,4 +52,16 @@ public class DramaReviewController {
 
         return ResponseEntity.ok(reviews.toReadResponse(user));
     }
+
+    @AllowPublicAccess
+    @GetMapping("/dramas/{dramaId}/reviews/{reviewId}")
+    public ResponseEntity<?> get(@CurrentUser final User user,
+                                  @PathVariable final Long dramaId,
+                                  @PathVariable final Long reviewId) {
+
+        dramaService.ensureExistsBy(dramaId);
+        DramaReview dramaReview = dramaReviewService.find(reviewId);
+
+        return ResponseEntity.ok(dramaReview.toReadResponse(user));
+    }
 }
