@@ -94,7 +94,7 @@ public class DramaReview {
                                  .contents(contents)
                                  .timestamp(timestamp)
                                  .writtenByMe(writtenBy.equals(user))
-                                 .user(user.toReadResponse())
+                                 .user(writtenBy.toReadResponse())
                                  .build();
     }
 

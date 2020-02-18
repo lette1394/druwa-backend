@@ -128,7 +128,7 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                                  .like(dramaEpisodeCommentLike.toResponse(user))
                                  .isRoot(getId(prev) == -1L)
                                  .writtenByMe(writtenBy.equals(user))
-                                 .user(user.toReadResponse())
+                                 .user(writtenBy.toReadResponse())
                                  .build();
 
     }
