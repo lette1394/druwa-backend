@@ -94,6 +94,7 @@ public class DramaReview {
                                  .contents(contents)
                                  .timestamp(timestamp)
                                  .writtenByMe(writtenBy.equals(user))
+                                 .user(user.toReadResponse())
                                  .build();
     }
 
@@ -153,6 +154,7 @@ public class DramaReview {
                 private Timestamp timestamp;
 
                 private Boolean writtenByMe;
+                private User.View.Read.Response user;
             }
         }
     }

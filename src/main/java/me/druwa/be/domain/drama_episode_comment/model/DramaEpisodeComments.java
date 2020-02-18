@@ -1,11 +1,15 @@
 package me.druwa.be.domain.drama_episode_comment.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +20,12 @@ import me.druwa.be.domain.user.model.User;
 @NoArgsConstructor
 public class DramaEpisodeComments {
 
-    @OneToMany
-    private List<DramaEpisodeComment> dramaEpisodeComments;
+    public DramaEpisodeComments(Collection<DramaEpisodeComment> comments) {
+        this.dramaEpisodeComments = Sets.newHashSet(comments);
+    }
+
+    @OneToMany(mappedBy = "dramaEpisode")
+    private Set<DramaEpisodeComment> dramaEpisodeComments;
 
     public List<DramaEpisodeComment.View.Read.Response> toResponse(final User user) {
         final List<DramaEpisodeComment.View.Read.Response> list = dramaEpisodeComments.stream()

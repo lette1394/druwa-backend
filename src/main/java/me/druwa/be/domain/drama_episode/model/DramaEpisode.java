@@ -103,10 +103,10 @@ public class DramaEpisode {
     private Drama drama;
 
     @Embedded
-    @AssociationOverride(name = "dramaEpisodeComments",
-                         joinTable = @JoinTable(name = JoinTableName.DRAMA_EPISODE__HAS__DRAMA_EPISODE_COMMENT,
-                                                joinColumns = @JoinColumn(name = "drama_episode_id"),
-                                                inverseJoinColumns = @JoinColumn(name = "drama_episode_comment_id")))
+//    @AssociationOverride(name = "dramaEpisodeComments",
+//                         joinTable = @JoinTable(name = JoinTableName.DRAMA_EPISODE__HAS__DRAMA_EPISODE_COMMENT,
+//                                                joinColumns = @JoinColumn(name = "drama_episode_id"),
+//                                                inverseJoinColumns = @JoinColumn(name = "drama_episode_comment_id")))
     private DramaEpisodeComments dramaEpisodeComments;
 
 
@@ -163,8 +163,10 @@ public class DramaEpisode {
                 @NotBlank
                 private String playUrl;
                 @Positive
+                @NotNull
                 private Long episodeNumber;
                 @Positive
+                @NotNull
                 private Long durationInMillis;
 
                 @Builder(builderMethodName = "toPartialDramaEpisode")

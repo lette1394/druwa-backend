@@ -50,6 +50,10 @@ public class DramaService {
         return dramaRepository.findRandom(dramaId, limit);
     }
 
+    public Dramas findRandom(final Long limit) {
+        return dramaRepository.findRandom(limit);
+    }
+
     @Transactional
     public DramaImage findImage(final Long dramaId, final String imageName) {
         return findByDramaId(dramaId).image(imageName)

@@ -15,11 +15,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import me.druwa.be.config.filter.TokenAuthenticationFilter;
+import me.druwa.be.domain.auth.service.CustomOAuth2UserService;
 import me.druwa.be.domain.auth.service.CustomUserDetailsService;
 import me.druwa.be.domain.auth.service.TokenProvider;
-import me.druwa.be.domain.auth.service.CustomOAuth2UserService;
-import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity

@@ -139,10 +139,16 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({
                               NoSuchElementException.class,
+                              IllegalArgumentException.class,
                               DruwaException.class
                       })
     public ResponseEntity<?> handleOtherException(Exception ex, WebRequest request) throws Exception {
         LoggingUtils.dumpThrowable(ex);
+
+        if (ex instanceof IllegalArgumentException) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                                 .build();
+        }
 
         if (ex instanceof NoSuchElementException) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

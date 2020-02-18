@@ -64,6 +64,15 @@ class ExtendedDramaRepositoryImpl extends QuerydslRepositorySupport implements E
                                         .fetch());
     }
 
+    @Override
+    public Dramas findRandom(final Long limit) {
+        final QDrama drama = QDrama.drama;
+
+        return Dramas.dramas(from(drama).limit(limit)
+                                        .orderBy(NumberExpression.random().asc())
+                                        .fetch());
+    }
+
     private BooleanExpression matchTags(final DramaTags tags) {
         final QDrama drama = QDrama.drama;
 

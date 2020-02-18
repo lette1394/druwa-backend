@@ -126,7 +126,9 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
                                  .prev(getId(prev))
                                  .timestamp(timestamp)
                                  .like(dramaEpisodeCommentLike.toResponse(user))
-                                 .isRoot(getId(prev) == -1)
+                                 .isRoot(getId(prev) == -1L)
+                                 .writtenByMe(writtenBy.equals(user))
+                                 .user(user.toReadResponse())
                                  .build();
 
     }
@@ -142,7 +144,10 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
     }
 
     private Long getId(DramaEpisodeComment comment) {
-        return Objects.isNull(comment) ? -1 : comment.dramaEpisodeCommentId;
+        if (Objects.nonNull(comment) && Objects.nonNull(comment.dramaEpisodeCommentId)) {
+            return comment.dramaEpisodeCommentId;
+        }
+        return -1L;
     }
 
     @Data
@@ -154,7 +159,7 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
             @Builder
             public static class Request {
                 @Builder.Default
-                private PositiveOrZeroLong depth;
+                private PositiveOrZeroLong depth = PositiveOrZeroLong.positiveOrZeroLong(0L);
                 @NotBlank
                 @Size(min = MIN_COMMENT_CONTENTS_LENGTH, max = MAX_COMMENT_CONTENTS_LENGTH)
                 private String contents;
@@ -235,6 +240,10 @@ public class DramaEpisodeComment implements Mergeable<DramaEpisodeComment> {
 
                 @Builder.Default
                 private Boolean isRoot = false;
+
+                private Boolean writtenByMe;
+
+                private User.View.Read.Response user;
 
                 @Override
                 public int compareTo(final Response o) {

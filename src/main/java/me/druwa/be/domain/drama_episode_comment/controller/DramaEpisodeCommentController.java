@@ -1,5 +1,6 @@
 package me.druwa.be.domain.drama_episode_comment.controller;
 
+import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -39,9 +40,9 @@ public class DramaEpisodeCommentController {
         dramaService.ensureExistsBy(dramaId);
         dramaEpisodeService.ensureExistsBy(episodeId);
 
-        final DramaEpisodeComments dramaEpisodeComments = dramaEpisodeCommentService.list(episodeId);
+        final DramaEpisodeComments list = dramaEpisodeCommentService.list(episodeId);
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(dramaEpisodeComments.toResponse(user));
+                             .body(list.toResponse(user));
     }
 
     @PostMapping("/dramas/{dramaId}/episodes/{episodeId}/comments")

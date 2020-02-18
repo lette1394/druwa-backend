@@ -17,6 +17,7 @@ import me.druwa.be.domain.drama.service.DramaService;
 import me.druwa.be.domain.user.annotation.AllowPublicAccess;
 import me.druwa.be.domain.user.annotation.CurrentUser;
 import me.druwa.be.domain.user.model.User;
+import me.druwa.be.global.exception.DruwaException;
 
 @Slf4j
 @RestController
@@ -56,8 +57,8 @@ public class DramaReviewController {
     @AllowPublicAccess
     @GetMapping("/dramas/{dramaId}/reviews/{reviewId}")
     public ResponseEntity<?> get(@CurrentUser final User user,
-                                  @PathVariable final Long dramaId,
-                                  @PathVariable final Long reviewId) {
+                                 @PathVariable final Long dramaId,
+                                 @PathVariable final Long reviewId) {
 
         dramaService.ensureExistsBy(dramaId);
         DramaReview dramaReview = dramaReviewService.find(reviewId);

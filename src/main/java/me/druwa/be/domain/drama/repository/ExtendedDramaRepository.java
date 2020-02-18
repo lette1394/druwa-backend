@@ -16,4 +16,6 @@ public interface ExtendedDramaRepository {
                         final DramaTags tags, final Long limit);
 
     Dramas findRandom(final Long dramaId, final Long limit);
+
+    Dramas findRandom(final Long limit);
 }

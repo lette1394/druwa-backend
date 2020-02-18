@@ -192,4 +192,12 @@ public class DramaController {
         return ResponseEntity.status(HttpStatus.OK)
                              .body(search.toSearchResponse());
     }
+
+    @AllowPublicAccess
+    @GetMapping("/curation/{id}")
+    public ResponseEntity<?> curation(@PathVariable final Long id) {
+        final Dramas dramas = dramaService.findRandom(10L);
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(dramas.toSearchResponse());
+    }
 }
