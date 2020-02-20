@@ -180,6 +180,7 @@ public class Drama implements Mergeable<Drama> {
                                  .images(dramaImages.toResponse())
                                  .summary(summary)
                                  .timestamp(timestamp)
+                                 .tags(dramaTags.toResponse())
                                  .build();
     }
 
@@ -189,6 +190,7 @@ public class Drama implements Mergeable<Drama> {
                                    .productionCompany(productionCompany)
                                    .images(dramaImages.toResponse())
                                    .title(title)
+                                   .tags(dramaTags.toResponse())
                                    .build();
     }
 
@@ -259,6 +261,8 @@ public class Drama implements Mergeable<Drama> {
                 private DramaLikeOrDislike.View.Read.Response likeOrDislike;
                 @JsonUnwrapped
                 private Timestamp timestamp;
+                @JsonUnwrapped
+                private DramaTags.View.Response tags;
             }
         }
 
@@ -270,6 +274,8 @@ public class Drama implements Mergeable<Drama> {
                 private String title;
                 private String productionCompany;
                 private Set<Image.View.Read.Response> images;
+                @JsonUnwrapped
+                private DramaTags.View.Response tags;
             }
         }
 
