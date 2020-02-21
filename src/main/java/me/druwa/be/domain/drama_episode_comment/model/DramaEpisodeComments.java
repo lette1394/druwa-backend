@@ -9,6 +9,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,7 +50,7 @@ public class DramaEpisodeComments {
                         children.add(child);
                     }
                 }
-                temp.addAll(children);
+                temp.addAll(Lists.reverse(children));
             }
         }
 
