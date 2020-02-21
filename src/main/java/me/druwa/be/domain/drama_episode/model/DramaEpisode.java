@@ -219,7 +219,7 @@ public class DramaEpisode {
 
                 @Override
                 public int compareTo(final Response o) {
-                    return Long.compare(this.dramaEpisodeId, o.dramaEpisodeId);
+                    return Long.compare(this.episodeNumber.getValue(), o.episodeNumber.getValue());
                 }
             }
         }
