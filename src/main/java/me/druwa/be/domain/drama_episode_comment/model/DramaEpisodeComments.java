@@ -36,13 +36,11 @@ public class DramaEpisodeComments {
                                                                                       .collect(Collectors.toList());
 
         List<DramaEpisodeComment.View.Read.Response> temp = new ArrayList<>();
-
         for (final DramaEpisodeComment.View.Read.Response e : list) {
             if (e.getIsRoot()) {
                 temp.add(e);
 
                 List<DramaEpisodeComment.View.Read.Response> children = new ArrayList<>();
-
                 for (final DramaEpisodeComment.View.Read.Response child : list) {
                     if (child.getIsRoot()) continue;
 
@@ -50,12 +48,11 @@ public class DramaEpisodeComments {
                         children.add(child);
                     }
                 }
-                temp.addAll(Lists.reverse(children));
+                temp.addAll(children);
             }
         }
 
-
-        return temp;
+        return Lists.reverse(temp);
     }
 
     public Integer count() {
