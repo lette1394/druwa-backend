@@ -111,7 +111,7 @@ public class Drama implements Mergeable<Drama> {
     @Embedded
     private Timestamp timestamp;
 
-    @Column
+    @Column(columnDefinition="tinyint(1) default 0")
     private boolean deleted = false;
 
     public Drama like(final User user) {
