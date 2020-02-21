@@ -111,6 +111,9 @@ public class Drama implements Mergeable<Drama> {
     @Embedded
     private Timestamp timestamp;
 
+    @Column
+    private boolean deleted = false;
+
     public Drama like(final User user) {
         dramaLike.doLike(this, user);
         return this;

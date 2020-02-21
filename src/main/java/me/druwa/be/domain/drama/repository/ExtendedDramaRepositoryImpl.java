@@ -59,7 +59,8 @@ class ExtendedDramaRepositoryImpl extends QuerydslRepositorySupport implements E
         final QDrama drama = QDrama.drama;
 
         return Dramas.dramas(from(drama).limit(limit)
-                                        .where(drama.dramaId.ne(dramaId))
+                                        .where(drama.dramaId.ne(dramaId)
+                                                            .and(drama.deleted.eq(false)))
                                         .orderBy(NumberExpression.random().asc())
                                         .fetch());
     }
@@ -70,6 +71,7 @@ class ExtendedDramaRepositoryImpl extends QuerydslRepositorySupport implements E
 
         return Dramas.dramas(from(drama).limit(limit)
                                         .orderBy(NumberExpression.random().asc())
+                                        .where(drama.deleted.eq(false))
                                         .fetch());
     }
 
