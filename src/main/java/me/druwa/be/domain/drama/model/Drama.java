@@ -184,16 +184,6 @@ public class Drama implements Mergeable<Drama> {
                                  .build();
     }
 
-    public View.Search.Response toSearchResponse() {
-        return View.Search.Response.builder()
-                                   .dramaId(dramaId)
-                                   .productionCompany(productionCompany)
-                                   .images(dramaImages.toResponse())
-                                   .title(title)
-                                   .tags(dramaTags.toResponse())
-                                   .build();
-    }
-
     public Set<Image.View.Read.Response> toImageOnlyResponse() {
         return dramaImages.toResponse();
     }

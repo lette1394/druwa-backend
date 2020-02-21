@@ -55,6 +55,7 @@ public class DramaController {
     @AllowPublicAccess
     @GetMapping("/dramas/populars")
     public ResponseEntity<?> populars(
+            @CurrentUser final User user,
             @RequestParam(name = "from") final LocalDateTime from,
             @RequestParam(name = "to") final LocalDateTime to,
             @RequestParam(name = "p_type") final DramaPopularType dramaPopularType,
@@ -71,7 +72,7 @@ public class DramaController {
                                           .execute();
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(dramas.toSearchResponse());
+                             .body(dramas.toSearchResponse(user));
     }
 
     @AllowPublicAccess
@@ -177,6 +178,7 @@ public class DramaController {
     @AllowPublicAccess
     @GetMapping("/search")
     public ResponseEntity<?> find(
+            @CurrentUser final User user,
             @RequestParam(name = "tag",
                           required = false,
                           defaultValue = StringUtils.EMPTY) final DramaTagSearchStrings tags,
@@ -190,14 +192,15 @@ public class DramaController {
         final Dramas search = dramaService.search(searchQuery);
 
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(search.toSearchResponse());
+                             .body(search.toSearchResponse(user));
     }
 
     @AllowPublicAccess
     @GetMapping("/curation/{id}")
-    public ResponseEntity<?> curation(@PathVariable final Long id) {
+    public ResponseEntity<?> curation(@CurrentUser final User user,
+                                      @PathVariable final Long id) {
         final Dramas dramas = dramaService.findRandom(10L);
         return ResponseEntity.status(HttpStatus.OK)
-                             .body(dramas.toSearchResponse());
+                             .body(dramas.toSearchResponse(user));
     }
 }

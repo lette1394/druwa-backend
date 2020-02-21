@@ -29,10 +29,10 @@ public class Dramas {
         return new Dramas(Sets.newHashSet(dramas));
     }
 
-    public Dramas.View.Search.Response toSearchResponse() {
-        final Set<Drama.View.Search.Response> responses = dramas.stream()
-                                                                .map(Drama::toSearchResponse)
-                                                                .collect(Collectors.toSet());
+    public Dramas.View.Search.Response toSearchResponse(final User user) {
+        final Set<Drama.View.Read.Response> responses = dramas.stream()
+                                                              .map(drama -> drama.toReadResponse(user))
+                                                              .collect(Collectors.toSet());
         return View.Search.Response.builder()
                                    .dramas(responses)
                                    .total(responses.size())
@@ -50,7 +50,7 @@ public class Dramas {
             @Data
             @Builder
             public static class Response {
-                private Set<Drama.View.Search.Response> dramas;
+                private Set<Drama.View.Read.Response> dramas;
 
                 private Integer total;
             }
