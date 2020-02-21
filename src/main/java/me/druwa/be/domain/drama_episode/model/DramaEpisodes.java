@@ -29,9 +29,10 @@ public class DramaEpisodes {
         this.dramaEpisodes = other.dramaEpisodes;
     }
 
-    public Set<DramaEpisode.View.Read.Response> toReadResponse() {
+    public List<DramaEpisode.View.Read.Response> toReadResponse() {
         return dramaEpisodes.stream()
                             .map(DramaEpisode::toReadResponse)
-                            .collect(Collectors.toSet());
+                            .sorted()
+                            .collect(Collectors.toList());
     }
 }

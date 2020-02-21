@@ -44,7 +44,7 @@ import static me.druwa.be.domain.common.model.PositiveOrZeroLong.positiveOrZeroL
 
 @Entity
 @Table(name = "drama_episode_")
-@ToString(of = {"dramaEpisodeId", "title"})
+@ToString(of = { "dramaEpisodeId", "title" })
 @EqualsAndHashCode(of = "dramaEpisodeId")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -137,6 +137,7 @@ public class DramaEpisode {
                                  .episodeNumber(episodeNumber)
                                  .playUrl(playUrl)
                                  .totalComments(dramaEpisodeComments.count())
+                                 .timestamp(timestamp)
                                  .build();
     }
 
@@ -194,25 +195,32 @@ public class DramaEpisode {
         public static class Read {
             @Data
             @Builder
-            public static class Response {
+            public static class Response implements Comparable<Response> {
                 @Positive
-                public Long dramaEpisodeId;
+                private Long dramaEpisodeId;
                 @NotBlank
-                public String title;
+                private String title;
                 @NotBlank
-                public String dramaTitle;
+                private String dramaTitle;
                 @NotBlank
-                public String summary;
+                private String summary;
                 @NotBlank
-                public String playUrl;
+                private String playUrl;
                 @JsonUnwrapped
-                public PositiveOrZeroLong durationInMillis;
+                private PositiveOrZeroLong durationInMillis;
                 @JsonUnwrapped
-                public LikeOrDislike likeOrDislike;
+                private LikeOrDislike likeOrDislike;
                 @JsonUnwrapped
-                public PositiveOrZeroLong episodeNumber;
+                private PositiveOrZeroLong episodeNumber;
                 @PositiveOrZero
-                public Integer totalComments;
+                private Integer totalComments;
+                @JsonUnwrapped
+                private Timestamp timestamp;
+
+                @Override
+                public int compareTo(final Response o) {
+                    return Long.compare(this.dramaEpisodeId, o.dramaEpisodeId);
+                }
             }
         }
 
